@@ -1,286 +1,312 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <!-- bootstrap icons -->
-        <link
-            rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css"
-        />
 
-        <!-- bootstrap css -->
-        <link
-            rel="stylesheet"
-            href="../lib/bootstrap-5.0.2-dist/css/bootstrap.min.css"
-        />
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- bootstrap icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" />
 
-        <!-- for stories carosel -->
-        <link
-            rel="stylesheet"
-            type="text/css"
-            href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"
-        />
+    <!-- bootstrap css -->
+    <link rel="stylesheet" href="../lib/bootstrap-5.0.2-dist/css/bootstrap.min.css" />
 
-        <!-- custom css -->
-        <link rel="stylesheet" href="style.css" />
-        <title>Instagram</title>
-    </head>
-    <body>
-        <!-- navbar -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
-            <div class="container">
-                <a class="navbar-brand" href="#"
-                    ><img src="../images/ig-logo.png" alt="Instagram Logo"
-                /></a>
+    <!-- for stories carosel -->
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
 
-                <!-- toggle button -->
-                <button
-                    class="navbar-toggler"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation"
-                >
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <!-- toggle button ends -->
+    <!-- custom css -->
+    <link rel="stylesheet" href="../css/index.css" />
+    <title>Instagram</title>
+</head>
 
-                <div
-                    class="collapse navbar-collapse"
-                    id="navbarSupportedContent"
-                >
-                    <!-- search -->
-                    <form class="d-flex mx-auto">
-                        <div class="input-group">
-                            <span
-                                class="input-group-text bg-white"
-                                id="basic-addon1"
-                                ><i class="bi bi-search"></i>
-                            </span>
-                            <input
-                                class="form-control me-2"
-                                type="search"
-                                placeholder="Search"
-                                aria-label="Search"
-                            />
+<body>
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#"><img src="../images/ig-logo.png" alt="Instagram Logo" /></a>
+
+            <!-- toggle button -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- toggle button ends -->
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <!-- search -->
+                <form class="d-flex mx-auto">
+                    <div class="input-group">
+                        <span class="input-group-text bg-white" id="basic-addon1"><i class="bi bi-search"></i>
+                        </span>
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                    </div>
+                </form>
+                <!-- search ends -->
+
+                <!-- nav items -->
+                <ul class="navbar-nav me-0 mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">
+                            <i class="bi bi-house-door-fill" style="font-size: 20px"></i>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="bi bi-chat-dots" style="font-size: 20px"></i>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="bi bi-plus-square" style="font-size: 20px"></i>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="bi bi-heart" style="font-size: 20px"></i>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <img src="../images/profiles/profile-1.jpg" alt="profile image" class="rounded-circle" style="height: 25px" />
+                        </a>
+                    </li>
+                </ul>
+                <!-- nav items ends-->
+            </div>
+        </div>
+    </nav>
+    <!-- navbar ends -->
+
+    <!-- main content -->
+    <section class="main-content">
+
+        <div class="container">
+            <!--  stories -->
+            <div class="row justify-content-center">
+                <div class="stories w-75 my-3 d-flex flex-row">
+                    <!-- add story -->
+                    <div class="story position-relative m-2 d-flex flex-column justify-content-center align-items-center">
+                        <div class="position-relative" style="
+                                    height: 50px;
+                                    width: 50px;
+                                    border: 2px solid #e84118;
+                                    border-radius: 50%;
+                                    padding: 2px;
+                                ">
+                            <img src="../images/profiles/profile-1.jpg" class="img-fluid rounded-circle" alt="" />
                         </div>
-                    </form>
-                    <!-- search ends -->
+                        <div class="small mt-2">Your Story</div>
+                    </div>
+                    <!-- add story ends-->
 
-                    <!-- nav items -->
-                    <ul class="navbar-nav me-0 mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a
-                                class="nav-link active"
-                                aria-current="page"
-                                href="#"
-                            >
-                                <i
-                                    class="bi bi-house-door-fill"
-                                    style="font-size: 20px"
-                                ></i>
-                            </a>
-                        </li>
+                    <!-- story item 1 -->
+                    <div class="story position-relative m-2 d-flex flex-column justify-content-center align-items-center">
+                        <div class="position-relative" style="
+                                    height: 50px;
+                                    width: 50px;
+                                    border: 2px solid #e84118;
+                                    border-radius: 50%;
+                                    padding: 2px;
+                                ">
+                            <img src="../images/profiles/profile-2.jpg" class="img-fluid rounded-circle" alt="" />
+                        </div>
+                        <div class="small mt-2">Ankit verma</div>
+                    </div>
+                    <!-- story item ends -->
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i
-                                    class="bi bi-chat-dots"
-                                    style="font-size: 20px"
-                                ></i>
-                            </a>
-                        </li>
+                    <!-- story item  2 -->
+                    <div class="story position-relative m-2 d-flex flex-column justify-content-center align-items-center">
+                        <div class="position-relative" style="
+                                    height: 50px;
+                                    width: 50px;
+                                    border: 2px solid #e84118;
+                                    border-radius: 50%;
+                                    padding: 2px;
+                                ">
+                            <img src="../images/profiles/profile-2.jpg" class="img-fluid rounded-circle" alt="" />
+                        </div>
+                        <div class="small mt-2">Ankit verma</div>
+                    </div>
+                    <!-- story item ends -->
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i
-                                    class="bi bi-plus-square"
-                                    style="font-size: 20px"
-                                ></i>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i
-                                    class="bi bi-heart"
-                                    style="font-size: 20px"
-                                ></i>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <img
-                                    src="../images/profiles/profile-1.jpg"
-                                    alt="profile image"
-                                    class="rounded-circle"
-                                    style="height: 25px"
-                                />
-                            </a>
-                        </li>
-                    </ul>
-                    <!-- nav items ends-->
+                    <!-- story item 3 -->
+                    <div class="story position-relative m-2 d-flex flex-column justify-content-center align-items-center">
+                        <div class="position-relative" style="
+                                    height: 50px;
+                                    width: 50px;
+                                    border: 2px solid #e84118;
+                                    border-radius: 50%;
+                                    padding: 2px;
+                                ">
+                            <img src="../images/profiles/profile-2.jpg" class="img-fluid rounded-circle" alt="" />
+                        </div>
+                        <div class="small mt-2">Ankit verma</div>
+                    </div>
+                    <!-- story item ends -->
                 </div>
             </div>
-        </nav>
-        <!-- navbar ends -->
 
-        <!-- main content -->
-        <section class="main-content">
-            <div class="container">
-                <!--  stories -->
-                <div class="row justify-content-center">
-                    <div class="stories w-75 my-3 d-flex flex-row">
-                        <!-- add story -->
-                        <div
-                            class="story position-relative m-2 d-flex flex-column justify-content-center align-items-center"
-                        >
-                            <div
-                                class="position-relative"
-                                style="
-                                    height: 50px;
-                                    width: 50px;
-                                    border: 2px solid #e84118;
-                                    border-radius: 50%;
-                                    padding: 2px;
-                                "
-                            >
-                                <img
-                                    src="../images/profiles/profile-1.jpg"
-                                    class="img-fluid rounded-circle"
-                                    alt=""
-                                />
-                            </div>
-                            <div class="small mt-2">Your Story</div>
-                        </div>
-                        <!-- add story ends-->
+            <!-- stories ends -->
 
-                        <!-- story item 1 -->
-                        <div
-                            class="story position-relative m-2 d-flex flex-column justify-content-center align-items-center"
-                        >
-                            <div
-                                class="position-relative"
-                                style="
-                                    height: 50px;
-                                    width: 50px;
-                                    border: 2px solid #e84118;
-                                    border-radius: 50%;
-                                    padding: 2px;
-                                "
-                            >
-                                <img
-                                    src="../images/profiles/profile-2.jpg"
-                                    class="img-fluid rounded-circle"
-                                    alt=""
-                                />
-                            </div>
-                            <div class="small mt-2">Ankit verma</div>
-                        </div>
-                        <!-- story item ends -->
+            <div class="row">
 
-                        <!-- story item  2 -->
-                        <div
-                            class="story position-relative m-2 d-flex flex-column justify-content-center align-items-center"
-                        >
-                            <div
-                                class="position-relative"
-                                style="
-                                    height: 50px;
-                                    width: 50px;
-                                    border: 2px solid #e84118;
-                                    border-radius: 50%;
-                                    padding: 2px;
-                                "
-                            >
-                                <img
-                                    src="../images/profiles/profile-2.jpg"
-                                    class="img-fluid rounded-circle"
-                                    alt=""
-                                />
-                            </div>
-                            <div class="small mt-2">Ankit verma</div>
-                        </div>
-                        <!-- story item ends -->
+                <div class="col-md-8">
 
-                        <!-- story item 3 -->
-                        <div
-                            class="story position-relative m-2 d-flex flex-column justify-content-center align-items-center"
-                        >
-                            <div
-                                class="position-relative"
-                                style="
-                                    height: 50px;
-                                    width: 50px;
-                                    border: 2px solid #e84118;
-                                    border-radius: 50%;
-                                    padding: 2px;
-                                "
-                            >
-                                <img
-                                    src="../images/profiles/profile-2.jpg"
-                                    class="img-fluid rounded-circle"
-                                    alt=""
-                                />
+                    <div class="post-div mb-5">
+                        <div class="post-username-div py-2 px-3 d-flex justify-content-between" style="border-bottom: 1px solid rgba(0,0,0,0.1);">
+                            <div class="d-flex align-items-center">
+                                <div class="position-relative " style="height: 40px; width: 40px; border: 2px solid #e84118; border-radius: 50%; padding: 2px; margin-right:15px;">
+                                    <img src="../images/profiles/profile-2.jpg" class="img-fluid rounded-circle" alt="" />
+                                </div>
+                                <span>shubham_01012002</span>
                             </div>
-                            <div class="small mt-2">Ankit verma</div>
+                            <i class="bi bi-three-dots-vertical" style="font-size: 25px;"></i>
                         </div>
-                        <!-- story item ends -->
+                        <div style="width: 100%; height: 500px;">
+                            <img src="../images/posts/post-1.jpg" alt="" style="width: 100%; height: 100%;">
+                        </div>
+                        <div class="px-3 py-2">
+                            <i class="bi bi-heart" style="font-size: 22px; margin-right: 15px; position: relative; top: 3px;"></i>
+                            <i class="bi bi-chat" style="font-size: 22px; margin-right: 15px;"></i>
+                            <i class="bi bi-send" style="font-size: 22px; margin-right: 15px;"></i>
+                        </div>
+                        <div class="description px-3 py-2">
+                            <h6>1900 likes</h6>
+                            <p class="mb-1">
+                                <span style="font-weight: 500;">shubham_01012002 : </span> This is a first post.
+                            </p>
+                            <small style="color: rgba(0,0,0,0.6); font-size: 13px;">10 minutes ago</small>
+                        </div>
+                        <div class="d-flex align-items-center px-3 py-2" style="border-top: 1px solid rgba(0,0,0,0.1);">
+                            <div class="position-relative " style="height: 35px; width: 35px; border-radius: 50%; padding: 2px; margin-right:15px;">
+                                <img src="../images/profiles/profile-1.jpg" class="img-fluid rounded-circle" alt="" />
+                            </div>
+                            <span style="color: rgba(0,0,0,0.6);">Add a comment ...</span>
+                        </div>
                     </div>
+
+                    <div class="post-div mb-5">
+                        <div class="post-username-div py-2 px-3 d-flex justify-content-between" style="border-bottom: 1px solid rgba(0,0,0,0.1);">
+                            <div class="d-flex align-items-center">
+                                <div class="position-relative " style="height: 40px; width: 40px; border: 2px solid #e84118; border-radius: 50%; padding: 2px; margin-right:15px;">
+                                    <img src="../images/profiles/profile-2.jpg" class="img-fluid rounded-circle" alt="" />
+                                </div>
+                                <span>shubham_01012002</span>
+                            </div>
+                            <i class="bi bi-three-dots-vertical" style="font-size: 25px;"></i>
+                        </div>
+                        <div style="width: 100%; height: 500px;">
+                            <img src="../images/posts/post-2.jfif" alt="" style="width: 100%; height: 100%;">
+                        </div>
+                        <div class="px-3 py-2">
+                            <i class="bi bi-heart" style="font-size: 22px; margin-right: 15px; position: relative; top: 3px;"></i>
+                            <i class="bi bi-chat" style="font-size: 22px; margin-right: 15px;"></i>
+                            <i class="bi bi-send" style="font-size: 22px; margin-right: 15px;"></i>
+                        </div>
+                        <div class="description px-3 py-2">
+                            <h6>1900 likes</h6>
+                            <p class="mb-1">
+                                <span style="font-weight: 500;">shubham_01012002 : </span> This is a first post.
+                            </p>
+                            <small style="color: rgba(0,0,0,0.6); font-size: 13px;">10 minutes ago</small>
+                        </div>
+                        <div class="d-flex align-items-center px-3 py-2" style="border-top: 1px solid rgba(0,0,0,0.1);">
+                            <div class="position-relative " style="height: 35px; width: 35px; border-radius: 50%; padding: 2px; margin-right:15px;">
+                                <img src="../images/profiles/profile-1.jpg" class="img-fluid rounded-circle" alt="" />
+                            </div>
+                            <span style="color: rgba(0,0,0,0.6);">Add a comment ...</span>
+                        </div>
+                    </div>
+
                 </div>
 
-                <!-- stories ends -->
+                <div class="col-md-4">
 
-                <div class="row">
-                    <div class="col-md-9">
-                        Lorem, ipsum dolor sit amet consectetur adipisicing
-                        elit. Ratione dolores sapiente, officiis repellat
-                        quibusdam nisi molestiae quae delectus ea. Ipsa
-                        quibusdam veritatis, ipsam omnis sapiente quasi tenetur
-                        magnam non iure corrupti ut dicta itaque amet provident
-                        nihil dolor eius quisquam quidem. Mollitia nemo
-                        voluptatum fugiat dolore cumque tenetur consequuntur
-                        natus explicabo facere, nobis perspiciatis quis placeat
-                        blanditiis aliquid suscipit quia rerum maiores maxime
-                        laborum beatae eos. In fugit debitis pariatur labore!
-                        Provident neque blanditiis voluptates nemo sed?
-                        Accusantium, sed placeat molestias quos temporibus nisi
-                        nulla quasi odio laborum pariatur, architecto aspernatur
-                        nesciunt alias esse incidunt sunt ut nam quidem magni?
+                    <div style="margin-left: 30px;">
+                        <h5>Suggested for you</h5>
+                        <div class="follower-suggestion-div mt-3">
+
+                            <div class="follower-suggestion p-3 d-flex justify-content-between">
+                                <div class="d-flex align-items-center ">
+                                    <div class="position-relative " style="height: 35px; width: 40px; border-radius: 50%; padding: 2px; margin-right:15px; ">
+                                        <a href="#"> <img src="../images/profiles/profile-2.jpg " class="img-fluid rounded-circle " alt=" " /> </a>
+                                    </div>
+                                    <div>
+                                        <a href="#" style="text-decoration: none; color: black">
+                                            <h6 class="my-0">denisshingala</h6>
+                                        </a>
+                                        <small class="my-0" style="font-size:13px; color: rgba(0,0,0,0.6);">Denis
+                                            Shingala</small>
+                                    </div>
+                                </div>
+                                <a href="#" class="px-2" style="text-decoration: none; height:30px; border: 1px solid #ff8882; color: #ff8882;border-radius: 5px;">Follow</a>
+                            </div>
+
+                            <div class="follower-suggestion p-3 d-flex justify-content-between">
+                                <div class="d-flex align-items-center ">
+                                    <div class="position-relative " style="height: 35px; width: 40px; border-radius: 50%; padding: 2px; margin-right:15px; ">
+                                        <a href="#"> <img src="../images/profiles/profile-2.jpg " class="img-fluid rounded-circle " alt=" " /> </a>
+                                    </div>
+                                    <div>
+                                        <a href="#" style="text-decoration: none; color: black">
+                                            <h6 class="my-0">ankit_verma</h6>
+                                        </a>
+                                        <small class="my-0" style="font-size: 13px; color: rgba(0,0,0,0.6);">Ankit Verma</small>
+                                    </div>
+                                </div>
+                                <a href="#" class="px-2" style="text-decoration: none; height:30px; border: 1px solid #ff8882; color: #ff8882;border-radius: 5px;">Follow</a>
+                            </div>
+
+                            <div class="follower-suggestion p-3 d-flex justify-content-between">
+                                <div class="d-flex align-items-center ">
+                                    <div class="position-relative " style="height: 35px; width: 40px; border-radius: 50%; padding: 2px; margin-right:15px; ">
+                                        <a href="#"> <img src="../images/profiles/profile-2.jpg " class="img-fluid rounded-circle " alt=" " /> </a>
+                                    </div>
+                                    <div>
+                                        <a href="#" style="text-decoration: none; color: black">
+                                            <h6 class="my-0">denisshingala</h6>
+                                        </a>
+                                        <small class="my-0" style="font-size:13px; color: rgba(0,0,0,0.6);">Denis
+                                            Shingala</small>
+                                    </div>
+                                </div>
+                                <a href="#" class="px-2" style="text-decoration: none; height:30px; border: 1px solid #ff8882; color: #ff8882;border-radius: 5px;">Follow</a>
+                            </div>
+
+                            <div class="follower-suggestion p-3 d-flex justify-content-between">
+                                <div class="d-flex align-items-center ">
+                                    <div class="position-relative " style="height: 35px; width: 40px; border-radius: 50%; padding: 2px; margin-right:15px; ">
+                                        <a href="#"> <img src="../images/profiles/profile-2.jpg " class="img-fluid rounded-circle " alt=" " /> </a>
+                                    </div>
+                                    <div>
+                                        <a href="#" style="text-decoration: none; color: black">
+                                            <h6 class="my-0">denisshingala</h6>
+                                        </a>
+                                        <small class="my-0" style="font-size:13px; color: rgba(0,0,0,0.6);">Denis
+                                            Shingala</small>
+                                    </div>
+                                </div>
+                                <a href="#" class="px-2" style="text-decoration: none; height:30px; border: 1px solid #ff8882; color: #ff8882;border-radius: 5px;">Follow</a>
+                            </div>
+
+                        </div>
                     </div>
-                    <div class="col-md-3">
-                        Lorem ipsum dolor, sit amet consectetur adipisicing
-                        elit. Quo itaque odit aliquid ut architecto sequi
-                        quibusdam placeat accusamus, praesentium accusantium
-                        ipsum deleniti illo minus qui inventore quos labore
-                        excepturi quas totam, molestias dolores velit est
-                        consectetur. Odit nesciunt praesentium sapiente impedit
-                        consequuntur libero quis nostrum commodi aliquam autem
-                        rerum aut itaque, minima numquam voluptatem atque, nemo
-                        error. Natus quidem necessitatibus vitae consectetur
-                        voluptates molestiae deserunt libero quaerat reiciendis
-                        totam eos nostrum impedit exercitationem voluptatem
-                        ullam non enim, officiis sed similique animi quo labore
-                        nobis ab vero. Velit inventore sed magni earum iure
-                        autem similique culpa deleniti repellat tempore,
-                        reiciendis obcaecati.
-                    </div>
+
                 </div>
+
             </div>
-        </section>
-        <!-- main content ends -->
+        </div>
 
-        <!-- bootstrap js -->
-        <script src="../lib/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
-        <!-- for stories carosel -->
-        <script
-            type="text/javascript"
-            src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"
-        ></script>
-    </body>
+    </section>
+    <!-- main content ends -->
+
+    <!-- bootstrap js -->
+    <script src="../lib/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js "></script>
+    <!-- for stories carosel -->
+    <script type="text/javascript " src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js "></script>
+</body>
+
 </html>
