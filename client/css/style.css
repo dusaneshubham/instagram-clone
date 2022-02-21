@@ -31,6 +31,7 @@ body {
 #login-form {
     width: 400px;
     border: 1px solid rgb(102, 100, 100);
+    border-radius: 10px;
 }
 
 .login-button {
