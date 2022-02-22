@@ -18,8 +18,8 @@ const notificationSchema = new mongoose.Schema({
         type: String,
         default: 'Unread'
     }
-})
+});
 
-const notification = mongoose.model("Notification", notificationSchema)
+const notification = mongoose.model("Notification", notificationSchema);
 
-module.exports = notification
+module.exports = notification;
