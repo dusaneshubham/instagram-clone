@@ -1,25 +1,29 @@
 const mongoose = require('mongoose')
 
 const postSchema = new mongoose.Schema({
-    username: {
+    postBy: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: 'User'
+    },
+    location: String,
+    post: {
+        type: Array,
         required: true,
-        type: 'string',
-        unique: true
+        default: []
     },
-    postBy: 'string',
-    title:'string',
-    likes: {
-        type: 'Number',
-        default: 0
-    },
-    comments:[
+    postDescription: String,
+    likes: [
         {
-            from:'string',
-            message:'string'
+            type: mongoose.SchemaTypes.ObjectId, ref: 'User'
         }
     ],
-    post:'image/.jpeg',
-    postDescription:'string'
+    comments: [
+        {
+            commentBy: { type: mongoose.SchemaTypes.ObjectId, ref: 'User' },
+            commentBody: { type: String },
+            commentTime: { type: String }
+        }
+    ]
 })
 
 const post = mongoose.model("Post", postSchema)

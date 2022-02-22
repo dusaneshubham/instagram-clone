@@ -7,17 +7,6 @@ const dotenv = require('dotenv')
 dotenv.config()
 
 require('./config/dbConn')
-// assign Hostname and Database name
-// const host = process.env.HOSTNAME
-// const dbName = process.env.DBNAME
-// const userName = process.env.DBUSER
-// const userPass = process.env.DBPASS
-
-// // Connection with Database
-// const url = `mongodb+srv://${userName}:${userPass}@cluster0.8yo1s.mongodb.net/${dbName}?retryWrites=true&w=majority`
-// mongoose.connect(url).then(() => {
-//     console.log("Successfully connect with mongodb...")
-// }).catch((err) => { console.log(err) });
 
 //assign port number
 const PORT = process.env.PORT

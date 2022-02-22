@@ -2,26 +2,32 @@ const mongoose = require('mongoose')
 
 const userSchema = new mongoose.Schema({
     userid: {
+        type: String,
         required: true,
         unique: true,
-        type: 'string',
+        minlength: 3,
+        maxlength: 30
     },
     username: {
         required: true,
-        type: 'string',
+        type: String,
     },
     email: {
-        type: 'string',
+        type: String,
         required: true,
         unique: true
     },
     password: {
+        type: String,
         required: true,
-        type: 'string'
+    },
+    status: {
+        type: String,
+        default: "offline"
     },
     token: {
-        required: true,
-        type: 'string',
+        type: String,
+        default: ""
     }
 })
 

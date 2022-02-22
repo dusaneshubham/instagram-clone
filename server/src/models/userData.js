@@ -2,21 +2,44 @@ const mongoose = require('mongoose')
 
 const userDataSchema = new mongoose.Schema({
     userid: {
-        required: true,
-        unique: true,
-        type: 'string',
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: 'User'
+    },
+    phone: {
+        type: String,
+        length: 10,
     },
     DOB: Date,
     bio: 'string',
     profile_pic: {
-        type: 'image/.jpeg',
-        default: ""
+        type: String,
+        required: true,
+        default: "https://www.scimed.co.uk/wp-content/uploads/2019/05/profile.jpg"
     },
-    follower:'Number',
-    following:'Number',
-    cityAccountType:'string',
-    requestVerification:'string',
-    post:[]
+    gender: {
+        type: String,
+        required: true,
+        enum: ['male', 'female']
+    },
+    follower: [
+        {
+            type: mongoose.SchemaTypes.ObjectId, ref: 'User'
+        }
+    ],
+    following: [
+        {
+            type: mongoose.SchemaTypes.ObjectId, ref: 'User'
+        }
+    ],
+    account_type: {
+        type: String,
+        enum: ['public', 'private'],
+        default: "public"
+    },
+    saved_post: [{
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: 'Post'
+    }]
 })
 
 const userData = mongoose.model("UserData", userDataSchema)
