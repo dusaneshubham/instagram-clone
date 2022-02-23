@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const userDataSchema = new mongoose.Schema({
     userid: {
-        type: mongoose.SchemaTypes.ObjectId,
+        type: mongoose.SchemaTypes.ObjectId(),
         ref: 'User'
     },
     phone: {
@@ -22,12 +22,12 @@ const userDataSchema = new mongoose.Schema({
     },
     follower: [
         {
-            type: mongoose.SchemaTypes.ObjectId, ref: 'User'
+            type: mongoose.SchemaTypes.ObjectId(), ref: 'User'
         }
     ],
     following: [
         {
-            type: mongoose.SchemaTypes.ObjectId, ref: 'User'
+            type: mongoose.SchemaTypes.ObjectId(), ref: 'User'
         }
     ],
     account_type: {
@@ -36,7 +36,7 @@ const userDataSchema = new mongoose.Schema({
         default: "public"
     },
     saved_post: [{
-        type: mongoose.SchemaTypes.ObjectId,
+        type: mongoose.SchemaTypes.ObjectId(),
         ref: 'Post'
     }]
 });

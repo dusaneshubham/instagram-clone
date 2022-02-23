@@ -6,11 +6,11 @@ const postSchema = new mongoose.Schema({
         ref: 'User'
     },
     location: String,
-    post: {
-        type: Array,
-        required: true,
-        default: []
-    },
+    post: [
+        {
+            type:String
+        }
+    ],
     postDescription: String,
     likes: [
         {
@@ -24,7 +24,7 @@ const postSchema = new mongoose.Schema({
             commentTime: { type: String }
         }
     ]
-});
+}, { timestamps: true });
 
 const post = mongoose.model("Post", postSchema);
 

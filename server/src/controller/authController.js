@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken')
+const user = require('../models/user')
 
 const auth =  async (req, res) => {
     try {
@@ -10,6 +11,8 @@ const auth =  async (req, res) => {
                 res.json({ succes: 0, error: 'Access is denied!' })
             else
                 res.send({ succes: 1 })
+        }else{
+            res.json({ succes: 0, error: 'Access is denied!' })
         }
     } catch (err) {
         console.log(err)

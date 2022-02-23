@@ -1,9 +1,12 @@
 const express = require('express')
 const app = express()
-const Route = require('./routes/authentication')
+const authenticationRoute = require('./routes/authentication')
 const cookieParser = require('cookie-parser')
-const mongoose = require('mongoose')
 const dotenv = require('dotenv')
+const fileUpload = require('express-fileupload')
+const postRoute = require('./routes/post')
+
+
 dotenv.config()
 
 require('./config/dbConn')
@@ -12,12 +15,16 @@ require('./config/dbConn')
 const PORT = process.env.PORT
 
 //create api
+app.use(fileUpload({
+    useTempFiles:true
+}))
 app.use(cookieParser())
 app.use(express.json())
 app.use(express.urlencoded({
     extended: false
 }))
-app.use('/', Route)
+app.use('/', authenticationRoute)
+app.use('/post', postRoute)
 
 app.listen(PORT, () => {
     console.log("Server is ready to run...")
