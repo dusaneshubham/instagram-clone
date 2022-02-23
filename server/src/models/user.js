@@ -4,11 +4,10 @@ const userSchema = new mongoose.Schema({
     username: {
         type: String,
         required: true,
-        unique: true,
         minlength: 3,
         maxlength: 30
     },
-    fullName: {
+    fullname: {
         required: true,
         type: String,
     },
@@ -26,8 +25,8 @@ const userSchema = new mongoose.Schema({
         default: "offline"
     },
     token: {
-        type: String,
-        default: ""
+        type:String,
+        default:""
     }
 });
 
