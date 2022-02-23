@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
 const userDataSchema = new mongoose.Schema({
     userid: {
@@ -18,7 +18,6 @@ const userDataSchema = new mongoose.Schema({
     },
     gender: {
         type: String,
-        required: true,
         enum: ['male', 'female']
     },
     follower: [
@@ -40,8 +39,8 @@ const userDataSchema = new mongoose.Schema({
         type: mongoose.SchemaTypes.ObjectId,
         ref: 'Post'
     }]
-})
+});
 
-const userData = mongoose.model("UserData", userDataSchema)
+const userData = mongoose.model("UserData", userDataSchema);
 
-module.exports = userData
+module.exports = userData;

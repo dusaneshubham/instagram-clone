@@ -24,8 +24,8 @@ const postSchema = new mongoose.Schema({
             commentTime: { type: String }
         }
     ]
-})
+});
 
-const post = mongoose.model("Post", postSchema)
+const post = mongoose.model("Post", postSchema);
 
-module.exports = post
+module.exports = post;
