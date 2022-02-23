@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser')
 const dotenv = require('dotenv')
 const fileUpload = require('express-fileupload')
 const postRoute = require('./routes/post')
+const userRoute = require('./routes/user')
 
 
 dotenv.config()
@@ -16,7 +17,7 @@ const PORT = process.env.PORT
 
 //create api
 app.use(fileUpload({
-    useTempFiles:true
+    useTempFiles: true
 }))
 app.use(cookieParser())
 app.use(express.json())
@@ -25,6 +26,7 @@ app.use(express.urlencoded({
 }))
 app.use('/', authenticationRoute)
 app.use('/post', postRoute)
+app.use('/user', userRoute)
 
 app.listen(PORT, () => {
     console.log("Server is ready to run...")
