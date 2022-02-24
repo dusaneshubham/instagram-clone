@@ -8,7 +8,8 @@ const postSchema = new mongoose.Schema({
     location: String,
     post: [
         {
-            type:String
+            type: String,
+            required: true
         }
     ],
     postDescription: String,

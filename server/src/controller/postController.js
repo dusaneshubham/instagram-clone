@@ -10,18 +10,17 @@ cloudinary.config({
     api_secret: process.env.CLOUD_API_SECRET
 });
 
-const postController = async (req, res) => {
+const postController = async(req, res) => {
     try {
-        console.log(req.body)
         const data = req.body
         let files = req.files.photo
         const length = files.length
         if (length) {
             let postImages = []
             for (i = 0; i < length; i++) {
-                cloudinary.uploader.upload(files[i].tempFilePath, async (err, result) => {
+                await cloudinary.uploader.upload(files[i].tempFilePath, (err, result) => {
                     if (result) {
-                        await postImages.push(result.secure_url)
+                        postImages.push(result.secure_url)
                     }
                     if (err) {
                         console.log(err)
@@ -29,11 +28,11 @@ const postController = async (req, res) => {
                     }
                 })
             }
-            console.log(data.username)
+
             const result = new post({
-                postBy: data.username,
+                postBy: data.user._id,
                 location: data.location,
-                postDescription: data.location,
+                postDescription: data.description,
                 post: postImages
             })
 
