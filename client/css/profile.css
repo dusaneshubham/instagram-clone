@@ -1,3 +1,30 @@
+.profile-image {
+    margin: auto 100px;
+}
+
+.profile-image img {
+    border-radius: 50%;
+    width: 180px;
+    height: 180px;
+}
+
+.username {
+    font-size: 25px;
+}
+
+.profile-stats {
+    list-style: none;
+    padding-left: 0
+}
+
+.profile-stats li {
+    margin-right: 60px;
+}
+
+.user-bio {
+    margin: 30px 100px 10px 100px;
+}
+
 .our-post-div img {
     margin: 10px;
 }
