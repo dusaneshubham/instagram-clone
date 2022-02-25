@@ -27,6 +27,12 @@
 
 .our-post-div img {
     margin: 10px;
+    width: 300px;
+    height: 250px;
+}
+
+.our-post-div img:hover {
+    cursor: pointer;
 }
 
 @media only screen and (min-width: 992px) and (max-width: 1200px) {

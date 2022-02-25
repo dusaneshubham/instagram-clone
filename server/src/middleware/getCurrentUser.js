@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const user = require('../models/user');
 
-const getUserName = async(req, res, next) => {
+const getCurrentUser = async(req, res, next) => {
     try {
         const token = req.cookies.jwtToken;
         const verifyToken = await jwt.verify(token, process.env.SECRET_MESSAGE);
@@ -17,4 +17,4 @@ const getUserName = async(req, res, next) => {
     }
 }
 
-module.exports = getUserName;
+module.exports = getCurrentUser;

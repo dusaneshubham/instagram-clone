@@ -4,6 +4,8 @@
 <!-- navbar -->
 <div ng-include="'partials/navbar.html'"></div>
 
+
+
 <!-- main content -->
 <section class="main-content">
     <div class="container">
@@ -48,77 +50,69 @@
             </a>
         </div>
 
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            Launch static backdrop modal
+        </button>
+
         <hr />
 
         <div class="d-flex justify-content-center mb-3 post-save-icons">
             <a href="#" style="color: black; text-decoration: none">
-                <span class="mx-5" style="font-size: 14px"><i class="bi bi-grid-3x3 mx-1"></i> POSTS</span
-                >
+                <span class="mx-5" style="font-size: 14px"><i class="bi bi-grid-3x3 mx-1"></i> POSTS</span>
             </a>
             <a href="#" style="color: black; text-decoration: none">
-                <span class="mx-5" style="font-size: 14px"
-                    ><i class="bi bi-play-circle mx-1"></i>VIDEOS</span
-                >
+                <span class="mx-5" style="font-size: 14px"><i class="bi bi-play-circle mx-1"></i>VIDEOS</span>
             </a>
             <a href="#" style="color: black; text-decoration: none">
-                <span class="mx-5" style="font-size: 14px"
-                    ><i class="bi bi-bookmark mx-1"></i>SAVED</span
-                >
+                <span class="mx-5" style="font-size: 14px"><i class="bi bi-bookmark mx-1"></i>SAVED</span>
             </a>
         </div>
 
         <div class="our-post-div text-center">
-            <img
-                src="images/posts/post-1.jpg"
-                alt="your-post-image"
-                style="width: 300px; height: 250px"
-            />
-            <img
-                src="images/posts/post-2.jfif"
-                alt="yout-post-image"
-                style="width: 300px; height: 250px"
-            />
-            <img
-                src="images/posts/post-1.jpg"
-                alt="your-post-image"
-                style="width: 300px; height: 250px"
-            />
-            <img
-                src="images/posts/post-2.jfif"
-                alt="yout-post-image"
-                style="width: 300px; height: 250px"
-            />
-            <img
-                src="images/posts/post-1.jpg"
-                alt="your-post-image"
-                style="width: 300px; height: 250px"
-            />
-            <img
-                src="images/posts/post-2.jfif"
-                alt="yout-post-image"
-                style="width: 300px; height: 250px"
-            />
-            <img
-                src="images/posts/post-1.jpg"
-                alt="your-post-image"
-                style="width: 300px; height: 250px"
-            />
-            <img
-                src="images/posts/post-2.jfif"
-                alt="yout-post-image"
-                style="width: 300px; height: 250px"
-            />
-            <img
-                src="images/posts/post-1.jpg"
-                alt="your-post-image"
-                style="width: 300px; height: 250px"
-            />
-            <img
-                src="images/posts/post-2.jfif"
-                alt="yout-post-image"
-                style="width: 300px; height: 250px"
-            />
+            <img src="images/posts/post-1.jpg" alt="your-post-image" />
+            <img src="images/posts/post-2.jfif" alt="yout-post-image" />
+            <img src="images/posts/post-1.jpg" alt="your-post-image" />
         </div>
+
+
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl modal-dialog-centered d-flex" style="height: 500px;">
+                <div class="modal-image" style="height:100%; width:50%;">
+                    <img src="images/posts/post-1.jpg" alt="" style="height:100%; width:100%;">
+                </div>
+
+                <div class="modal-content" style="width:50%;">
+                    <div>
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body" style="overflow: scroll; height:500px;">
+                            ... Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim, laborum? Dolores nulla maiores facilis natus, ipsam aspernatur numquam eveniet soluta, cumque quia debitis, quaerat nesciunt reprehenderit? Expedita reprehenderit minima sed nemo natus
+                            consectetur dolore?Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quisquam, iure laborum laudantium, distinctio dolore dolores rerum nemo itaque qui optio officia asperiores? Doloribus omnis ut exercitationem consectetur
+                            assumenda quod minima voluptatem a non in. ... Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim, laborum? Dolores nulla maiores facilis natus, ipsam aspernatur numquam eveniet soluta, cumque quia debitis, quaerat
+                            nesciunt reprehenderit? Expedita reprehenderit minima sed nemo natus consectetur dolore?Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quisquam, iure laborum laudantium, distinctio dolore dolores rerum nemo itaque
+                            qui optio officia asperiores? Doloribus omnis ut exercitationem consectetur assumenda quod minima voluptatem a non in. assumenda quod minima voluptatem a non in. ... Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                            Enim, laborum? Dolores nulla maiores facilis natus, ipsam aspernatur numquam eveniet soluta, cumque quia debitis, quaerat nesciunt reprehenderit? Expedita reprehenderit minima sed nemo natus consectetur dolore?Lorem, ipsum
+                            dolor sit amet consectetur adipisicing elit. Quisquam, iure laborum laudantium, distinctio dolore dolores rerum nemo itaque qui optio officia asperiores? Doloribus omnis ut exercitationem consectetur assumenda quod minima voluptatem
+                            a non in. assumenda quod minima voluptatem a non in. ... Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim, laborum? Dolores nulla maiores facilis natus, ipsam aspernatur numquam eveniet soluta, cumque quia debitis,
+                            quaerat nesciunt reprehenderit? Expedita reprehenderit minima sed nemo natus consectetur dolore?Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quisquam, iure laborum laudantium, distinctio dolore dolores rerum nemo
+                            itaque qui optio officia asperiores? Doloribus omnis ut exercitationem consectetur assumenda quod minima voluptatem a non in.
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Understood</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
     </div>
 </section>
 <!-- main content ends -->
