@@ -1,7 +1,7 @@
-const validate = require('validator')
+const validate = require('validator');
 
 const signInValidation = (req, res, next) => {
-    const { email, password } = req.body
+    const { email, password } = req.body;
 
     // Validate Email
     if (validate.isEmail(email)) {
@@ -9,18 +9,16 @@ const signInValidation = (req, res, next) => {
         // Validate Password
         if (password.length >= 1) {
             next();
-        }
-        else {
+        } else {
             return res.json({ message: "Password field is required!" });
         }
-    }
-    else {
+    } else {
         return res.json({ message: "Enter correct Email!" });
     }
 }
 
 const signUpValidation = (req, res, next) => {
-    const { email, username, password } = req.body
+    const { email, username, password } = req.body;
 
     // Validate username
     if (username.length >= 3) {
@@ -31,19 +29,16 @@ const signUpValidation = (req, res, next) => {
             // Validate Password
             if (password.length >= 8) {
                 next();
-            }
-            else {
+            } else {
                 return res.json({ message: "Password must be of minimum 8 characters!" });
             }
 
-        }
-        else {
+        } else {
             return res.json({ message: "Invalid Email Id!" });
         }
-    }
-    else {
+    } else {
         return res.json({ message: "Username should contain minimum 3 characters!" });
     }
 }
 
-module.exports = { signInValidation, signUpValidation }
+module.exports = { signInValidation, signUpValidation };
