@@ -6,8 +6,6 @@ const post = require('../models/post');
 // initialized route
 const route = express.Router();
 
-// --------------------- < Update post is left > ----------------------
-
 // create a post
 route.post("/create-post", getCurrentUser, postController);
 
