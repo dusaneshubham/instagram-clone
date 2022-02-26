@@ -6,5 +6,3 @@ const FollowerSuggestionListCtrl = function () {
 angular
     .module("instagramApp")
     .controller("FollowerSuggestionListCtrl", FollowerSuggestionListCtrl);
-
-console.log("controller logged");
