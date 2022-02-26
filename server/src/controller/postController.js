@@ -29,21 +29,12 @@ const postController = async(req, res) => {
                     }
                 })
 
-<<<<<<< HEAD
-            const result = new post({
-                postBy: data.user._id,
-                location: data.location,
-                postDescription: data.description,
-                post: postImages
-            });
-=======
                 const result = new post({
                     postBy: req.user._id,
                     location: data.location,
                     postDescription: data.description,
                     post: postImages
                 });
->>>>>>> 7574e8fd3f2578cd07ae3affaf68e26769a44fff
 
                 await result.save();
                 res.json({ success: 1 });
