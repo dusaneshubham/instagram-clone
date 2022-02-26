@@ -45,7 +45,7 @@ route.get('/user-all-posts/:id', getCurrentUser, async(req, res) => {
         return res.status(403).json({ message: "Access Denied!" });
     } else {
         try {
-            const posts = await post.find({ postBy: req.params.id });
+            const posts = await post.find({ postBy: req.params.id }).populate('comments.commentBy', 'username');
             return res.status(200).json(posts);
         } catch (err) {
             return res.status(500).json({ message: err });

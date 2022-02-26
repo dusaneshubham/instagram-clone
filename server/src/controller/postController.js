@@ -14,6 +14,7 @@ const postController = async(req, res) => {
     try {
         const data = req.body;
         let files = req.files.photo;
+        console.log(`File : ${files}`);
         const length = files.length;
         if (length) {
             let postImages = [];
@@ -27,17 +28,17 @@ const postController = async(req, res) => {
                         res.json({ success: 0, error: err });
                     }
                 })
+
+                const result = new post({
+                    postBy: req.user._id,
+                    location: data.location,
+                    postDescription: data.description,
+                    post: postImages
+                });
+
+                await result.save();
+                res.json({ success: 1 });
             }
-
-            const result = new post({
-                postBy: req.user._id,
-                location: data.location,
-                postDescription: data.description,
-                post: postImages
-            });
-
-            await result.save();
-            res.json({ success: 1 });
         }
     } catch (err) {
         console.log(err);

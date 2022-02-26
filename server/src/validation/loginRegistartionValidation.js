@@ -1,10 +1,10 @@
 const validate = require('validator');
 
 const signInValidation = (req, res, next) => {
-    const { email, password } = req.body;
+    const { username, password } = req.body;
 
     // Validate Email
-    if (validate.isEmail(email)) {
+    if (username.length >= 3) {
 
         // Validate Password
         if (password.length >= 1) {
@@ -13,7 +13,7 @@ const signInValidation = (req, res, next) => {
             return res.json({ message: "Password field is required!" });
         }
     } else {
-        return res.json({ message: "Enter correct Email!" });
+        return res.json({ message: "Invalid credentials" });
     }
 }
 
