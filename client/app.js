@@ -170,6 +170,7 @@ app.controller('loginCtrl', ($scope, $http, $location, $localStorage) => {
 });
 
 
+// home
 app.controller('homeCtrl', ($scope, $http, $location, $localStorage) => {
     let token = localStorage.getItem("token");
     let user = localStorage.getItem("user");
@@ -179,4 +180,27 @@ app.controller('homeCtrl', ($scope, $http, $location, $localStorage) => {
     } else {
 
     }
-})
+});
+
+
+// profile
+app.controller('profileCtrl', ($scope, $http, $location, $localStorage) => {
+    let token = localStorage.getItem("token");
+    let user = localStorage.getItem("user");
+
+    if (!token && !user) {
+        $location.path('/login');
+    } else {
+        $http.get("http://localhost:2700/user/current-user", {
+                headers: {
+                    "Authorization": "Bearer " + token
+                }
+            })
+            .then((response) => {
+                console.log(response);
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }
+});

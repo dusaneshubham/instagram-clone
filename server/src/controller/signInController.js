@@ -22,13 +22,9 @@ const signInController = async(req, res) => {
                 result.status = "online";
                 await result.save();
 
-                // result.token = token;
-                // res.cookie("jwtToken", token, {
-                //     expires: new Date(Date.now() + 172800000),
-                //     httpOnly: true
-                // });
+                const { _id, username } = result;
 
-                return res.status(200).json({ success: 1, token: token, user: result });
+                return res.status(200).json({ success: 1, token: token, user: { _id, username } });
             } else {
                 return res.json({ success: 0, error: "Invalid credentials" });
             }
