@@ -1,5 +1,4 @@
 const nodemailer = require('nodemailer');
-const mongoose = require('mongoose');
 const verifyEmail = require('../models/verifyEmail');
 
 const sendEmail = (req, res) => {

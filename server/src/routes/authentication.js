@@ -4,7 +4,8 @@ const signUpController = require('../controller/signUpController');
 const signInController = require('../controller/signInController');
 const { signInValidation, signUpValidation } = require('../validation/loginRegistartionValidation');
 const sendEmail = require('../controller/sendEmail');
-const emailVerfication = require('../controller/emailVerification')
+const emailVerfication = require('../controller/emailVerification');
+const { forgetPassSendEmail, forgetPass } = require('../controller/forgetPass');
 // const mongoose = require('mongoose')
 
 //assign router
@@ -22,8 +23,11 @@ router.post('/email', sendEmail);
 // email verification
 router.get('/email_verification', emailVerfication);
 
-// forget pass
-router.podt('/forgetpass',);
+// forget pass send mail
+router.get('/forgetpassmail', forgetPassSendEmail);
+
+// forget password
+router.post('/forgetpass', forgetPass);
 
 // create registration api
 router.post('/register', signUpValidation, signUpController);
