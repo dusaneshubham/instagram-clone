@@ -5,95 +5,53 @@
         <div class="col-md-10 col-12 m-auto">
             <div class="login-div">
                 <div class="login-illustration-image">
-                    <img
-                        src="images/illustration-login.jpg"
-                        alt=""
-                        width="600"
-                    />
+                    <img src="images/illustration-login.jpg" alt="" width="600" />
                 </div>
 
-                <div>
-                    <form
-                        id="login-form"
-                        class="py-4 px-5 text-center d-flex justify-content-center flex-column"
-                    >
+                <div ng-controller="signupCtrl">
+                    <form id="login-form" class="py-4 px-5 text-center d-flex justify-content-center flex-column">
                         <h3 class="text-center mb-5">SignUp</h3>
                         <div class="mb-3">
-                            <input
-                                type="email"
-                                class="form-control"
-                                id="email"
-                                placeholder="Email"
-                            />
+                            <input type="email" ng-model="email" class="form-control" id="email" placeholder="Email" />
+                            <small ng-show="">Invalid Email</small>
                         </div>
                         <div class="mb-3">
-                            <input
-                                type="text"
-                                class="form-control"
-                                id="name"
-                                placeholder="Full Name"
-                            />
+                            <input type="text" ng-model="fullname" class="form-control" id="name" placeholder="Full Name" />
                         </div>
                         <div class="mb-3">
-                            <input
-                                type="text"
-                                class="form-control"
-                                id="email"
-                                placeholder="Username"
-                            />
+                            <input type="text" ng-model="username" class="form-control" id="username" placeholder="Username" />
                         </div>
                         <div class="mb-3">
-                            <input
-                                type="password"
-                                class="form-control"
-                                id="password"
-                                placeholder="Password"
-                            />
+                            <input type="password" ng-model="password" class="form-control" id="password" placeholder="Password" />
                         </div>
                         <div class="mb-3">
-                            <input
-                                type="password"
-                                class="form-control"
-                                id="cpassword"
-                                placeholder="Confirm Password"
-                            />
+                            <input type="password" ng-model="cpassword" class="form-control" id="cpassword" placeholder="Confirm Password" />
+                            <div class="alert alert-danger my-3 py-1" ng-show="error" role="alert">
+                                <strong>{{errorMessage}}</strong>
+                            </div>
                         </div>
                         <div class="mt-3">
-                            <button
-                                type="submit"
-                                class="btn w-50 text-white login-button"
-                            >
-                                Sign Up
+                            <button type="submit" ng-click="registerBtn()" ng-show="loadingSpinnerBtn" class="btn w-50 text-white login-button">Sign Up</button>
+                            <button class="btn btn-primary" ng-hide="loadingSpinnerBtn" type="button" disabled>
+                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                Please Wait...
                             </button>
+
                         </div>
 
-                        <div
-                            class="d-flex justify-content-between align-items-center my-4"
-                        >
-                            <hr style="width: 120px" />
-                            OR
+                        <div class="d-flex justify-content-between align-items-center my-4">
+                            <hr style="width: 120px" /> OR
                             <hr style="width: 120px" />
                         </div>
 
                         <div class="d-flex justify-content-center">
-                            <img
-                                src="images/google-icon.png"
-                                alt=""
-                                width="23"
-                                class="mx-2"
-                            />
+                            <img src="images/google-icon.png" alt="" width="23" class="mx-2" />
                             <span> Login with Google </span>
                         </div>
 
                         <p class="mt-3">
                             Already have an account?
-                            <a
-                                href="#"
-                                ui-sref="login"
-                                ui-sref-active="active"
-                                style="text-decoration: none"
-                                >Login</a
-                            >
+                            <a href="#" ui-sref="login" ui-sref-active="active" style="text-decoration: none">Login</a>
                         </p>
                     </form>
                 </div>

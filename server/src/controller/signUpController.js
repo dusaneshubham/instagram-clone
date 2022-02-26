@@ -9,7 +9,7 @@ const signUpController = async(req, res) => {
         // for check user is exist or not
         const check = await user.findOne({ username: data.username });
         if (check) {
-            return res.json({ success: 0, error: "User is an already exist" });
+            return res.json({ success: 0, error: "User already exist" });
         } else {
             const hash_password = await bcrypt.hash(data.password, 10);
             let result = new user({

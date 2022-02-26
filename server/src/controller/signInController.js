@@ -7,10 +7,10 @@ dotenv.config();
 
 const signInController = async(req, res) => {
     try {
-        var { email, password } = req.body;
+        var { username, password } = req.body;
 
         // we find email id wheather it's available or not
-        var result = await user.findOne({ email });
+        var result = await user.findOne({ username });
 
         if (result) {
             // now, we compare password with hash password
@@ -20,20 +20,16 @@ const signInController = async(req, res) => {
                 // we are genrating a token
                 const token = jwt.sign({ _id: result._id }, process.env.SECRET_MESSAGE);
                 result.status = "online";
-                result.token = token;
                 await result.save();
 
-                res.cookie("jwtToken", token, {
-                    expires: new Date(Date.now() + 172800000),
-                    httpOnly: true
-                });
+                const { _id, username } = result;
 
-                res.json({ success: 1 });
+                return res.status(200).json({ success: 1, token: token, user: { _id, username } });
             } else {
-                res.json({ success: 0, error: "Password is wrong" });
+                return res.json({ success: 0, error: "Invalid credentials" });
             }
         } else {
-            res.json({ success: 0, error: "Username is invalid" });
+            return res.json({ success: 0, error: "Username is invalid" });
         }
     } catch (err) {
         console.log(err);

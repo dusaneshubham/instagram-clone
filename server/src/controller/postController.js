@@ -12,9 +12,10 @@ cloudinary.config({
 
 const postController = async(req, res) => {
     try {
-        const data = req.body
-        let files = req.files.photo
-        const length = files.length
+        const data = req.body;
+        let files = req.files.photo;
+        console.log(`File : ${files}`);
+        const length = files.length;
         if (length) {
             let postImages = [];
             for (i = 0; i < length; i++) {
@@ -27,17 +28,26 @@ const postController = async(req, res) => {
                         res.json({ success: 0, error: err });
                     }
                 })
-            }
 
+<<<<<<< HEAD
             const result = new post({
                 postBy: data.user._id,
                 location: data.location,
                 postDescription: data.description,
                 post: postImages
             });
+=======
+                const result = new post({
+                    postBy: req.user._id,
+                    location: data.location,
+                    postDescription: data.description,
+                    post: postImages
+                });
+>>>>>>> 7574e8fd3f2578cd07ae3affaf68e26769a44fff
 
-            await result.save();
-            res.json({ success: 1 });
+                await result.save();
+                res.json({ success: 1 });
+            }
         }
     } catch (err) {
         console.log(err);

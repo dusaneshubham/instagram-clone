@@ -15,7 +15,7 @@ const router = express.Router();
 router.get('/auth', auth);
 
 // check login data wheather it's data are in database or not
-router.get('/login', signInValidation, signInController);
+router.post('/login', signInValidation, signInController);
 
 // send the mail to user mail id
 router.post('/email', sendEmail);
