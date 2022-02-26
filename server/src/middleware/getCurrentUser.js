@@ -6,7 +6,7 @@ const getCurrentUser = async(req, res, next) => {
         const token = req.cookies.jwtToken;
         const verifyToken = await jwt.verify(token, process.env.SECRET_MESSAGE);
         const verifyUser = await user.findOne({ _id: verifyToken._id });
-        if (verifyUser) {;
+        if (verifyUser) {
             req.user = verifyUser;
             next();
         } else {

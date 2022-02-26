@@ -22,6 +22,9 @@ router.post('/email', sendEmail);
 // email verification
 router.get('/email_verification', emailVerfication);
 
+// forget pass
+router.podt('/forgetpass',);
+
 // create registration api
 router.post('/register', signUpValidation, signUpController);
 
