@@ -12,7 +12,7 @@ route.get('/current-user', getCurrentUser, async(req, res) => {
     } catch (err) {
         console.log(err);
     }
-})
+});
 
 // get particular user data
 route.get('/:id', async(req, res) => {
