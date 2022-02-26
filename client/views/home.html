@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="css/home.css" />
 <!-- navbar -->
 <div ng-include="'partials/navbar.html'"></div>
 
@@ -7,82 +8,25 @@
         <!--  stories -->
         <div class="row justify-content-center">
             <div
-                class="stories my-3 d-flex flex-row overflow-scroll"
+                class="stories my-4 d-flex flex-row overflow-scroll"
                 style="scrollbar-width: none"
             >
                 <!-- add story -->
                 <div
                     class="story position-relative m-2 d-flex flex-column justify-content-center align-items-center"
                 >
-                    <div
-                        class="position-relative"
-                        style="
-                            height: 80px;
-                            width: 80px;
-                            border-radius: 50%;
-                            padding: 3px;
-                            background: radial-gradient(
-                                    circle farthest-corner at 35% 90%,
-                                    #fec564,
-                                    transparent 50%
-                                ),
-                                radial-gradient(
-                                    circle farthest-corner at 0 140%,
-                                    #fec564,
-                                    transparent 50%
-                                ),
-                                radial-gradient(
-                                    ellipse farthest-corner at 0 -25%,
-                                    #5258cf,
-                                    transparent 50%
-                                ),
-                                radial-gradient(
-                                    ellipse farthest-corner at 20% -50%,
-                                    #5258cf,
-                                    transparent 50%
-                                ),
-                                radial-gradient(
-                                    ellipse farthest-corner at 100% 0,
-                                    #893dc2,
-                                    transparent 50%
-                                ),
-                                radial-gradient(
-                                    ellipse farthest-corner at 60% -20%,
-                                    #893dc2,
-                                    transparent 50%
-                                ),
-                                radial-gradient(
-                                    ellipse farthest-corner at 100% 100%,
-                                    #d9317a,
-                                    transparent
-                                ),
-                                linear-gradient(
-                                    #6559ca,
-                                    #bc318f 30%,
-                                    #e33f5f 50%,
-                                    #f77638 70%,
-                                    #fec66d 100%
-                                );
-                        "
-                    >
+                    <div class="position-relative story-inner-div">
                         <img
                             src="images/profiles/profile-1.jpg"
                             class="img-fluid rounded-circle img-thumbnail"
                             alt=""
                         />
                         <svg
-                            style="
-                                position: relative;
-                                left: 50px;
-                                bottom: 20px;
-                                background-color: white;
-                                border-radius: 50%;
-                            "
                             xmlns="http://www.w3.org/2000/svg"
                             width="20"
                             height="20"
                             fill="#4c68d7"
-                            class="bi bi-plus-circle-fill"
+                            class="bi bi-plus-circle-fill add-story-svg"
                             viewBox="0 0 16 16"
                         >
                             <path
@@ -98,57 +42,7 @@
                 <div
                     class="story position-relative m-2 d-flex flex-column justify-content-center align-items-center"
                 >
-                    <div
-                        class="position-relative"
-                        style="
-                            height: 80px;
-                            width: 80px;
-                            border-radius: 50%;
-                            padding: 3px;
-                            background: radial-gradient(
-                                    circle farthest-corner at 35% 90%,
-                                    #fec564,
-                                    transparent 50%
-                                ),
-                                radial-gradient(
-                                    circle farthest-corner at 0 140%,
-                                    #fec564,
-                                    transparent 50%
-                                ),
-                                radial-gradient(
-                                    ellipse farthest-corner at 0 -25%,
-                                    #5258cf,
-                                    transparent 50%
-                                ),
-                                radial-gradient(
-                                    ellipse farthest-corner at 20% -50%,
-                                    #5258cf,
-                                    transparent 50%
-                                ),
-                                radial-gradient(
-                                    ellipse farthest-corner at 100% 0,
-                                    #893dc2,
-                                    transparent 50%
-                                ),
-                                radial-gradient(
-                                    ellipse farthest-corner at 60% -20%,
-                                    #893dc2,
-                                    transparent 50%
-                                ),
-                                radial-gradient(
-                                    ellipse farthest-corner at 100% 100%,
-                                    #d9317a,
-                                    transparent
-                                ),
-                                linear-gradient(
-                                    #6559ca,
-                                    #bc318f 30%,
-                                    #e33f5f 50%,
-                                    #f77638 70%,
-                                    #fec66d 100%
-                                );
-                        "
-                    >
+                    <div class="position-relative story-inner-div">
                         <img
                             src="images/profiles/profile-2.jpg"
                             class="img-fluid rounded-circle img-thumbnail"
@@ -163,57 +57,7 @@
                 <div
                     class="story position-relative m-2 d-flex flex-column justify-content-center align-items-center"
                 >
-                    <div
-                        class="position-relative"
-                        style="
-                            height: 80px;
-                            width: 80px;
-                            border-radius: 50%;
-                            padding: 3px;
-                            background: radial-gradient(
-                                    circle farthest-corner at 35% 90%,
-                                    #fec564,
-                                    transparent 50%
-                                ),
-                                radial-gradient(
-                                    circle farthest-corner at 0 140%,
-                                    #fec564,
-                                    transparent 50%
-                                ),
-                                radial-gradient(
-                                    ellipse farthest-corner at 0 -25%,
-                                    #5258cf,
-                                    transparent 50%
-                                ),
-                                radial-gradient(
-                                    ellipse farthest-corner at 20% -50%,
-                                    #5258cf,
-                                    transparent 50%
-                                ),
-                                radial-gradient(
-                                    ellipse farthest-corner at 100% 0,
-                                    #893dc2,
-                                    transparent 50%
-                                ),
-                                radial-gradient(
-                                    ellipse farthest-corner at 60% -20%,
-                                    #893dc2,
-                                    transparent 50%
-                                ),
-                                radial-gradient(
-                                    ellipse farthest-corner at 100% 100%,
-                                    #d9317a,
-                                    transparent
-                                ),
-                                linear-gradient(
-                                    #6559ca,
-                                    #bc318f 30%,
-                                    #e33f5f 50%,
-                                    #f77638 70%,
-                                    #fec66d 100%
-                                );
-                        "
-                    >
+                    <div class="position-relative story-inner-div">
                         <img
                             src="images/profiles/profile-2.jpg"
                             class="img-fluid rounded-circle img-thumbnail"
@@ -228,57 +72,7 @@
                 <div
                     class="story position-relative m-2 d-flex flex-column justify-content-center align-items-center"
                 >
-                    <div
-                        class="position-relative"
-                        style="
-                            height: 80px;
-                            width: 80px;
-                            border-radius: 50%;
-                            padding: 3px;
-                            background: radial-gradient(
-                                    circle farthest-corner at 35% 90%,
-                                    #fec564,
-                                    transparent 50%
-                                ),
-                                radial-gradient(
-                                    circle farthest-corner at 0 140%,
-                                    #fec564,
-                                    transparent 50%
-                                ),
-                                radial-gradient(
-                                    ellipse farthest-corner at 0 -25%,
-                                    #5258cf,
-                                    transparent 50%
-                                ),
-                                radial-gradient(
-                                    ellipse farthest-corner at 20% -50%,
-                                    #5258cf,
-                                    transparent 50%
-                                ),
-                                radial-gradient(
-                                    ellipse farthest-corner at 100% 0,
-                                    #893dc2,
-                                    transparent 50%
-                                ),
-                                radial-gradient(
-                                    ellipse farthest-corner at 60% -20%,
-                                    #893dc2,
-                                    transparent 50%
-                                ),
-                                radial-gradient(
-                                    ellipse farthest-corner at 100% 100%,
-                                    #d9317a,
-                                    transparent
-                                ),
-                                linear-gradient(
-                                    #6559ca,
-                                    #bc318f 30%,
-                                    #e33f5f 50%,
-                                    #f77638 70%,
-                                    #fec66d 100%
-                                );
-                        "
-                    >
+                    <div class="position-relative story-inner-div">
                         <img
                             src="images/profiles/profile-2.jpg"
                             class="img-fluid rounded-circle img-thumbnail"
@@ -290,61 +84,11 @@
                 <!-- story item ends -->
 
                 <!-- dummies -->
-                <!-- story item 3 -->
+                <!-- story item 4 -->
                 <div
                     class="story position-relative m-2 d-flex flex-column justify-content-center align-items-center"
                 >
-                    <div
-                        class="position-relative"
-                        style="
-                            height: 80px;
-                            width: 80px;
-                            border-radius: 50%;
-                            padding: 3px;
-                            background: radial-gradient(
-                                    circle farthest-corner at 35% 90%,
-                                    #fec564,
-                                    transparent 50%
-                                ),
-                                radial-gradient(
-                                    circle farthest-corner at 0 140%,
-                                    #fec564,
-                                    transparent 50%
-                                ),
-                                radial-gradient(
-                                    ellipse farthest-corner at 0 -25%,
-                                    #5258cf,
-                                    transparent 50%
-                                ),
-                                radial-gradient(
-                                    ellipse farthest-corner at 20% -50%,
-                                    #5258cf,
-                                    transparent 50%
-                                ),
-                                radial-gradient(
-                                    ellipse farthest-corner at 100% 0,
-                                    #893dc2,
-                                    transparent 50%
-                                ),
-                                radial-gradient(
-                                    ellipse farthest-corner at 60% -20%,
-                                    #893dc2,
-                                    transparent 50%
-                                ),
-                                radial-gradient(
-                                    ellipse farthest-corner at 100% 100%,
-                                    #d9317a,
-                                    transparent
-                                ),
-                                linear-gradient(
-                                    #6559ca,
-                                    #bc318f 30%,
-                                    #e33f5f 50%,
-                                    #f77638 70%,
-                                    #fec66d 100%
-                                );
-                        "
-                    >
+                    <div class="position-relative story-inner-div">
                         <img
                             src="images/profiles/profile-2.jpg"
                             class="img-fluid rounded-circle img-thumbnail"
@@ -355,61 +99,11 @@
                 </div>
                 <!-- story item ends -->
 
-                <!-- story item 3 -->
+                <!-- story item 5 -->
                 <div
                     class="story position-relative m-2 d-flex flex-column justify-content-center align-items-center"
                 >
-                    <div
-                        class="position-relative"
-                        style="
-                            height: 80px;
-                            width: 80px;
-                            border-radius: 50%;
-                            padding: 3px;
-                            background: radial-gradient(
-                                    circle farthest-corner at 35% 90%,
-                                    #fec564,
-                                    transparent 50%
-                                ),
-                                radial-gradient(
-                                    circle farthest-corner at 0 140%,
-                                    #fec564,
-                                    transparent 50%
-                                ),
-                                radial-gradient(
-                                    ellipse farthest-corner at 0 -25%,
-                                    #5258cf,
-                                    transparent 50%
-                                ),
-                                radial-gradient(
-                                    ellipse farthest-corner at 20% -50%,
-                                    #5258cf,
-                                    transparent 50%
-                                ),
-                                radial-gradient(
-                                    ellipse farthest-corner at 100% 0,
-                                    #893dc2,
-                                    transparent 50%
-                                ),
-                                radial-gradient(
-                                    ellipse farthest-corner at 60% -20%,
-                                    #893dc2,
-                                    transparent 50%
-                                ),
-                                radial-gradient(
-                                    ellipse farthest-corner at 100% 100%,
-                                    #d9317a,
-                                    transparent
-                                ),
-                                linear-gradient(
-                                    #6559ca,
-                                    #bc318f 30%,
-                                    #e33f5f 50%,
-                                    #f77638 70%,
-                                    #fec66d 100%
-                                );
-                        "
-                    >
+                    <div class="position-relative story-inner-div">
                         <img
                             src="images/profiles/profile-2.jpg"
                             class="img-fluid rounded-circle img-thumbnail"
@@ -420,61 +114,11 @@
                 </div>
                 <!-- story item ends -->
 
-                <!-- story item 3 -->
+                <!-- story item 6 -->
                 <div
                     class="story position-relative m-2 d-flex flex-column justify-content-center align-items-center"
                 >
-                    <div
-                        class="position-relative"
-                        style="
-                            height: 80px;
-                            width: 80px;
-                            border-radius: 50%;
-                            padding: 3px;
-                            background: radial-gradient(
-                                    circle farthest-corner at 35% 90%,
-                                    #fec564,
-                                    transparent 50%
-                                ),
-                                radial-gradient(
-                                    circle farthest-corner at 0 140%,
-                                    #fec564,
-                                    transparent 50%
-                                ),
-                                radial-gradient(
-                                    ellipse farthest-corner at 0 -25%,
-                                    #5258cf,
-                                    transparent 50%
-                                ),
-                                radial-gradient(
-                                    ellipse farthest-corner at 20% -50%,
-                                    #5258cf,
-                                    transparent 50%
-                                ),
-                                radial-gradient(
-                                    ellipse farthest-corner at 100% 0,
-                                    #893dc2,
-                                    transparent 50%
-                                ),
-                                radial-gradient(
-                                    ellipse farthest-corner at 60% -20%,
-                                    #893dc2,
-                                    transparent 50%
-                                ),
-                                radial-gradient(
-                                    ellipse farthest-corner at 100% 100%,
-                                    #d9317a,
-                                    transparent
-                                ),
-                                linear-gradient(
-                                    #6559ca,
-                                    #bc318f 30%,
-                                    #e33f5f 50%,
-                                    #f77638 70%,
-                                    #fec66d 100%
-                                );
-                        "
-                    >
+                    <div class="position-relative story-inner-div">
                         <img
                             src="images/profiles/profile-2.jpg"
                             class="img-fluid rounded-circle img-thumbnail"
@@ -501,17 +145,7 @@
                         style="border-bottom: 1px solid rgba(0, 0, 0, 0.1)"
                     >
                         <div class="d-flex align-items-center">
-                            <div
-                                class="position-relative"
-                                style="
-                                    height: 40px;
-                                    width: 40px;
-                                    border: 2px solid #e84118;
-                                    border-radius: 50%;
-                                    padding: 2px;
-                                    margin-right: 15px;
-                                "
-                            >
+                            <div class="position-relative post-user-img-div">
                                 <img
                                     src="images/profiles/profile-2.jpg"
                                     class="img-fluid rounded-circle"
@@ -525,31 +159,16 @@
                             style="font-size: 25px"
                         ></i>
                     </div>
-                    <div style="width: 100%; height: 500px">
-                        <img
-                            src="images/posts/post-1.jpg"
-                            alt=""
-                            style="width: 100%; height: 100%"
-                        />
+                    <div class="post-img-div">
+                        <img src="images/posts/post-1.jpg" alt="post" />
                     </div>
                     <div class="px-3 py-2">
                         <i
-                            class="bi bi-heart"
-                            style="
-                                font-size: 22px;
-                                margin-right: 15px;
-                                position: relative;
-                                top: 3px;
-                            "
+                            class="bi bi-heart post-icons"
+                            style="position: relative; top: 3px"
                         ></i>
-                        <i
-                            class="bi bi-chat"
-                            style="font-size: 22px; margin-right: 15px"
-                        ></i>
-                        <i
-                            class="bi bi-send"
-                            style="font-size: 22px; margin-right: 15px"
-                        ></i>
+                        <i class="bi bi-chat post-icons"></i>
+                        <i class="bi bi-send post-icons"></i>
                     </div>
                     <div class="description px-3 py-2">
                         <h6>1900 likes</h6>
@@ -559,8 +178,7 @@
                             </span>
                             This is a first post.
                         </p>
-                        <small
-                            style="color: rgba(0, 0, 0, 0.6); font-size: 13px"
+                        <small class="light-text" style="font-size: 13px"
                             >10 minutes ago</small
                         >
                     </div>
@@ -568,25 +186,14 @@
                         class="d-flex align-items-center px-3 py-2"
                         style="border-top: 1px solid rgba(0, 0, 0, 0.1)"
                     >
-                        <div
-                            class="position-relative"
-                            style="
-                                height: 35px;
-                                width: 35px;
-                                border-radius: 50%;
-                                padding: 2px;
-                                margin-right: 15px;
-                            "
-                        >
+                        <div class="position-relative add-comment-img-div">
                             <img
                                 src="images/profiles/profile-1.jpg"
                                 class="img-fluid rounded-circle"
-                                alt=""
+                                alt="profile-image"
                             />
                         </div>
-                        <span style="color: rgba(0, 0, 0, 0.6)"
-                            >Add a comment ...</span
-                        >
+                        <span class="light-text">Add a comment ...</span>
                     </div>
                 </div>
                 <!-- first post ends -->
@@ -598,17 +205,7 @@
                         style="border-bottom: 1px solid rgba(0, 0, 0, 0.1)"
                     >
                         <div class="d-flex align-items-center">
-                            <div
-                                class="position-relative"
-                                style="
-                                    height: 40px;
-                                    width: 40px;
-                                    border: 2px solid #e84118;
-                                    border-radius: 50%;
-                                    padding: 2px;
-                                    margin-right: 15px;
-                                "
-                            >
+                            <div class="position-relative post-user-img-div">
                                 <img
                                     src="images/profiles/profile-2.jpg"
                                     class="img-fluid rounded-circle"
@@ -622,31 +219,16 @@
                             style="font-size: 25px"
                         ></i>
                     </div>
-                    <div style="width: 100%; height: 500px">
-                        <img
-                            src="images/posts/post-1.jpg"
-                            alt=""
-                            style="width: 100%; height: 100%"
-                        />
+                    <div class="post-img-div">
+                        <img src="images/posts/post-1.jpg" alt="post" />
                     </div>
                     <div class="px-3 py-2">
                         <i
-                            class="bi bi-heart"
-                            style="
-                                font-size: 22px;
-                                margin-right: 15px;
-                                position: relative;
-                                top: 3px;
-                            "
+                            class="bi bi-heart post-icons"
+                            style="position: relative; top: 3px"
                         ></i>
-                        <i
-                            class="bi bi-chat"
-                            style="font-size: 22px; margin-right: 15px"
-                        ></i>
-                        <i
-                            class="bi bi-send"
-                            style="font-size: 22px; margin-right: 15px"
-                        ></i>
+                        <i class="bi bi-chat post-icons"></i>
+                        <i class="bi bi-send post-icons"></i>
                     </div>
                     <div class="description px-3 py-2">
                         <h6>1900 likes</h6>
@@ -656,8 +238,7 @@
                             </span>
                             This is a first post.
                         </p>
-                        <small
-                            style="color: rgba(0, 0, 0, 0.6); font-size: 13px"
+                        <small class="light-text" style="font-size: 13px"
                             >10 minutes ago</small
                         >
                     </div>
@@ -665,25 +246,14 @@
                         class="d-flex align-items-center px-3 py-2"
                         style="border-top: 1px solid rgba(0, 0, 0, 0.1)"
                     >
-                        <div
-                            class="position-relative"
-                            style="
-                                height: 35px;
-                                width: 35px;
-                                border-radius: 50%;
-                                padding: 2px;
-                                margin-right: 15px;
-                            "
-                        >
+                        <div class="position-relative add-comment-img-div">
                             <img
                                 src="images/profiles/profile-1.jpg"
                                 class="img-fluid rounded-circle"
-                                alt=""
+                                alt="profile-image"
                             />
                         </div>
-                        <span style="color: rgba(0, 0, 0, 0.6)"
-                            >Add a comment ...</span
-                        >
+                        <span class="light-text">Add a comment ...</span>
                     </div>
                 </div>
                 <!-- second post ends -->
