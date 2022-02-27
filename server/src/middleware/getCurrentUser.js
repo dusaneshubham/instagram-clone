@@ -3,14 +3,14 @@ const user = require('../models/user');
 const { eventNames } = require('../models/user');
 
 
-const getCurrentUser = async(req, res, next) => {
+const getCurrentUser = async (req, res, next) => {
     const { authorization } = req.headers;
     if (!authorization) {
         return res.status(401).json({ message: "Access is denied!" });
     }
 
     const token = authorization.replace("Bearer ", "");
-    jwt.verify(token, process.env.SECRET_MESSAGE, function(err, payload) {
+    jwt.verify(token, process.env.SECRET_MESSAGE, function (err, payload) {
         if (err) {
             return res.status(401).json({ message: "Access is denied!" });
         }
