@@ -178,6 +178,7 @@ app.controller('signupCtrl', ($scope, $http, $location) => {
 app.controller('loginCtrl', ($scope, $http, $location, $localStorage) => {
     $scope.error = false;
     $scope.loadingSpinnerBtn = true;
+    $scope.errorMessage = ""
 
     const data = {
         token: localStorage.getItem("token")

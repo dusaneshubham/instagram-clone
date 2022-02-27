@@ -5,7 +5,7 @@ const user = require('../models/user');
 
 dotenv.config();
 
-const signInController = async(req, res) => {
+const signInController = async (req, res) => {
     try {
         var { username, password } = req.body;
 
@@ -26,10 +26,10 @@ const signInController = async(req, res) => {
 
                 return res.status(200).json({ success: 1, token: token, user: { _id, username } });
             } else {
-                return res.json({ success: 0, error: "Invalid credentials" });
+                return res.json({ success: 0, error: "Invalid password!" });
             }
         } else {
-            return res.json({ success: 0, error: "Username is invalid" });
+            return res.json({ success: 0, error: "Username not found!" });
         }
     } catch (err) {
         console.log(err);
