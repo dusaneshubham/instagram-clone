@@ -38,6 +38,20 @@ app.config(function ($stateProvider) {
     };
     $stateProvider.state(emailVerifyState);
 
+    const forgetPass = {
+        name: "forget-pass",
+        url: "/forget-pass",
+        templateUrl: "views/forget-pass.html"
+    };
+    $stateProvider.state(forgetPass);
+
+    const forgetPassEmail = {
+        name: "forget-pass-email",
+        url: "/forget-pass-email",
+        templateUrl: "views/forget-pass-email.html"
+    };
+    $stateProvider.state(forgetPassEmail);
+
     const homeState = {
         name: "home",
         url: "/home",
@@ -58,6 +72,90 @@ app.config(function ($stateProvider) {
     });
 });
 
+// take email for forget pass
+app.controller('forget-pass-email', ($scope, $http, $location) => {
+    $scope.error = false;
+    $scope.loadingSpinnerBtn = false;
+    $scope.success = false;
+    $scope.loadingSpinnerBtn = false;
+
+    $scope.submitBtn = () => {
+        $scope.loadingSpinnerBtn = true;
+        let data = {
+            email: $scope.email
+        }
+
+        $http.post("http://localhost:2700/send-forget-pass-email", data)
+            .then((response) => {
+                $scope.loadingSpinnerBtn = false;
+                if (response.data.success === 1) {
+                    $scope.success = true;
+                    $scope.error = false;
+                    $scope.successMessage = response.data.message;
+                } else {
+                    $scope.success = false;
+                    $scope.error = true;
+                    $scope.errorMessage = response.data.error;
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }
+});
+
+// forget pass
+app.controller('forgetPass', ($scope, $http, $location) => {
+    $scope.error = false;
+    $scope.loadingSpinnerBtn = false;
+
+    $scope.submitBtn = () => {
+        $scope.error = false;
+        let password = $scope.password;
+        let cpassword = $scope.rePassword;
+        $scope.loadingSpinnerBtn = true;
+        let passwordRegex = /^[a-zA-Z0-9$_.#@<>?*%]{8,30}$/;
+        if (password && cpassword) {
+            if (password === cpassword) {
+                if (passwordRegex.test(password)) {
+
+                    const data = {
+                        token: $location.search().token,
+                        password: password
+                    }
+
+                    $http.post('http://localhost:2700/forget-pass', data)
+                        .then((response) => {
+                            $scope.loadingSpinnerBtn = false;
+                            if (response.data.success === 1)
+                                window.location.replace('http://localhost:5500/client/')
+                            else {
+                                $scope.error = true;
+                                $scope.errorMessage = "Invalid Token!";
+                            }
+                        })
+                        .catch((err) => {
+                            $scope.error = true;
+                            $scope.errorMessage = "Something went wrong!";
+                        })
+                } else {
+                    $scope.loadingSpinnerBtn = false;
+                    $scope.error = true;
+                    $scope.errorMessage = "Please Enter Strong password!";
+                }
+            }
+            else {
+                $scope.loadingSpinnerBtn = false;
+                $scope.error = true;
+                $scope.errorMessage = "Password and Confirm password not match!";
+            }
+        } else {
+            $scope.loadingSpinnerBtn = false;
+            $scope.error = true;
+            $scope.errorMessage = "All field are required!";
+        }
+    }
+})
 
 // email-verification
 app.controller('email-verification', ($scope, $http, $location) => {

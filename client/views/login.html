@@ -19,7 +19,7 @@
                         </div>
                         <div class="mb-3">
                             <input type="password" ng-model="password" class="form-control" id="password" placeholder="Password" />
-                            <a href="#" class="mt-1" style="float: right; text-decoration: none">Forgot Password?</a>
+                            <a href="#" ui-sref="forget-pass-email" ui-sref-active="active" class="mt-1" style="float: right; text-decoration: none">Forgot Password?</a>
                         </div>
                         <div class="mt-3">
                             <button type="submit" ng-click="loginBtn()" ng-show="loadingSpinnerBtn" class="btn w-50 text-white login-button">Login</button>
