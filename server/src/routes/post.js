@@ -1,18 +1,15 @@
 const express = require('express');
+const route = express.Router();
+const postImageUpload = require('../middleware/postImageUpload')
 const getCurrentUser = require('../middleware/getCurrentUser');
 const postController = require('../controller/postController');
 const post = require('../models/post');
 
-// initialized route
-const route = express.Router();
-
-// --------------------- < Update post is left > ----------------------
-
 // create a post
-route.post("/create-post", getCurrentUser, postController);
+route.post("/createpost", postImageUpload.array('photo'), postController);
 
 // delete a post
-route.delete('/delete/:id', getCurrentUser, async(req, res) => {
+route.delete('/delete/:id', getCurrentUser, async (req, res) => {
     try {
         const postPresent = await post.find({ _id: req.params.id });
         if (postPresent) {
@@ -30,7 +27,7 @@ route.delete('/delete/:id', getCurrentUser, async(req, res) => {
 });
 
 // get current user's post
-route.get("/current-user-all-posts", getCurrentUser, async(req, res) => {
+route.get("/current-user-all-posts", getCurrentUser, async (req, res) => {
     try {
         let currentUserPosts = await post.find({ userid: req.user._id }).populate('postBy', 'username');
         return res.status(200).json(currentUserPosts);
@@ -40,7 +37,7 @@ route.get("/current-user-all-posts", getCurrentUser, async(req, res) => {
 });
 
 // get all post of particular user
-route.get('/user-all-posts/:id', getCurrentUser, async(req, res) => {
+route.get('/user-all-posts/:id', getCurrentUser, async (req, res) => {
     if (!req.user) {
         return res.status(403).json({ message: "Access Denied!" });
     } else {
@@ -54,7 +51,7 @@ route.get('/user-all-posts/:id', getCurrentUser, async(req, res) => {
 });
 
 // get single post of any user including current user also
-route.get('/user-single-post/:post_id', getCurrentUser, async(req, res) => {
+route.get('/user-single-post/:post_id', getCurrentUser, async (req, res) => {
     if (!req.user) {
         return res.status(403).json({ message: "Access Denied!" });
     } else {
@@ -69,7 +66,7 @@ route.get('/user-single-post/:post_id', getCurrentUser, async(req, res) => {
 });
 
 // like the post
-route.put('/like/:id', getCurrentUser, async(req, res) => {
+route.put('/like/:id', getCurrentUser, async (req, res) => {
     try {
         const currentPost = await post.findById(req.params.id);
         if (!currentPost.likes.includes(req.user._id)) {
@@ -85,7 +82,7 @@ route.put('/like/:id', getCurrentUser, async(req, res) => {
 })
 
 // unlike the post
-route.put('/dislike/:id', getCurrentUser, async(req, res) => {
+route.put('/dislike/:id', getCurrentUser, async (req, res) => {
     try {
         const particularPost = await post.findById(req.params.id);
         if (particularPost.likes.includes(String(req.user._id))) {
@@ -100,7 +97,7 @@ route.put('/dislike/:id', getCurrentUser, async(req, res) => {
 });
 
 // comment a post
-route.put('/comment/:id', getCurrentUser, async(req, res) => {
+route.put('/comment/:id', getCurrentUser, async (req, res) => {
     const postId = req.params.id;
     try {
         const obj = {
@@ -121,7 +118,7 @@ route.put('/comment/:id', getCurrentUser, async(req, res) => {
 });
 
 // update our own post description 
-route.put('/update-post-description/:id', getCurrentUser, async(req, res) => {
+route.put('/update-post-description/:id', getCurrentUser, async (req, res) => {
     try {
         let postId = req.params.id;
         let particularPost = await post.findOne({ _id: postId });

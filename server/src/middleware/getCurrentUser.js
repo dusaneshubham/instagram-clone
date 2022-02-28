@@ -1,7 +1,8 @@
 const jwt = require('jsonwebtoken');
 const user = require('../models/user');
 
-const getCurrentUser = (req, res, next) => {
+
+const getCurrentUser = async(req, res, next) => {
     const { authorization } = req.headers;
     if (!authorization) {
         console.log("not authorize", authorization);

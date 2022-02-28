@@ -2,7 +2,7 @@
 
 const app = angular.module("instagramApp", ["ui.router", "ngStorage"]);
 
-app.config(function($stateProvider) {
+app.config(function ($stateProvider) {
     const indexState = {
         name: "index",
         url: "",
@@ -24,6 +24,34 @@ app.config(function($stateProvider) {
     };
     $stateProvider.state(signUpState);
 
+    const sendMailState = {
+        name: "send-mail",
+        url: "/sendmail",
+        templateUrl: "views/send-mail.html"
+    };
+    $stateProvider.state(sendMailState);
+
+    const emailVerifyState = {
+        name: "email-verificaion",
+        url: "/emailverification",
+        templateUrl: "views/email-verification.html"
+    };
+    $stateProvider.state(emailVerifyState);
+
+    const forgetPass = {
+        name: "forget-pass",
+        url: "/forget-pass",
+        templateUrl: "views/forget-pass.html"
+    };
+    $stateProvider.state(forgetPass);
+
+    const forgetPassEmail = {
+        name: "forget-pass-email",
+        url: "/forget-pass-email",
+        templateUrl: "views/forget-pass-email.html"
+    };
+    $stateProvider.state(forgetPassEmail);
+
     const homeState = {
         name: "home",
         url: "/home",
@@ -44,6 +72,125 @@ app.config(function($stateProvider) {
     });
 });
 
+// take email for forget pass
+app.controller('forget-pass-email', ($scope, $http, $location) => {
+    $scope.error = false;
+    $scope.loadingSpinnerBtn = false;
+    $scope.success = false;
+    $scope.loadingSpinnerBtn = false;
+
+    $scope.submitBtn = () => {
+        $scope.loadingSpinnerBtn = true;
+        let data = {
+            email: $scope.email
+        }
+
+        $http.post("http://localhost:2700/send-forget-pass-email", data)
+            .then((response) => {
+                $scope.loadingSpinnerBtn = false;
+                if (response.data.success === 1) {
+                    $scope.success = true;
+                    $scope.error = false;
+                    $scope.successMessage = response.data.message;
+                } else {
+                    $scope.success = false;
+                    $scope.error = true;
+                    $scope.errorMessage = response.data.error;
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }
+});
+
+// forget pass
+app.controller('forgetPass', ($scope, $http, $location) => {
+    $scope.error = false;
+    $scope.loadingSpinnerBtn = false;
+
+    $scope.submitBtn = () => {
+        $scope.error = false;
+        let password = $scope.password;
+        let cpassword = $scope.rePassword;
+        $scope.loadingSpinnerBtn = true;
+        let passwordRegex = /^[a-zA-Z0-9$_.#@<>?*%]{8,30}$/;
+        if (password && cpassword) {
+            if (password === cpassword) {
+                if (passwordRegex.test(password)) {
+
+                    const data = {
+                        token: $location.search().token,
+                        password: password
+                    }
+
+                    $http.post('http://localhost:2700/forget-pass', data)
+                        .then((response) => {
+                            $scope.loadingSpinnerBtn = false;
+                            if (response.data.success === 1)
+                                window.location.replace('http://localhost:5500/client/')
+                            else {
+                                $scope.error = true;
+                                $scope.errorMessage = "Invalid Token!";
+                            }
+                        })
+                        .catch((err) => {
+                            $scope.error = true;
+                            $scope.errorMessage = "Something went wrong!";
+                        })
+                } else {
+                    $scope.loadingSpinnerBtn = false;
+                    $scope.error = true;
+                    $scope.errorMessage = "Please Enter Strong password!";
+                }
+            }
+            else {
+                $scope.loadingSpinnerBtn = false;
+                $scope.error = true;
+                $scope.errorMessage = "Password and Confirm password not match!";
+            }
+        } else {
+            $scope.loadingSpinnerBtn = false;
+            $scope.error = true;
+            $scope.errorMessage = "All field are required!";
+        }
+    }
+})
+
+// email-verification
+app.controller('email-verification', ($scope, $http, $location) => {
+    $scope.loadingSpinnerBtn = false;
+    $scope.errorAlert = false;
+    $scope.emailVerify = () => {
+        $scope.loadingSpinnerBtn = true;
+        const token = $location.search().token;
+        $http.post("http://localhost:2700/emailverification", { token })
+            .then((response) => {
+                if (response.data.success === 1) {
+                    $http.post("http://localhost:2700/register", response.data.user)
+                        .then((response) => {
+                            if (response.data.success === 1)
+                                window.location.replace('http://localhost:5500/client/');
+                            else {
+                                $scope.loadingSpinnerBtn = false;
+                                $scope.errorAlert = true;
+                                $scope.error = response.data.error;
+                            }
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                        })
+                } else {
+                    $scope.loadingSpinnerBtn = false;
+                    $scope.errorAlert = true;
+                    $scope.error = response.data.error;
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+    }
+})
 
 // sign up
 app.controller('signupCtrl', ($scope, $http, $location) => {
@@ -78,12 +225,11 @@ app.controller('signupCtrl', ($scope, $http, $location) => {
                             }
                             $scope.error = false;
                             $scope.loadingSpinnerBtn = false;
-                            $http.post("http://localhost:2700/register", userData)
+                            $http.post("http://localhost:2700/sendmail", userData)
                                 .then((response) => {
                                     $scope.loadingSpinnerBtn = true;
-                                    console.log(response);
                                     if (response.data.success === 1) {
-                                        $location.path('/login');
+                                        $location.path('/sendmail');
                                     } else {
                                         $scope.error = true;
                                         $scope.errorMessage = response.data.error;
@@ -91,7 +237,6 @@ app.controller('signupCtrl', ($scope, $http, $location) => {
                                 })
                                 .catch((error) => {
                                     console.log(error);
-
                                 })
 
                         } else {
@@ -131,6 +276,21 @@ app.controller('signupCtrl', ($scope, $http, $location) => {
 app.controller('loginCtrl', ($scope, $http, $location, $localStorage) => {
     $scope.error = false;
     $scope.loadingSpinnerBtn = true;
+    $scope.errorMessage = ""
+
+    const data = {
+        token: localStorage.getItem("token")
+    };
+
+    $http.post('http://localhost:2700/auth', data)
+        .then((response) => {
+            if (response.data.success === 1) {
+                $location.path('/home');
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+        })
 
     $scope.loginBtn = () => {
         let password = $scope.password;
@@ -175,6 +335,20 @@ app.controller('homeCtrl', ($scope, $http, $location, $localStorage) => {
     let token = localStorage.getItem("token");
     let user = localStorage.getItem("user");
 
+    let data = {
+        token: token
+    };
+
+    $http.post('http://localhost:2700/auth', data)
+        .then((response) => {
+            if (response.data.success === 0) {
+                $location.path('/');
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+
     if (!token && !user) {
         $location.path('/login');
     } else {
@@ -184,18 +358,33 @@ app.controller('homeCtrl', ($scope, $http, $location, $localStorage) => {
 
 
 // profile
-app.controller('profileCtrl', ($scope, $http, $location, $localStorage) => {
+app.controller('profileCtrl', ($scope, $http, $location, localStorage) => {
     let token = localStorage.getItem("token");
     let user = localStorage.getItem("user");
+
+    let data = {
+        token: token
+    };
+
+    $http.post('http://localhost:2700/auth', data)
+        .then((response) => {
+            if (response.data.success === 0) {
+                $location.path('/');
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+
 
     if (!token && !user) {
         $location.path('/login');
     } else {
         $http.get("http://localhost:2700/user/current-user", {
-                headers: {
-                    "Authorization": "Bearer " + token
-                }
-            })
+            headers: {
+                "Authorization": "Bearer " + token
+            }
+        })
             .then((response) => {
                 $scope.username = response.data.username;
                 $scope.fullname = response.data.fullname;
