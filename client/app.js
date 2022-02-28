@@ -197,6 +197,12 @@ app.controller('profileCtrl', ($scope, $http, $location, $localStorage) => {
                 }
             })
             .then((response) => {
+                $scope.username = response.data.username;
+                $scope.fullname = response.data.fullname;
+                $scope.profile_pic = response.data.profile_pic;
+                $scope.bio = response.data.bio;
+                $scope.followers = response.data.follower.length;
+                $scope.followings = response.data.following.length;
                 console.log(response);
             })
             .catch((error) => {
