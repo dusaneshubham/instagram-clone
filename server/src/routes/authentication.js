@@ -5,7 +5,7 @@ const signInController = require('../controller/signInController');
 const { signInValidation, signUpValidation } = require('../validation/loginRegistartionValidation');
 const emailVerfication = require('../controller/emailVerification');
 const sendEmail = require('../controller/sendEmail');
-const { sendForgetPassEmail,forgetPass } = require('../controller/forgetPass');
+const { sendForgetPassEmail, forgetPass } = require('../controller/forgetPass');
 
 //assign router
 const router = express.Router();
@@ -14,10 +14,10 @@ const router = express.Router();
 router.post('/auth', auth);
 
 // send email verify mail
-router.post('/sendmail', sendEmail)
+router.post('/sendmail', sendEmail);
 
 // email verification
-router.post('/emailverification', emailVerfication)
+router.post('/emailverification', emailVerfication);
 
 // create registration api
 router.post('/register', signUpValidation, signUpController);
