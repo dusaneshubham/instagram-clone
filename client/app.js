@@ -399,3 +399,15 @@ app.controller('profileCtrl', ($scope, $http, $location, localStorage) => {
             })
     }
 });
+
+app.controller('postFileCtrl', ($scope) => {
+    $scope.fileUploadDiv = true;
+
+    setInterval(() => {
+        let img = document.getElementById('upload-post-preview-img');
+        if (img.hasAttribute('src')) {
+            $scope.fileUploadDiv = false;
+            console.log($scope.fileUploadDiv);
+        }
+    }, 1000);
+})
