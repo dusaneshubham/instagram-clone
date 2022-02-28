@@ -3,7 +3,7 @@ const app = express();
 const authenticationRoute = require('./routes/authentication');
 const cookieParser = require('cookie-parser');
 const dotenv = require('dotenv');
-const fileUpload = require('express-fileupload');
+const path = require('path');
 const postRoute = require('./routes/post');
 const userRoute = require('./routes/user');
 const cors = require('cors');
@@ -17,15 +17,12 @@ require('./config/dbConn');
 //assign port number
 const PORT = process.env.PORT;
 
-//create api
-app.use(fileUpload({
-    useTempFiles: true
-}));
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({
-    extended: false
+    extended: true
 }));
+
 app.use('/', authenticationRoute);
 app.use('/post', postRoute);
 app.use('/user', userRoute);

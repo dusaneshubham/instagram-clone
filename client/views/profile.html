@@ -4,31 +4,29 @@
 <!-- navbar -->
 <div ng-include="'partials/navbar.html'"></div>
 
-
-
 <!-- main content -->
 <section class="main-content" ng-controller="profileCtrl">
     <div class="container">
         <div class="profile my-5">
             <div class="d-flex align-items-center">
                 <div class="profile-image">
-                    <img src="images/profiles/profile-1.jpg" alt="profile-image" />
+                    <img src="{{profile_pic}}" alt="profile-image" />
                 </div>
 
                 <div class="profile-details">
-                    <p class="username">shubham_01012002</p>
+                    <p class="username">{{username}}</p>
                     <ul class="d-flex profile-stats">
                         <li>
                             <span class="fw-bold">10</span> posts
                         </li>
                         <li>
                             <a href="#" style="color: black; text-decoration: none">
-                                <span class="fw-bold">278</span> followers
+                                <span class="fw-bold">{{followers}}</span> followers
                             </a>
                         </li>
                         <li>
                             <a href="#" style="color: black; text-decoration: none">
-                                <span class="fw-bold">570</span> following
+                                <span class="fw-bold">{{followings}}</span> following
                             </a>
                         </li>
                     </ul>
@@ -36,10 +34,8 @@
             </div>
 
             <div class="user-bio">
-                <h5 class="my-4">Shubham Dusane</h5>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero animi doloremque, modi ducimus rerum aspernatur error sint, cumque quaerat non omnis quia sapiente illo molestiae, asperiores quasi harum fugiat sed saepe incidunt vero vitae! Lorem, ipsum
-                dolor sit amet consectetur adipisicing elit. Quibusdam quod ducimus animi impedit voluptates. Tempore perferendis numquam deleniti amet, minima laudantium provident cumque voluptatum, tenetur quaerat magni repellendus quibusdam aliquam,
-                corrupti nesciunt atque eligendi!
+                <h5 class="my-4">{{fullname}}</h5>
+                {{bio}}
             </div>
 
             <a href="#" style="margin: 100px" class="edit-profile-btn">
