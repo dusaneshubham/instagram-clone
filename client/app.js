@@ -401,13 +401,14 @@ app.controller('profileCtrl', ($scope, $http, $location, localStorage) => {
 });
 
 app.controller('postFileCtrl', ($scope) => {
-    $scope.fileUploadDiv = true;
-
+    let imgDiv = document.getElementById('upload-post-preview-img');
     setInterval(() => {
-        let img = document.getElementById('upload-post-preview-img');
-        if (img.hasAttribute('src')) {
+        if (imgDiv.children.length == 0) {
+            $scope.fileUploadDiv = true;
+            console.log($scope.fileUploadDiv);
+        } else {
             $scope.fileUploadDiv = false;
             console.log($scope.fileUploadDiv);
         }
-    }, 1000);
+    }, 5000);
 })
