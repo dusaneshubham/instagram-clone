@@ -1,52 +1,37 @@
 <div class="post-div mb-5">
-    <div
-        class="post-username-div py-2 px-3 d-flex justify-content-between"
-        style="border-bottom: 1px solid rgba(0, 0, 0, 0.1)"
-    >
+    <div class="post-username-div py-2 px-3 d-flex justify-content-between" style="border-bottom: 1px solid rgba(0, 0, 0, 0.1)">
         <div class="d-flex align-items-center">
             <div class="position-relative post-user-img-div">
-                <img
-                    ng-src="{{:: $ctrl.imageUrl}}"
-                    class="img-fluid rounded-circle"
-                    alt=""
-                />
+                <img ng-src="{{:: $ctrl.imageUrl}}" class="img-fluid rounded-circle" alt="" />
             </div>
             <span>{{:: $ctrl.username}}</span>
         </div>
-        <i class="bi bi-three-dots-vertical" style="font-size: 25px"></i>
+        <i class="bi bi-three-dots-vertical" style="font-size: 25px; cursor: pointer;"></i>
     </div>
     <div class="post-img-div">
         <img ng-src="{{:: $ctrl.postUrl}}" alt="post" />
     </div>
-    <div class="px-3 py-2">
-        <i
-            class="bi bi-heart post-icons"
-            style="position: relative; top: 3px"
-        ></i>
-        <i class="bi bi-chat post-icons"></i>
-        <i class="bi bi-send post-icons"></i>
+    <div class="px-3 py-2 d-flex justify-content-between">
+        <div>
+            <i class="bi bi-heart post-icons" style="position: relative; top: 3px; cursor: pointer;"></i>
+            <i class="bi bi-chat post-icons" style="cursor: pointer;"></i>
+            <i class="bi bi-send post-icons" style="cursor: pointer;"></i>
+        </div>
+        <div>
+            <i class="bi bi-bookmark post-icons" style="cursor: pointer;"></i>
+        </div>
     </div>
     <div class="description px-3 py-2">
         <h6>{{:: $ctrl.likes}} likes</h6>
         <p class="mb-1">
-            <span style="font-weight: 500">{{:: $ctrl.username}} : </span>
-            {{:: $ctrl.description}}
+            <span style="font-weight: 500">{{:: $ctrl.username}} : </span> {{:: $ctrl.description}}
         </p>
-        <small class="light-text" style="font-size: 13px"
-            >{{ :: $ctrl.time }} ago</small
-        >
+        <small class="light-text" style="font-size: 13px">{{ :: $ctrl.time }} ago</small>
     </div>
-    <div
-        class="d-flex align-items-center px-3 py-2"
-        style="border-top: 1px solid rgba(0, 0, 0, 0.1)"
-    >
+    <div class="d-flex align-items-center px-3 py-2" style="border-top: 1px solid rgba(0, 0, 0, 0.1)">
         <div class="position-relative add-comment-img-div">
-            <img
-                ng-src="{{:: $ctrl.imageUrl}}"
-                class="img-fluid rounded-circle"
-                alt="profile-image"
-            />
+            <img ng-src="{{:: $ctrl.imageUrl}}" class="img-fluid rounded-circle" alt="profile-image" />
         </div>
-        <span class="light-text">Add a comment ...</span>
+        <input type="text" name="add-comment" id="add-comment" placeholder="Add a comment ..." style="border: none; outline: none; width:100%;">
     </div>
 </div>

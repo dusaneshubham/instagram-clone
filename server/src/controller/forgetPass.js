@@ -3,7 +3,7 @@ const user = require('../models/user');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-const sendForgetPassEmail = async (req, res) => {
+const sendForgetPassEmail = async(req, res) => {
     const { email } = req.body;
     const result = await user.findOne({ email: email });
     if (result) {
@@ -22,23 +22,23 @@ const sendForgetPassEmail = async (req, res) => {
             to: email,
             subject: "Instagram forget password",
             html: `<h1>Hello,${result.fullname}</h1><br><h4>Forget password link <a href='http://localhost:5500/client/#!/forget-pass?token=${token}'>Click here</a></h4><h5>Your email verification link expires after 1 hour</h5>`
-        }
+        };
 
         tranport.sendMail(mail_config, (error, response) => {
             if (error)
                 res.json({ success: 0, error: "Something went wrong!" });
             if (response) {
-                res.json({ success: 1, message: "Forget Password link has been successfully send on your mail id!" })
+                res.json({ success: 1, message: "Forget Password link has been send to you on your email" });
             }
         });
     } else {
-        res.json({ success: 0, error: "Opps,User is not found!" })
+        res.json({ success: 0, error: "Oops! user not found. Please SignUp first." });
     }
 }
 
-const forgetPass = async (req, res) => {
+const forgetPass = async(req, res) => {
     const { token, password } = req.body;
-    const userData = jwt.verify(token, process.env.SECRET_MESSAGE)
+    const userData = jwt.verify(token, process.env.SECRET_MESSAGE);
     const result = await user.findOne({ email: userData.email });
     if (result) {
         const hashPass = await bcrypt.hash(password, 10);
@@ -47,8 +47,8 @@ const forgetPass = async (req, res) => {
             res.json({ success: 1, message: "successfully updated your password!" });
         }
     } else {
-        res.json({ success: 0, error: "Opps,User is not found!" });
+        res.json({ success: 0, error: "Oops! user not found. Please SignUp first." });
     }
 }
 
-module.exports = { sendForgetPassEmail, forgetPass }
+module.exports = { sendForgetPassEmail, forgetPass };

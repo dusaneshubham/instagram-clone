@@ -2,7 +2,7 @@
 
 const app = angular.module("instagramApp", ["ui.router", "ngStorage"]);
 
-app.config(function ($stateProvider) {
+app.config(function($stateProvider) {
     const indexState = {
         name: "index",
         url: "",
@@ -143,8 +143,7 @@ app.controller('forgetPass', ($scope, $http, $location) => {
                     $scope.error = true;
                     $scope.errorMessage = "Please Enter Strong password!";
                 }
-            }
-            else {
+            } else {
                 $scope.loadingSpinnerBtn = false;
                 $scope.error = true;
                 $scope.errorMessage = "Password and Confirm password not match!";
@@ -381,11 +380,18 @@ app.controller('profileCtrl', ($scope, $http, $location, localStorage) => {
         $location.path('/login');
     } else {
         $http.get("http://localhost:2700/user/current-user", {
-            headers: {
-                "Authorization": "Bearer " + token
-            }
-        })
+                headers: {
+                    "Authorization": "Bearer " + token
+                }
+            })
             .then((response) => {
+                console.log(response);
+                $scope.username = response.data.username;
+                $scope.fullname = response.data.fullname;
+                $scope.profile_pic = response.data.profile_pic;
+                $scope.bio = response.data.bio;
+                $scope.followers = response.data.follower.length;
+                $scope.followings = response.data.following.length;
                 console.log(response);
             })
             .catch((error) => {
@@ -393,3 +399,16 @@ app.controller('profileCtrl', ($scope, $http, $location, localStorage) => {
             })
     }
 });
+
+app.controller('postFileCtrl', ($scope) => {
+    let imgDiv = document.getElementById('upload-post-preview-img');
+    setInterval(() => {
+        if (imgDiv.children.length == 0) {
+            $scope.fileUploadDiv = true;
+            console.log($scope.fileUploadDiv);
+        } else {
+            $scope.fileUploadDiv = false;
+            console.log($scope.fileUploadDiv);
+        }
+    }, 5000);
+})

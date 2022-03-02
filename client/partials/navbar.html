@@ -30,8 +30,8 @@
             </li>
 
             <li class="nav-item ms-md-3">
-                <a class="nav-link" href="#">
-                    <i class="bi bi-plus-square" style="font-size: 23px"></i>
+                <a class="nav-link">
+                    <i class="bi bi-plus-square" data-bs-toggle="modal" data-bs-target="#createPostModal" style="font-size: 23px; cursor: pointer;"></i>
                 </a>
             </li>
 
@@ -51,3 +51,50 @@
     </div>
 </nav>
 <!-- navbar ends -->
+
+
+
+<!-- Create Post Modal -->
+<div class="modal fade" id="createPostModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Create New Post</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" ng-controller="postFileCtrl">
+                <!-- <div id="upload-post-preview-img">
+
+                </div> -->
+
+                <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner" id="upload-post-preview-img">
+
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+
+
+                <div class="d-flex justify-content-center align-items-center flex-column" style="width: 100%; height: 400px;" ng-hide="fileUploadDiv">
+                    {{fileUploadDiv}}
+                    <i class="bi bi-cloud-upload" style="font-size: 130px; cursor: pointer;"></i>
+                    <form action="" enctype="multipart/form-data">
+                        <input type="file" name="input-post-image" id="input-post-image" multiple="" onchange="postImagePreview()" style="display: none;">
+                        <button class="btn btn-primary" type="button" onclick="document.getElementById('input-post-image').click()">Select from your device</button>
+                    </form>
+                </div>
+                <!-- <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Understood</button>
+            </div> -->
+            </div>
+        </div>
+    </div>
+</div>
