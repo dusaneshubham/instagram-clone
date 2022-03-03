@@ -2,7 +2,7 @@
 
 const app = angular.module("instagramApp", ["ui.router", "ngStorage"]);
 
-app.config(function($stateProvider) {
+app.config(function ($stateProvider) {
     const indexState = {
         name: "index",
         url: "",
@@ -350,8 +350,6 @@ app.controller('homeCtrl', ($scope, $http, $location, $localStorage) => {
 
     if (!token && !user) {
         $location.path('/login');
-    } else {
-
     }
 });
 
@@ -380,10 +378,10 @@ app.controller('profileCtrl', ($scope, $http, $location, localStorage) => {
         $location.path('/login');
     } else {
         $http.get("http://localhost:2700/user/current-user", {
-                headers: {
-                    "Authorization": "Bearer " + token
-                }
-            })
+            headers: {
+                "Authorization": "Bearer " + token
+            }
+        })
             .then((response) => {
                 console.log(response);
                 $scope.username = response.data.username;
@@ -400,15 +398,77 @@ app.controller('profileCtrl', ($scope, $http, $location, localStorage) => {
     }
 });
 
-app.controller('postFileCtrl', ($scope) => {
-    let imgDiv = document.getElementById('upload-post-preview-img');
-    setInterval(() => {
-        if (imgDiv.children.length == 0) {
-            $scope.fileUploadDiv = true;
-            console.log($scope.fileUploadDiv);
+app.controller('myOwn', ($scope) => {
+    $scope.denis = "https://picsum.photos/200/300";
+});
+
+app.controller('postFileCtrl', ($scope, $http, $location) => {
+    $scope.error = false;
+    $scope.spinnerBtn = false;
+    $scope.icon = true;
+    $scope.btn = true;
+    $scope.submitBtn = false;
+    $scope.spinnerBtn = false;
+    $scope.btnValue = "Select from your device";
+    $scope.images = [];
+
+    $scope.deletePostPreviewImage = (index) => {
+        $scope.images.splice(index, 1);
+        $scope.showPreviewImages();
+    }
+
+    $scope.showPreviewImages = () => {
+        if ($scope.images.length) {
+            $scope.icon = false;
+            $scope.btnValue = "Add Post";
+            $scope.submitBtn = true;
         } else {
-            $scope.fileUploadDiv = false;
-            console.log($scope.fileUploadDiv);
+            $scope.icon = true;
+            $scope.btnValue = "Select from your device";
+            $scope.submitBtn = false;
         }
-    }, 5000);
+    }
+
+    $scope.postImagePreview = (element) => {
+        $scope.$apply(() => {
+            let images = [];
+            let inputImages = element.files;
+            for (let i = 0; i < inputImages.length; i++) {
+                if (i == 10)
+                    break;
+                $scope.images.push({
+                    "name": inputImages[i].name,
+                    "url": URL.createObjectURL(inputImages[i]),
+                    "file": inputImages[i]
+                })
+            }
+            console.log($scope.images);
+            $scope.showPreviewImages();
+        });
+    }
+
+    $scope.submit = () => {
+        $scope.spinnerBtn = true;
+        let file = new FormData();
+        $scope.images.forEach(element => {
+            file.append("photo", element.file);
+        });
+
+        $http.post("http://localhost:2700/post/createpost", file, {
+            headers: {
+                "Content-Type": undefined
+            }
+        })
+            .then((response) => {
+                $scope.spinnerBtn = false;
+                if (response.data.success === 1)
+                    $location.path('/home');
+                if (response.data.success === 0) {
+                    $scope.error = true;
+                    $scope.errorMessage = response.data.error;
+                }
+            }).catch((err) => {
+                console.log(err);
+            });
+    }
 })

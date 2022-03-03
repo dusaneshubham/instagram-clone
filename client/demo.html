@@ -1,83 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="myOwn">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./lib/angular-1.8.2/angular.min.js"></script>
     <title>Document</title>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 </head>
 
-<body ng-app='instagramApp'>
-
-    <div ng-controller="userCtrl">
-
-        <input type='file' multiple ng-file='uploadfiles'><br />
-        <input type='button' value='Upload' id='upload' ng-click='upload($event)'>
-
-        <p>{{ response.name }}</p>
-    </div>
+<body ng-controller="myController">
+    <form action="" enctype="multipart/form-data">
+        <input type="file" id="file" onchange="angular.element(this).scope().denisFile(this)" multiple>
+    </form>
+    <button ng-click="add()">click</button>
+    {{image}}
+    <h1>
+        <h3 ng-repeat="image in images">{{image.url}} hii</h3>
+    </h1>
 
     <script>
-        var upload = angular.module('myapp', []);
-        upload.directive('ngFile', ['$parse', function($parse) {
-            return {
-                restrict: 'A',
-                link: function(scope, element, attrs) {
-                    element.bind('change', function() {
-
-                        $parse(attrs.ngFile).assign(scope, element[0].files)
-                        scope.$apply();
-                    });
+        const app = angular.module('myOwn', [])
+            .controller("myController", ($scope) => {
+                $scope.images = [];
+                $scope.number = [];
+                $scope.add = () => {
+                    $scope.number.push({
+                        number: "Hii"
+                    })
+                    console.log($scope.number);
                 }
-            };
-        }]);
 
-        upload.controller('userCtrl', ['$scope', '$http', function($scope, $http) {
-            $scope.upload = function() {
-
-
-                var fd = new FormData();
-                fd.append("_id", "621203888c633115a94bf9b1");
-                fd.append("title", "Good post")
-                angular.forEach($scope.uploadfiles, function(file) {
-                    fd.append('photo', file);
-                });
-
-                // var req = {
-                //     method: 'post',
-                //     url: 'http://localhost:3000/post/data',
-                //     headers: {
-                //         'Content-Type': undefined
-                //     },
-                //     data: { name : "jil", fd}
-                // }
-
-
-
-                $http.post('http://localhost:3000/post/create-post', fd, {
-                        headers: {
-                            'Content-Type': undefined
+                $scope.denisFile = function (element) {
+                    $scope.$apply(() => {
+                        let image = element.files;
+                        for (i = 0; i < image.length; i++) {
+                            $scope.images.push({
+                                url: URL.createObjectURL(image[i])
+                            })
                         }
                     })
-                    .then(res => {
-                        alert(res.data)
-                    })
-                    // $http({
-                    //     method: 'post',
-                    //     url: 'http://localhost:3000/post/data',
-                    //     data: JSON.stringify(da),
-                    //     headers: { 'Content-Type': undefined },
-                    // }).then((res)=>{
-                    //     alert(res.data)
-                    // })
-            }
-
-        }]);
+                }
+            })
     </script>
-
-
 </body>
 
 </html>
