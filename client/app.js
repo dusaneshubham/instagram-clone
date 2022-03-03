@@ -405,10 +405,10 @@ app.controller('postFileCtrl', ($scope) => {
     setInterval(() => {
         if (imgDiv.children.length == 0) {
             $scope.fileUploadDiv = true;
-            console.log($scope.fileUploadDiv);
+            // console.log($scope.fileUploadDiv);
         } else {
             $scope.fileUploadDiv = false;
-            console.log($scope.fileUploadDiv);
+            // console.log($scope.fileUploadDiv);
         }
     }, 5000);
 })
