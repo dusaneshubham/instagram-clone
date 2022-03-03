@@ -54,45 +54,4 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.10/ngStorage.min.js"></script>
 </body>
 
-<!-- To preview the image post -->
-<script>
-    let images = [];
-
-    function postImagePreview() {
-        let inputImages = document.getElementById('input-post-image').files;
-        for (let i = 0; i < inputImages.length; ++i) {
-            // only 10 images maximum can take
-            if (i == 10)
-                break;
-            images.push({
-                "name": inputImages[i].name,
-                "url": URL.createObjectURL(inputImages[i]),
-                "file": inputImages[i]
-            })
-        }
-        console.log(images);
-        document.getElementById('upload-post-preview-img').innerHTML = showPreviewImages();
-    }
-
-    function showPreviewImages() {
-        let output = "";
-        images.forEach((img) => {
-            let active = "";
-            if (images.indexOf(img) == 0) {
-                active = 'active';
-            }
-            output += `<div class="carousel-item ${active}">
-                        <span style="font-size:40px; position:relative; cursor:pointer; z-index:5; float: right;" onclick="deletePostPreviewImage(${images.indexOf(img)})">&times;</span>
-                        <img src="${img.url}" class="d-block w-100"" alt="Post image">
-                    </div>`;
-        })
-        return output;
-    }
-
-    function deletePostPreviewImage(index) {
-        images.splice(index, 1);
-        document.getElementById('upload-post-preview-img').innerHTML = showPreviewImages();
-    }
-</script>
-
 </html>

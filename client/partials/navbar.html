@@ -51,25 +51,54 @@
     </div>
 </nav>
 <!-- navbar ends -->
-
-
-
+<style>
+    .modal-content {
+        height: 98vh !important;
+        max-height: none !important;
+    }
+    
+    .modal-body {
+        padding-top: 0% !important;
+    }
+    
+    .modal-body::-webkit-scrollbar {
+        display: none;
+    }
+    
+    .carousel-item {
+        align-items: center;
+        height: 75vh;
+    }
+    
+    .carousel-img {
+        object-fit: contain !important;
+        object-position: center;
+        height: 470px !important;
+    }
+    
+    #submitBtn {
+        display: none;
+    }
+</style>
 <!-- Create Post Modal -->
-<div class="modal fade" id="createPostModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" ng-controller="postFileCtrl" id="createPostModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="staticBackdropLabel">Create New Post</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body" ng-controller="postFileCtrl">
-                <!-- <div id="upload-post-preview-img">
+            <div class="modal-body">
+                <div class="alert alert-primary" role="alert" ng-show="error">
+                    {{errorMessage}}
+                </div>
 
-                </div> -->
-
-                <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-                    <div class="carousel-inner" id="upload-post-preview-img">
-
+                <div id="carouselExampleControls" class="carousel slide d-flex" data-bs-ride="carousel" data-bs-interval="false">
+                    <div ng-repeat="image in images" class="carousel-item {{$index ? '' : 'active'}}">
+                        <span style="font-size:40px; position:relative; cursor:pointer; z-index: 5; float: right;" ng-click="deletePostPreviewImage($index)">&times;</span>
+                        <center class="d-flex justify-content-center">
+                            <img ng-src={{image.url}} class="d-block w-100 img-fluid carousel-img" alt="Post image">
+                        </center>
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -82,18 +111,25 @@
                 </div>
 
 
-                <div class="d-flex justify-content-center align-items-center flex-column" style="width: 100%; height: 400px;" ng-hide="fileUploadDiv">
-                    <!-- {{fileUploadDiv}} -->
-                    <i class="bi bi-cloud-upload" style="font-size: 130px; cursor: pointer;"></i>
+                <div class="d-flex justify-content-center align-items-center flex-column my-4" style="width: 100%;">
+                    <i class="bi bi-cloud-upload" ng-show="icon" style="font-size: 130px; cursor: pointer;"></i>
                     <form action="" enctype="multipart/form-data">
-                        <input type="file" name="input-post-image" id="input-post-image" multiple="" onchange="postImagePreview()" style="display: none;">
-                        <button class="btn btn-primary" type="button" onclick="document.getElementById('input-post-image').click()">Select from your device</button>
+                        <input type="file" name="photo" onchange="angular.element(this).scope().postImagePreview(this)" id="input-post-image" multiple hidden>
+                        <input type="file" name="photo" onchange="postImagePreview()" id="input-post-image" multiple hidden>
+                        <div class="w-100 d-flex justify-content-between align-items-center" ng-hide="spinnerBtn">
+                            <button class="btn btn-primary mx-2" type="button" ng-show="btn" onclick="document.getElementById('input-post-image').click()">
+                                {{btnValue}}
+                            </button>
+                            <button class="btn btn-success mx-2" type="button" ng-show="submitBtn" ng-click="submit()">
+                                Post
+                            </button>
+                        </div>
+                        <button class="btn btn-primary" type="button" disabled ng-show="spinnerBtn">
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            Posting...
+                        </button>
                     </form>
                 </div>
-                <!-- <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Understood</button>
-            </div> -->
             </div>
         </div>
     </div>
