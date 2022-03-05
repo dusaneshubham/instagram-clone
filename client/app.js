@@ -409,11 +409,16 @@ app.controller('postFileCtrl', ($scope, $http, $location) => {
     $scope.btn = true;
     $scope.submitBtn = false;
     $scope.spinnerBtn = false;
+    $scope.carousel = false;
     $scope.btnValue = "Select from your device";
     $scope.images = [];
 
-    $scope.deletePostPreviewImage = (index) => {
-        $scope.images.splice(index, 1);
+    $scope.flushImages = () => {
+        $scope.images = [];
+        document.getElementById('input-post-image').value = '';
+        $scope.description = "";
+        $scope.carousel = false;
+        $scope.location = "";
         $scope.showPreviewImages();
     }
 
@@ -445,14 +450,28 @@ app.controller('postFileCtrl', ($scope, $http, $location) => {
             console.log($scope.images);
             $scope.showPreviewImages();
         });
+        $scope.showPreviewImages();
+    }
+
+    $scope.next = () => {
+        $scope.carousel = true
+    }
+
+    $scope.back = () => {
+        $scope.carousel = false
     }
 
     $scope.submit = () => {
         $scope.spinnerBtn = true;
+        let token = localStorage.getItem("token");
         let file = new FormData();
+        file.append("token", token);
+        file.append("location", $scope.location);
+        file.append("description", $scope.description);
         $scope.images.forEach(element => {
             file.append("photo", element.file);
         });
+        console.log(file)
 
         $http.post("http://localhost:2700/post/createpost", file, {
             headers: {
@@ -462,7 +481,7 @@ app.controller('postFileCtrl', ($scope, $http, $location) => {
             .then((response) => {
                 $scope.spinnerBtn = false;
                 if (response.data.success === 1)
-                    $location.path('/home');
+                    console.log(response)
                 if (response.data.success === 0) {
                     $scope.error = true;
                     $scope.errorMessage = response.data.error;
