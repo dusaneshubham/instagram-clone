@@ -6,7 +6,7 @@ const postController = require('../controller/postController');
 const post = require('../models/post');
 
 // create a post
-route.post("/createpost", getCurrentUser, postImageUpload.array('photo'), postController);
+route.post("/createpost", postImageUpload.array('photo'), getCurrentUser, postController);
 
 // delete a post
 // route.delete('/delete/:id', getCurrentUser, async (req, res) => {

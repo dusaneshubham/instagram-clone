@@ -10,36 +10,24 @@
 </head>
 
 <body ng-controller="myController">
-    <form action="" enctype="multipart/form-data">
+    <!-- <form action="" enctype="multipart/form-data">
         <input type="file" id="file" onchange="angular.element(this).scope().denisFile(this)" multiple>
-    </form>
+    </form> -->
     <button ng-click="add()">click</button>
-    {{image}}
     <h1>
-        <h3 ng-repeat="image in images">{{image.url}} hii</h3>
+        <h3 ng-repeat="image in number">{{image}} hii</h3>
     </h1>
 
     <script>
         const app = angular.module('myOwn', [])
             .controller("myController", ($scope) => {
-                $scope.images = [];
+                
                 $scope.number = [];
                 $scope.add = () => {
                     $scope.number.push({
                         number: "Hii"
                     })
                     console.log($scope.number);
-                }
-
-                $scope.denisFile = function (element) {
-                    $scope.$apply(() => {
-                        let image = element.files;
-                        for (i = 0; i < image.length; i++) {
-                            $scope.images.push({
-                                url: URL.createObjectURL(image[i])
-                            })
-                        }
-                    })
                 }
             })
     </script>

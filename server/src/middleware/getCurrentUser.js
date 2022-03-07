@@ -3,7 +3,6 @@ const user = require('../models/user');
 
 
 const getCurrentUser = async (req, res, next) => {
-    console.log(req.body);
     const { token } = req.body;
     if (!token) {
         return res.json({ success: 0, error: "Access is denied!" });

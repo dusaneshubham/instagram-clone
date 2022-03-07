@@ -3,7 +3,6 @@ const path = require('path');
 
 const postController = async(req, res) => {
     try {
-        console.log(req.files)
         const data = req.body;
         let files = req.files;
         const length = files.length;
