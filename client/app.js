@@ -398,11 +398,15 @@ app.controller('profileCtrl', ($scope, $http, $location, localStorage) => {
     }
 });
 
+
+
 app.controller('myOwn', ($scope) => {
     $scope.denis = "https://picsum.photos/200/300";
 });
 
-app.controller('postFileCtrl', ($scope, $http, $location) => {
+
+
+app.controller('postFileCtrl', ($scope, $http, $location, $localStorage) => {
     $scope.error = false;
     $scope.spinnerBtn = false;
     $scope.icon = true;
@@ -411,13 +415,21 @@ app.controller('postFileCtrl', ($scope, $http, $location) => {
     $scope.spinnerBtn = false;
     $scope.btnValue = "Select from your device";
     $scope.images = [];
+    $scope.active = true;
+    $scope.activeIndex = 0;
 
     $scope.deletePostPreviewImage = (index) => {
+        console.log(`index : ${index}`);
         $scope.images.splice(index, 1);
+        console.log($scope.images);
         $scope.showPreviewImages();
+        if ($scope.images.length <= 10) {
+            $scope.error = false;
+        }
     }
 
     $scope.showPreviewImages = () => {
+        console.log(`In preview func : ${$scope.images.length}`);
         if ($scope.images.length) {
             $scope.icon = false;
             $scope.btnValue = "Add Post";
@@ -429,13 +441,38 @@ app.controller('postFileCtrl', ($scope, $http, $location) => {
         }
     }
 
+    $scope.shift = () => {
+        // $scope.activeIndex++;
+        // let length = $scope.images.length;
+        // let temp = $scope.images[0];
+        // for (let i = 0; i < length - 1; ++i) {
+        //     $scope.images[i] = $scope.images[i + 1];
+        // }
+        // $scope.images[length - 1] = temp;
+        // console.log($scope.images);
+    }
+
+    $scope.unshift = () => {
+        // $scope.activeIndex--;
+        // let length = $scope.images.length;
+        // let temp = $scope.images[length - 1];
+        // for (let i = length - 1; i < 0; --i) {
+        //     $scope.images[i] = $scope.images[i - 1];
+        // }
+        // $scope.images[0] = temp;
+        // console.log($scope.images);
+    }
+
     $scope.postImagePreview = (element) => {
         $scope.$apply(() => {
-            let images = [];
             let inputImages = element.files;
+            console.log($scope.images.length);
             for (let i = 0; i < inputImages.length; i++) {
-                if (i == 10)
+                if (i == 10) {
+                    $scope.error = true;
+                    $scope.errorMessage = "Only 10 files are allowed.";
                     break;
+                }
                 $scope.images.push({
                     "name": inputImages[i].name,
                     "url": URL.createObjectURL(inputImages[i]),
@@ -456,7 +493,8 @@ app.controller('postFileCtrl', ($scope, $http, $location) => {
 
         $http.post("http://localhost:2700/post/createpost", file, {
                 headers: {
-                    "Content-Type": undefined
+                    "Content-Type": undefined,
+                    "Authorization": "Bearer " + localStorage.getItem("token")
                 }
             })
             .then((response) => {
@@ -472,3 +510,13 @@ app.controller('postFileCtrl', ($scope, $http, $location) => {
             });
     }
 })
+
+
+
+// {
+//     ({
+//         { activeIndex }
+//     } == {
+//         { $index }
+//     }) ? "active" : ''
+// }
