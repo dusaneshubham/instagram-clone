@@ -1,18 +1,9 @@
-<div
-    class="d-flex flex-row justify-content-between mb-4 overflow-scroll"
-    style="scrollbar-width: none"
->
+<div class="d-flex flex-row justify-content-between mb-4 overflow-scroll" style="scrollbar-width: none">
     <div class="text-muted">Suggested for you</div>
-    <div class="fw-bold">See All</div>
 </div>
 <!-- suggested profiles -->
 <div class="d-flex flex-column justify-content-between">
     <!-- suggested profile items -->
-    <follower-suggestion
-        name="{{follower.name}}"
-        username="{{follower.username}}"
-        image-url="{{follower.profileImageUrl}}"
-        ng-repeat="follower in followers.all"
-    ></follower-suggestion>
+    <follower-suggestion id="{{follower._id}}" name="{{follower.fullname}}" username="{{follower.username}}" image-url="{{follower.profile_pic}}" ng-repeat="follower in followers.all"></follower-suggestion>
     <!-- suggested profile items ends -->
 </div>

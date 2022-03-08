@@ -1,47 +1,32 @@
-const cloudinary = require('cloudinary').v2;
-const dotenv = require('dotenv');
 const post = require('../models/post');
+const path = require('path');
 
-dotenv.config();
-
-cloudinary.config({
-    cloud_name: process.env.CLOUD_NAME,
-    api_key: process.env.CLOUD_API_KEY,
-    api_secret: process.env.CLOUD_API_SECRET
-});
-
-const postController = async (req, res) => {
+const postController = async(req, res) => {
     try {
-        console.log(req.file);
-        res.json({ success: 0 });
-        // const data = req.body;
-        // let files = req.files.photo;
-        // console.log(`File : ${files}`);
-        // const length = files.length;
-        // if (length) {
-        //     let postImages = [];
-        //     for (i = 0; i < length; i++) {
-        //         await cloudinary.uploader.upload(files[i].tempFilePath, (err, result) => {
-        //             if (result) {
-        //                 postImages.push(result.secure_url);
-        //             }
-        //             if (err) {
-        //                 console.log(err);
-        //                 res.json({ success: 0, error: err });
-        //             }
-        //         })
+        const data = req.body;
+        let files = req.files;
+        const length = files.length;
+        if (length) {
+            let postImages = [];
+            for (i = 0; i < length; i++) {
+                let imagePath = `http://localhost:${process.env.PORT}/images/` + req.files[i].filename;
+                console.log(imagePath)
+                postImages.push(imagePath);
+            }
 
-        //         const result = new post({
-        //             postBy: req.user._id,
-        //             location: data.location,
-        //             postDescription: data.description,
-        //             post: postImages
-        //         });
+            const result = new post({
+                postBy: req.user._id,
+                location: data.location,
+                postDescription: data.description,
+                post: postImages
+            });
 
-        //         await result.save();
-        //         res.json({ success: 1 });
-        //     }
-        // }
+            await result.save();
+
+            res.json({ success: 1, message: "Post has been posted!" });
+        } else {
+            res.json({ success: 0, error: "Something went wrong!" });
+        }
     } catch (err) {
         console.log(err);
     }

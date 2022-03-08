@@ -3,81 +3,35 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </head>
 
-<body ng-app='instagramApp'>
+<body>
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Launch demo modal
+    </button>
 
-    <div ng-controller="userCtrl">
-
-        <input type='file' multiple ng-file='uploadfiles'><br />
-        <input type='button' value='Upload' id='upload' ng-click='upload($event)'>
-
-        <p>{{ response.name }}</p>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog .modal-dialog-centered modal-xl">
+            <!-- <div class="modal-content"> -->
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 bg-dark" style="height: 80vh;">
+                        Left
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 bg-danger" style="height: 80vh;">
+                        Right
+                    </div>
+                </div>
+            </div>
+            <!-- </div> -->
+        </div>
     </div>
-
-    <script>
-        var upload = angular.module('myapp', []);
-        upload.directive('ngFile', ['$parse', function($parse) {
-            return {
-                restrict: 'A',
-                link: function(scope, element, attrs) {
-                    element.bind('change', function() {
-
-                        $parse(attrs.ngFile).assign(scope, element[0].files)
-                        scope.$apply();
-                    });
-                }
-            };
-        }]);
-
-        upload.controller('userCtrl', ['$scope', '$http', function($scope, $http) {
-            $scope.upload = function() {
-
-
-                var fd = new FormData();
-                fd.append("_id", "621203888c633115a94bf9b1");
-                fd.append("title", "Good post")
-                angular.forEach($scope.uploadfiles, function(file) {
-                    fd.append('photo', file);
-                });
-
-                // var req = {
-                //     method: 'post',
-                //     url: 'http://localhost:3000/post/data',
-                //     headers: {
-                //         'Content-Type': undefined
-                //     },
-                //     data: { name : "jil", fd}
-                // }
-
-
-
-                $http.post('http://localhost:3000/post/create-post', fd, {
-                        headers: {
-                            'Content-Type': undefined
-                        }
-                    })
-                    .then(res => {
-                        alert(res.data)
-                    })
-                    // $http({
-                    //     method: 'post',
-                    //     url: 'http://localhost:3000/post/data',
-                    //     data: JSON.stringify(da),
-                    //     headers: { 'Content-Type': undefined },
-                    // }).then((res)=>{
-                    //     alert(res.data)
-                    // })
-            }
-
-        }]);
-    </script>
-
-
 </body>
 
 </html>

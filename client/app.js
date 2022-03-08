@@ -61,10 +61,10 @@ app.config(function($stateProvider) {
 
     const profileState = {
         name: "profile",
-        url: "/profile",
+        url: "/profile/:id",
         templateUrl: "views/profile.html",
     };
-    $stateProvider.state(profileState);
+    $stateProvider.state("profile", profileState);
 
     $stateProvider.state("otherwise", {
         url: "*path",
@@ -350,16 +350,17 @@ app.controller('homeCtrl', ($scope, $http, $location, $localStorage) => {
 
     if (!token && !user) {
         $location.path('/login');
-    } else {
-
     }
 });
 
 
 // profile
-app.controller('profileCtrl', ($scope, $http, $location, localStorage) => {
+app.controller('profileCtrl', ($scope, $http, $stateParams, $localStorage) => {
     let token = localStorage.getItem("token");
-    let user = localStorage.getItem("user");
+    let username = $stateParams.id;
+
+
+    console.log(username);
 
     let data = {
         token: token
@@ -379,23 +380,157 @@ app.controller('profileCtrl', ($scope, $http, $location, localStorage) => {
     if (!token && !user) {
         $location.path('/login');
     } else {
-        $http.get("http://localhost:2700/user/current-user", {
+        $http.get(`http://localhost:2700/user/profile/${username}`, {
                 headers: {
                     "Authorization": "Bearer " + token
                 }
             })
             .then((response) => {
-                console.log(response);
-                $scope.username = response.data.username;
-                $scope.fullname = response.data.fullname;
-                $scope.profile_pic = response.data.profile_pic;
-                $scope.bio = response.data.bio;
-                $scope.followers = response.data.follower.length;
-                $scope.followings = response.data.following.length;
-                console.log(response);
+
+                $scope.userProfile = response.data;
             })
             .catch((error) => {
                 console.log(error);
             })
     }
 });
+
+
+
+app.controller('myOwn', ($scope) => {
+    $scope.denis = "https://picsum.photos/200/300";
+});
+
+
+
+app.controller('postFileCtrl', ($scope, $http, $location, $localStorage) => {
+    $scope.error = false;
+    $scope.spinnerBtn = false;
+    $scope.icon = true;
+    $scope.btn = true;
+    $scope.submitBtn = false;
+    $scope.spinnerBtn = false;
+    $scope.carousel = false;
+    $scope.btnValue = "Select from your device";
+    $scope.images = [];
+    $scope.active = true;
+    $scope.activeIndex = 0;
+
+    $scope.flushImages = () => {
+        $scope.images = [];
+        document.getElementById('input-post-image').value = '';
+        $scope.description = "";
+        $scope.carousel = false;
+        $scope.location = "";
+        $scope.showPreviewImages();
+        if ($scope.images.length <= 10) {
+            $scope.error = false;
+        }
+    }
+
+    $scope.showPreviewImages = () => {
+        console.log(`In preview func : ${$scope.images.length}`);
+        if ($scope.images.length) {
+            $scope.icon = false;
+            $scope.btnValue = "Add Post";
+            $scope.submitBtn = true;
+        } else {
+            $scope.icon = true;
+            $scope.btnValue = "Select from your device";
+            $scope.submitBtn = false;
+        }
+    }
+
+    $scope.shift = () => {
+        // $scope.activeIndex++;
+        // let length = $scope.images.length;
+        // let temp = $scope.images[0];
+        // for (let i = 0; i < length - 1; ++i) {
+        //     $scope.images[i] = $scope.images[i + 1];
+        // }
+        // $scope.images[length - 1] = temp;
+        // console.log($scope.images);
+    }
+
+    $scope.unshift = () => {
+        // $scope.activeIndex--;
+        // let length = $scope.images.length;
+        // let temp = $scope.images[length - 1];
+        // for (let i = length - 1; i < 0; --i) {
+        //     $scope.images[i] = $scope.images[i - 1];
+        // }
+        // $scope.images[0] = temp;
+        // console.log($scope.images);
+    }
+
+    $scope.postImagePreview = (element) => {
+        $scope.$apply(() => {
+            let inputImages = element.files;
+            console.log($scope.images.length);
+            for (let i = 0; i < inputImages.length; i++) {
+                if (i == 10) {
+                    $scope.error = true;
+                    $scope.errorMessage = "Only 10 files are allowed.";
+                    break;
+                }
+                $scope.images.push({
+                    "name": inputImages[i].name,
+                    "url": URL.createObjectURL(inputImages[i]),
+                    "file": inputImages[i]
+                })
+            }
+            console.log($scope.images);
+            $scope.showPreviewImages();
+        });
+        $scope.showPreviewImages();
+    }
+
+    $scope.next = () => {
+        $scope.carousel = true
+    }
+
+    $scope.back = () => {
+        $scope.carousel = false
+    }
+
+    $scope.submit = () => {
+        $scope.spinnerBtn = true;
+        let token = localStorage.getItem("token");
+        let file = new FormData();
+        file.append("token", token);
+        file.append("location", $scope.location);
+        file.append("description", $scope.description);
+        $scope.images.forEach(element => {
+            file.append("photo", element.file);
+        });
+        console.log(file)
+
+        $http.post("http://localhost:2700/post/createpost", file, {
+                headers: {
+                    "Content-Type": undefined,
+                    "Authorization": "Bearer " + localStorage.getItem("token")
+                }
+            })
+            .then((response) => {
+                $scope.spinnerBtn = false;
+                if (response.data.success === 1)
+                    console.log(response)
+                if (response.data.success === 0) {
+                    $scope.error = true;
+                    $scope.errorMessage = response.data.error;
+                }
+            }).catch((err) => {
+                console.log(err);
+            });
+    }
+})
+
+
+
+// {
+//     ({
+//         { activeIndex }
+//     } == {
+//         { $index }
+//     }) ? "active" : ''
+// }

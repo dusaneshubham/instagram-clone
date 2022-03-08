@@ -10,23 +10,23 @@
         <div class="profile my-5">
             <div class="d-flex align-items-center">
                 <div class="profile-image">
-                    <img src="{{profile_pic}}" alt="profile-image" />
+                    <img src="{{userProfile.userData.profile_pic}}" alt="profile-image" />
                 </div>
 
                 <div class="profile-details">
-                    <p class="username">{{username}}</p>
+                    <p class="username">{{userProfile.userData.username}}</p>
                     <ul class="d-flex profile-stats">
                         <li>
-                            <span class="fw-bold">10</span> posts
+                            <span class="fw-bold">{{userProfile.userPost.length}}</span> posts
                         </li>
                         <li>
                             <a href="#" style="color: black; text-decoration: none">
-                                <span class="fw-bold">{{followers}}</span> followers
+                                <span class="fw-bold">{{userProfile.userData.follower.length}}</span> followers
                             </a>
                         </li>
                         <li>
                             <a href="#" style="color: black; text-decoration: none">
-                                <span class="fw-bold">{{followings}}</span> following
+                                <span class="fw-bold">{{userProfile.userData.following.length}}</span> following
                             </a>
                         </li>
                     </ul>
@@ -34,8 +34,8 @@
             </div>
 
             <div class="user-bio">
-                <h5 class="my-4">{{fullname}}</h5>
-                {{bio}}
+                <h5 class="my-4">{{userProfile.userData.fullname}}</h5>
+                {{userProfile.userData.bio}}
             </div>
 
             <a href="#" style="margin: 100px" class="edit-profile-btn">
@@ -46,67 +46,94 @@
             </a>
         </div>
 
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-            Launch static backdrop modal
-        </button>
-
         <hr />
 
         <div class="d-flex justify-content-center mb-3 post-save-icons">
-            <a href="#" style="color: black; text-decoration: none">
-                <span class="mx-5" style="font-size: 14px"><i class="bi bi-grid-3x3 mx-1"></i> POSTS</span>
+            <a href="#" class="mx-5" style="color: black; text-decoration: none">
+                <span style="font-size: 14px"><i class="bi bi-grid-3x3 mx-1"></i> POSTS</span>
             </a>
-            <a href="#" style="color: black; text-decoration: none">
-                <span class="mx-5" style="font-size: 14px"><i class="bi bi-play-circle mx-1"></i>VIDEOS</span>
+            <a href="#" class="mx-5" style="color: black; text-decoration: none">
+                <span style="font-size: 14px"><i class="bi bi-play-circle mx-1"></i>VIDEOS</span>
             </a>
-            <a href="#" style="color: black; text-decoration: none">
-                <span class="mx-5" style="font-size: 14px"><i class="bi bi-bookmark mx-1"></i>SAVED</span>
+            <a href="#" class="mx-5" style="color: black; text-decoration: none">
+                <span style="font-size: 14px"><i class="bi bi-bookmark mx-1"></i>SAVED</span>
             </a>
-        </div>
-
-        <div class="our-post-div text-center">
-            <img src="images/posts/post-1.jpg" alt="your-post-image" />
-            <img src="images/posts/post-2.jfif" alt="yout-post-image" />
-            <img src="images/posts/post-1.jpg" alt="your-post-image" />
         </div>
 
 
 
+        <span class="our-post-div text-center" ng-repeat="post in userProfile.userPost">
 
-        <!-- Modal -->
-        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog modal-xl modal-dialog-centered d-flex" style="height: 500px;">
-                <div class="modal-image" style="height:100%; width:50%;">
-                    <img src="images/posts/post-1.jpg" alt="" style="height:100%; width:100%;">
-                </div>
 
-                <div class="modal-content" style="width:50%;">
-                    <div>
+
+
+            <img style="object-fit: contain; background: rgba(245, 245, 245, 0.5); border-radius: 10px;"
+                ng-src={{post.post[0]}} class="p-2" data-bs-toggle="modal" data-bs-target="#post-{{post._id}}" alt="">
+
+
+
+            <div class="modal fade" id="post-{{post._id}}" data-bs-backdrop="static" data-bs-keyboard="false"
+                tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-xl">
+                    <!-- <div class="modal-content"> -->
+                    <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body" style="overflow: scroll; height:500px;">
-                            ... Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim, laborum? Dolores nulla maiores facilis natus, ipsam aspernatur numquam eveniet soluta, cumque quia debitis, quaerat nesciunt reprehenderit? Expedita reprehenderit minima sed nemo natus
-                            consectetur dolore?Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quisquam, iure laborum laudantium, distinctio dolore dolores rerum nemo itaque qui optio officia asperiores? Doloribus omnis ut exercitationem consectetur
-                            assumenda quod minima voluptatem a non in. ... Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim, laborum? Dolores nulla maiores facilis natus, ipsam aspernatur numquam eveniet soluta, cumque quia debitis, quaerat
-                            nesciunt reprehenderit? Expedita reprehenderit minima sed nemo natus consectetur dolore?Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quisquam, iure laborum laudantium, distinctio dolore dolores rerum nemo itaque
-                            qui optio officia asperiores? Doloribus omnis ut exercitationem consectetur assumenda quod minima voluptatem a non in. assumenda quod minima voluptatem a non in. ... Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                            Enim, laborum? Dolores nulla maiores facilis natus, ipsam aspernatur numquam eveniet soluta, cumque quia debitis, quaerat nesciunt reprehenderit? Expedita reprehenderit minima sed nemo natus consectetur dolore?Lorem, ipsum
-                            dolor sit amet consectetur adipisicing elit. Quisquam, iure laborum laudantium, distinctio dolore dolores rerum nemo itaque qui optio officia asperiores? Doloribus omnis ut exercitationem consectetur assumenda quod minima voluptatem
-                            a non in. assumenda quod minima voluptatem a non in. ... Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim, laborum? Dolores nulla maiores facilis natus, ipsam aspernatur numquam eveniet soluta, cumque quia debitis,
-                            quaerat nesciunt reprehenderit? Expedita reprehenderit minima sed nemo natus consectetur dolore?Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quisquam, iure laborum laudantium, distinctio dolore dolores rerum nemo
-                            itaque qui optio officia asperiores? Doloribus omnis ut exercitationem consectetur assumenda quod minima voluptatem a non in.
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Understood</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+
+                        <div class="modal-body">
+                            <div class="row">
+                                <div
+                                    class="col-12 col-sm-12 col-md-12 col-lg-6 bg-dark d-flex justify-content-center align-items-center">
+
+                                    <div id="carousel-{{post._id}}" class="carousel slide" data-bs-ride="carousel">
+                                        <div class="carousel-indicators">
+                                            <button type="button" ng-repeat="postImage in post.post"
+                                                class="{{$index ? '' : 'active'}}"
+                                                data-bs-target="#carousel-{{post._id}}" data-bs-slide-to="{{$index}}"
+                                                aria-current="true" aria-label="Slide 1"></button>
+
+                                        </div>
+                                        <div class="carousel-inner">
+                                            <div ng-repeat="postImage in post.post"
+                                                class="carousel-item {{$index ? '' : 'active'}}">
+
+                                                <img ng-src="{{postImage}}" alt=""
+                                                    style=" object-fit:contain; width: 100% !important; height: 70vh !important;">
+                                            </div>
+
+
+                                        </div>
+                                        <button class="carousel-control-prev" type="button"
+                                            data-bs-target="#carousel-{{post._id}}" data-bs-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true">
+
+                                            </span>
+        <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carousel-{{post._id}}" data-bs-slide="next">
+                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Next</span>
+                                        </button>
+    </div>
+
+
+
+
+    </div>
+    <div class="col-12 col-sm-12 col-md-12 col-lg-6 bg-danger" style="height: 80vh;">
+        Right
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+
+    <!-- <div ng-repeat=""></div> -->
+
+    </span>
+
 
 
     </div>

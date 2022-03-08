@@ -15,6 +15,7 @@ const sendEmail = async(req, res) => {
                 email: email,
                 password: password
             }, process.env.SECRET_MESSAGE, { expiresIn: '1h' });
+
             const tranport = nodemailer.createTransport({
                 service: "gmail",
                 auth: {
