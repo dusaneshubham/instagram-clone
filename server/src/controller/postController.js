@@ -9,7 +9,8 @@ const postController = async(req, res) => {
         if (length) {
             let postImages = [];
             for (i = 0; i < length; i++) {
-                let imagePath = path.join(`http://localhost:${process.env.PORT}/images`, req.files[i].filename);
+                let imagePath = `http://localhost:${process.env.PORT}/images/` + req.files[i].filename;
+                console.log(imagePath)
                 postImages.push(imagePath);
             }
 
