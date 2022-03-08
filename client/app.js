@@ -61,10 +61,10 @@ app.config(function($stateProvider) {
 
     const profileState = {
         name: "profile",
-        url: "/profile",
+        url: "/profile/:id",
         templateUrl: "views/profile.html",
     };
-    $stateProvider.state(profileState);
+    $stateProvider.state("profile", profileState);
 
     $stateProvider.state("otherwise", {
         url: "*path",
@@ -355,9 +355,12 @@ app.controller('homeCtrl', ($scope, $http, $location, $localStorage) => {
 
 
 // profile
-app.controller('profileCtrl', ($scope, $http, $location, localStorage) => {
+app.controller('profileCtrl', ($scope, $http, $stateParams, $localStorage) => {
     let token = localStorage.getItem("token");
-    let user = localStorage.getItem("user");
+    let username = $stateParams.id;
+
+
+    console.log(username);
 
     let data = {
         token: token
@@ -377,20 +380,14 @@ app.controller('profileCtrl', ($scope, $http, $location, localStorage) => {
     if (!token && !user) {
         $location.path('/login');
     } else {
-        $http.get("http://localhost:2700/user/current-user", {
+        $http.get(`http://localhost:2700/user/profile/${username}`, {
                 headers: {
                     "Authorization": "Bearer " + token
                 }
             })
             .then((response) => {
-                console.log(response);
-                $scope.username = response.data.username;
-                $scope.fullname = response.data.fullname;
-                $scope.profile_pic = response.data.profile_pic;
-                $scope.bio = response.data.bio;
-                $scope.followers = response.data.follower.length;
-                $scope.followings = response.data.following.length;
-                console.log(response);
+
+                $scope.userProfile = response.data;
             })
             .catch((error) => {
                 console.log(error);

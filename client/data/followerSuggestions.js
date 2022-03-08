@@ -1,11 +1,11 @@
-const followerSuggestions = [
-    {
-        username: "jap_1909",
+const followerSuggestions = [{
+
+        username: "shubham",
         name: "Jap Patel",
         profileImageUrl: "images/profiles/profile-4.png",
     },
     {
-        username: "shubham_dusane2002",
+        username: "Denis",
         name: "Shubham Dusane",
         profileImageUrl: "images/profiles/profile-2.jpg",
     },
