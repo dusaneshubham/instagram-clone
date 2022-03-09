@@ -1,17 +1,8 @@
 <div class="d-flex flex-row justify-content-between align-items-center my-3">
-    <a
-        href="#"
-        ui-sref="profile"
-        ui-sref-active="active"
-        class="text-decoration-none text-dark"
-    >
+    <a href="#" ui-sref="profile({id: $ctrl.username})" ui-sref-active="active" class="text-decoration-none text-dark">
         <div class="d-flex flex-md-row">
             <div style="height: 50px; width: 50px">
-                <img
-                    class="img-fluid rounded-circle"
-                    ng-src="{{:: $ctrl.imageUrl}}"
-                    alt="{{:: $ctrl.name}}'s profile image"
-                />
+                <img class="img-fluid rounded-circle" ng-src="{{:: $ctrl.imageUrl}}" alt="{{:: $ctrl.name}}'s profile image" />
             </div>
             <div class="ms-3">
                 <div class="fw-bold">{{:: $ctrl.name}}</div>
@@ -19,5 +10,6 @@
             </div>
         </div>
     </a>
-    <a class="fw-bold text-decoration-none" style="color: #4c68d7"> FOLLOW </a>
+    <a href="javascript:void(0)" ng-show="$ctrl.follow" type="button" ng-click="$ctrl.followUser($ctrl.id)" class="fw-bold text-decoration-none" style="color: #4c68d7"> FOLLOW </a>
+    <a href="javascript:void(0)" ng-hide="$ctrl.follow" type="button" ng-click="$ctrl.unFollowUser($ctrl.id)" class="fw-bold text-black text-decoration-none" style="color: #4c68d7"> FOLLOWING  </a>
 </div>

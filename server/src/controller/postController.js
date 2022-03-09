@@ -1,7 +1,7 @@
 const post = require('../models/post');
 const path = require('path');
 
-const postController = async (req, res) => {
+const postController = async(req, res) => {
     try {
         const data = req.body;
         let files = req.files;
@@ -9,7 +9,8 @@ const postController = async (req, res) => {
         if (length) {
             let postImages = [];
             for (i = 0; i < length; i++) {
-                let imagePath = path.join(`http://localhost:${process.env.PORT}/images`, req.files[i].filename);
+                let imagePath = `http://localhost:${process.env.PORT}/images/` + req.files[i].filename;
+                console.log(imagePath)
                 postImages.push(imagePath);
             }
 

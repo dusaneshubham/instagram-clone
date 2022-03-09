@@ -31,7 +31,7 @@ const userSchema = new mongoose.Schema({
         length: 10,
     },
     DOB: Date,
-    bio: 'string',
+    bio: String,
     profile_pic: {
         type: String,
         required: true,
