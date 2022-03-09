@@ -38,12 +38,18 @@
                 {{userProfile.userData.bio}}
             </div>
 
-            <a href="#" style="margin: 100px" class="edit-profile-btn">
-                <button class="btn btn-outline-dark">
-                    <i class="bi bi-gear-fill" style="margin-right: 7px"></i>
-                    <span>Edit Profile</span>
-                </button>
-            </a>
+            <div style="margin: auto 30px auto 100px">
+                <a href="#" class="edit-profile-btn" ng-show="currentUserForButton">
+                    <button class="btn btn-outline-dark">
+                        <i class="bi bi-gear-fill" style="margin-right: 7px"></i>
+                        <span>Edit Profile</span>
+                    </button>
+                </a>
+                <div ng-hide="currentUserForButton">
+                    <button class="btn btn-primary" ng-show="followButton">FOLLOW</button>
+                    <button class="btn btn-outline-dark" ng-hide="followButton">UNFOLLOW</button>
+                </div>
+            </div>
         </div>
 
         <hr />

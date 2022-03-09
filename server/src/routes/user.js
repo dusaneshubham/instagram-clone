@@ -6,10 +6,9 @@ const getCurrentUser = require('../middleware/getCurrentUser');
 // initialized route
 const route = express.Router();
 
-route.get('/current-user', getCurrentUser, async(req, res) => {
+route.post('/current-user', getCurrentUser, async(req, res) => {
     try {
         let currentUser = await user.findOne({ _id: req.user._id });
-        console.log("curUser" + currentUser);
         return res.status(200).json(currentUser);
     } catch (err) {
         console.log(err);
@@ -34,7 +33,7 @@ route.get('/all-user', async(req, res) => {
     }
 });
 
-// Update User Data like Profile Picture, Bio, City etc etc ......
+// Update User Data like Profile Picture, Bio, City etc ......
 route.put('/update/:id', getCurrentUser, async(req, res) => {
     const { id } = req.params;
     if (String(req.user._id) === id) {
@@ -98,7 +97,6 @@ route.put('/unfollow/:id', getCurrentUser, async(req, res) => {
 
                 res.status(200).json("You don't follow this user!");
             }
-
 
         } catch (err) {
             res.status(500).json('Something went wrong,Please try later!');
