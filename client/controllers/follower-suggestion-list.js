@@ -11,9 +11,6 @@ const FollowerSuggestionListCtrl = ['suggestionListService', function(suggestion
         }).catch((err) => {
             console.log(err);
         });
-
-
-
 }];
 
 angular
