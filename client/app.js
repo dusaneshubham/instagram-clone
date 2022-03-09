@@ -477,17 +477,17 @@ app.controller('postFileCtrl', ($scope, $http, $location) => {
             headers: {
                 "Content-Type": undefined
             }
+        }).then((response) => {
+            $scope.spinnerBtn = false;
+            if (response.data.success == 1) {
+                console.log(response)
+            }
+            if (response.data.success === 0) {
+                $scope.error = true;
+                $scope.errorMessage = response.data.error;
+            }
+        }).catch((err) => {
+            console.log(err);
         })
-            .then((response) => {
-                $scope.spinnerBtn = false;
-                if (response.data.success === 1)
-                    console.log(response)
-                if (response.data.success === 0) {
-                    $scope.error = true;
-                    $scope.errorMessage = response.data.error;
-                }
-            }).catch((err) => {
-                console.log(err);
-            });
     }
 })
