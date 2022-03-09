@@ -3,14 +3,16 @@ const FollowerSuggestionListCtrl = ['suggestionListService', function(suggestion
 
     const currentUserId = JSON.parse(localStorage.getItem('user'))._id;
 
-    suggestionListService.getSuggestions()
-        .then((res) => {
-            console.log(res.data.filter(e => e._id != currentUserId));
-            followers.all = res.data.filter(e => e._id != currentUserId);
+    if (currentUserId) {
+        suggestionListService.getSuggestions()
+            .then((res) => {
+                console.log(res.data.filter(e => e._id != currentUserId));
+                followers.all = res.data.filter(e => e._id != currentUserId);
 
-        }).catch((err) => {
-            console.log(err);
-        });
+            }).catch((err) => {
+                console.log(err);
+            });
+    }
 
 
 

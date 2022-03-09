@@ -40,12 +40,23 @@
 
 .post-img-div {
     width: 100%;
-    height: 500px;
+    height: 80vh;
 }
 
 .post-img-div img {
     width: 100%;
     height: 100%;
+}
+
+.center-heart {
+    position: absolute;
+    color: white !important;
+    top: 35%;
+    left: 45%;
+    font-size: 100px;
+    z-index: 10;
+    color: white;
+    opacity: 0.9;
 }
 
 .post-icons {
@@ -87,5 +98,32 @@
 @media only screen and (max-width: 550px) {
     .post-img-div {
         height: 300px;
+    }
+}
+
+@keyframes big-like {
+    from {
+        transform: scale(1.5, 1.5);
+    }
+    to {
+        transform: scale(1, 1);
+    }
+}
+
+@keyframes like {
+    from {
+        transform: scale(1.5, 1.5);
+    }
+    to {
+        transform: scale(1, 1);
+    }
+}
+
+@keyframes disLike {
+    from {
+        transform: scale(0.5, 0.5);
+    }
+    to {
+        transform: scale(1, 1);
     }
 }

@@ -9,7 +9,7 @@ const route = express.Router();
 route.get('/current-user', getCurrentUser, async(req, res) => {
     try {
         let currentUser = await user.findOne({ _id: req.user._id });
-        console.log("curUser" + currentUser);
+        // console.log("curUser" + currentUser);
         return res.status(200).json(currentUser);
     } catch (err) {
         console.log(err);
@@ -20,7 +20,7 @@ route.get('/current-user', getCurrentUser, async(req, res) => {
 route.get('/profile/:username', async(req, res) => {
     let userData = await user.findOne({ username: req.params.username });
     let userPost = await post.find({ postBy: userData._id });
-    console.log(userData, userPost);
+    // console.log(userData, userPost);
     res.status(200).json({ userData, userPost });
 });
 

@@ -330,9 +330,10 @@ app.controller('loginCtrl', ($scope, $http, $location, $localStorage) => {
 
 
 // home
-app.controller('homeCtrl', ($scope, $http, $location, $localStorage) => {
+app.controller('homeCtrl', ($scope, $http, $location, $localStorage, $document) => {
     let token = localStorage.getItem("token");
     let user = localStorage.getItem("user");
+
 
     let data = {
         token: token
@@ -351,6 +352,51 @@ app.controller('homeCtrl', ($scope, $http, $location, $localStorage) => {
     if (!token && !user) {
         $location.path('/login');
     }
+
+    // fetch all post of my following or mine post
+
+    $http.post('http://localhost:2700/post/myfollowing', { token })
+        .then((res) => {
+            $scope.allPost = res.data;
+            console.log(res.data);
+        }).catch(err => {
+            console.log(err);
+        })
+
+
+    $scope.like = () => {
+        $document[0].getElementById('heart').style = "display: none";
+        $document[0].getElementById('fill-heart').style = "display: inline-block";
+        $document[0].getElementById('fill-heart').style.animation = "like 400ms";
+
+        // $http.put(`http://localhost:2700/post/like/${postId}`, { token })
+        //     .then(res => {
+        //         console.log(res.data)
+        //     });
+    }
+
+    $scope.disLike = () => {
+        $document[0].getElementById('heart').style = "display: inline-block";
+        $document[0].getElementById('fill-heart').style = "display: none !important";
+        $document[0].getElementById('heart').style.animation = "disLike 400ms"
+
+
+
+        // $http.put(`http://localhost:2700/post/dislike/`, { token })
+        //     .then(res => {
+        //         console.log(res.data)
+        //     });
+    }
+
+    $scope.dbClick = () => {
+        $document[0].getElementById('big-fill-heart').style = "display: inherit"
+        $document[0].getElementById('big-fill-heart').style.animation = "big-like 400ms"
+        setTimeout(() => {
+            $document[0].getElementById('big-fill-heart').style = "display:none"
+        }, 700)
+        $scope.like()
+    }
+
 });
 
 

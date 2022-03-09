@@ -1,0 +1,26 @@
+<form class="d-flex mx-auto">
+    <div class="input-group dropdown">
+        <span class="input-group-text bg-white" id="basic-addon1"><i class="bi bi-search"></i>
+        </span>
+        <input class="form-control" type="search" placeholder="Search" aria-label="Search" data-bs-toggle="dropdown" ng-model="searchTerm" />
+        <ul class="dropdown-menu w-100 search-dropdown" style="height: 47vh; overflow: scroll;" aria-labelledby="dropdownMenuButton1">
+            <!-- suggested profiles -->
+            <li class="d-flex p-2 flex-column justify-content-between" ng-repeat="user in search.all | filter : searchTerm">
+                <div class="d-flex flex-row justify-content-between align-items-center my-1">
+                    <a href="#" ui-sref="profile({id: user.username})" ui-sref-active="active" class="text-decoration-none text-dark">
+                        <div class="d-flex flex-md-row">
+                            <div style="height: 50px; width: 50px">
+                                <img class="img-fluid rounded-circle" style="height: 100%;" ng-src="{{user.profile_pic}}" alt="profile image" />
+                            </div>
+                            <div class="ms-3">
+                                <div class="fw-bold">{{user.fullname}}</div>
+                                <div class="small text-muted">{{user.username}}</div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </li>
+            <!-- suggested profile items ends -->
+        </ul>
+    </div>
+</form>
