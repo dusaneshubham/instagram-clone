@@ -30,25 +30,25 @@
                             </a>
                         </li>
                     </ul>
+                    <div>
+                        <a href="#" class="edit-profile-btn" ng-show="currentUserForButton">
+                            <button class="btn btn-outline-dark btn-sm w-100">
+                                <i class="bi bi-gear-fill" style="margin-right: 7px"></i>
+                                <span>Edit Profile</span>
+                            </button>
+                        </a>
+                        <div ng-hide="currentUserForButton">
+                            <button class="btn btn-primary btn-sm w-100" ng-show="followButton" ng-click="follow()">FOLLOW</button>
+                            <button class="btn btn-outline-dark btn-sm w-100" ng-hide="followButton"
+                                ng-click="unFollow()">UNFOLLOW</button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <div class="user-bio">
                 <h5 class="my-4">{{userProfile.userData.fullname}}</h5>
                 {{userProfile.userData.bio}}
-            </div>
-
-            <div style="margin: auto 30px auto 100px">
-                <a href="#" class="edit-profile-btn" ng-show="currentUserForButton">
-                    <button class="btn btn-outline-dark">
-                        <i class="bi bi-gear-fill" style="margin-right: 7px"></i>
-                        <span>Edit Profile</span>
-                    </button>
-                </a>
-                <div ng-hide="currentUserForButton">
-                    <button class="btn btn-primary" ng-show="followButton">FOLLOW</button>
-                    <button class="btn btn-outline-dark" ng-hide="followButton">UNFOLLOW</button>
-                </div>
             </div>
         </div>
 
@@ -115,30 +115,31 @@
                                             <span class="carousel-control-prev-icon" aria-hidden="true">
 
                                             </span>
-        <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carousel-{{post._id}}" data-bs-slide="next">
+                                            <span class="visually-hidden">Previous</span>
+                                        </button>
+                                        <button class="carousel-control-next" type="button"
+                                            data-bs-target="#carousel-{{post._id}}" data-bs-slide="next">
                                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                             <span class="visually-hidden">Next</span>
                                         </button>
-    </div>
+                                    </div>
 
 
 
 
-    </div>
-    <div class="col-12 col-sm-12 col-md-12 col-lg-6 bg-danger" style="height: 80vh;">
-        Right
-    </div>
-    </div>
-    </div>
-    </div>
-    </div>
-    </div>
+                                </div>
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-6 bg-danger" style="height: 80vh;">
+                                    Right
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-    <!-- <div ng-repeat=""></div> -->
+            <!-- <div ng-repeat=""></div> -->
 
-    </span>
+        </span>
 
 
 

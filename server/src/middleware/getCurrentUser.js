@@ -19,7 +19,7 @@ const getCurrentUser = async (req, res, next) => {
         user.findById(_id)
             .then(userData => {
                 req.user = userData;
-                console.log(userData);
+                // console.log(userData);
                 next();
             })
             .catch(err => {

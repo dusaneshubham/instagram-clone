@@ -355,7 +355,7 @@ app.controller('homeCtrl', ($scope, $http, $location, $localStorage) => {
 
 
 // profile
-app.controller('profileCtrl', ($scope, $http, $stateParams, $localStorage) => {
+app.controller('profileCtrl', ($scope, $http, $stateParams, $window) => {
     let token = localStorage.getItem("token");
     let username = $stateParams.id;
     $scope.currentUserForButton = false;
@@ -391,7 +391,7 @@ app.controller('profileCtrl', ($scope, $http, $stateParams, $localStorage) => {
                     $scope.currentUserForButton = true;
                 }
                 else {
-                    if($scope.userProfile.userData.follower.includes(currentUser._id)) {
+                    if ($scope.userProfile.userData.follower.includes(currentUser._id)) {
                         $scope.followButton = false;
                     }
                 }
@@ -399,6 +399,29 @@ app.controller('profileCtrl', ($scope, $http, $stateParams, $localStorage) => {
             .catch((error) => {
                 console.log(error);
             })
+    }
+
+
+    $scope.follow = () => {
+        $http.put(`http://localhost:2700/user/follow/${$scope.userProfile.userData._id}`, { token })
+            .then((response) => {
+                $scope.followButton = false;
+                console.log(response);
+                $window.location.reload();
+            }).catch((err) => {
+                console.log(err);
+            });
+        }
+        
+        $scope.unFollow = () => {
+            $http.put(`http://localhost:2700/user/unfollow/${$scope.userProfile.userData._id}`, { token })
+            .then((response) => {
+                $scope.followButton = true;
+                console.log(response);
+                $window.location.reload();
+            }).catch((err) => {
+                console.log(err);
+            });
     }
 });
 

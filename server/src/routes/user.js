@@ -6,7 +6,7 @@ const getCurrentUser = require('../middleware/getCurrentUser');
 // initialized route
 const route = express.Router();
 
-route.post('/current-user', getCurrentUser, async(req, res) => {
+route.post('/current-user', getCurrentUser, async (req, res) => {
     try {
         let currentUser = await user.findOne({ _id: req.user._id });
         return res.status(200).json(currentUser);
@@ -16,15 +16,15 @@ route.post('/current-user', getCurrentUser, async(req, res) => {
 });
 
 // get particular user data
-route.get('/profile/:username', async(req, res) => {
+route.get('/profile/:username', async (req, res) => {
     let userData = await user.findOne({ username: req.params.username });
     let userPost = await post.find({ postBy: userData._id });
-    console.log(userData, userPost);
+    // console.log(userData, userPost);
     res.status(200).json({ userData, userPost });
 });
 
 // Get All User ......
-route.get('/all-user', async(req, res) => {
+route.get('/all-user', async (req, res) => {
     try {
         const userdata = await user.find();
         res.status(200).json(userdata);
@@ -34,7 +34,7 @@ route.get('/all-user', async(req, res) => {
 });
 
 // Update User Data like Profile Picture, Bio, City etc ......
-route.put('/update/:id', getCurrentUser, async(req, res) => {
+route.put('/update/:id', getCurrentUser, async (req, res) => {
     const { id } = req.params;
     if (String(req.user._id) === id) {
         try {
@@ -49,7 +49,7 @@ route.put('/update/:id', getCurrentUser, async(req, res) => {
 });
 
 // Follow A User .....
-route.put('/follow/:id', getCurrentUser, async(req, res) => {
+route.put('/follow/:id', getCurrentUser, async (req, res) => {
     const { id } = req.params;
     if (String(req.user._id) !== id) {
         try {
@@ -81,7 +81,7 @@ route.put('/follow/:id', getCurrentUser, async(req, res) => {
 });
 
 // Unfollow A User .....
-route.put('/unfollow/:id', getCurrentUser, async(req, res) => {
+route.put('/unfollow/:id', getCurrentUser, async (req, res) => {
     const { id } = req.params;
     if (String(req.user._id) !== id) {
         try {
