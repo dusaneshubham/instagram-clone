@@ -1,4 +1,4 @@
-const FollowerSuggestionListCtrl = ['suggestionListService', function (suggestionListService, $localStorage, $scope, $http) {
+const FollowerSuggestionListCtrl = ['suggestionListService', function(suggestionListService, $localStorage, $scope, $http) {
     let followers = this;
 
     const currentUserId = JSON.parse(localStorage.getItem('user'))._id;

@@ -10,3 +10,11 @@
         left: 0 !important;
     }
 }
+
+input:focus {
+    outline: none !important;
+}
+
+.search-dropdown::-webkit-scrollbar {
+    display: none;
+}

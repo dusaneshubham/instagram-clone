@@ -39,8 +39,7 @@
                         </a>
                         <div ng-hide="currentUserForButton">
                             <button class="btn btn-primary btn-sm w-100" ng-show="followButton" ng-click="follow()">FOLLOW</button>
-                            <button class="btn btn-outline-dark btn-sm w-100" ng-hide="followButton"
-                                ng-click="unFollow()">UNFOLLOW</button>
+                            <button class="btn btn-outline-dark btn-sm w-100" ng-hide="followButton" ng-click="unFollow()">UNFOLLOW</button>
                         </div>
                     </div>
                 </div>
@@ -72,72 +71,73 @@
 
 
 
+            <span ng-if="post.post[0].split('.').pop() == 'mp4'">
+                <video ng-src={{post.post[0]}} controls></video>
+            </span>
+        <span ng-if="post.post[0].split('.').pop() != 'mp4'">
+                <img style="object-fit: contain; background: rgba(245, 245, 245, 0.5); border-radius: 10px;" ng-src={{post.post[0]}}
+                    class="p-2" data-bs-toggle="modal" data-bs-target="#post-{{post._id}}" alt="">
+            </span>
 
-            <img style="object-fit: contain; background: rgba(245, 245, 245, 0.5); border-radius: 10px;"
-                ng-src={{post.post[0]}} class="p-2" data-bs-toggle="modal" data-bs-target="#post-{{post._id}}" alt="">
 
 
 
-            <div class="modal fade" id="post-{{post._id}}" data-bs-backdrop="static" data-bs-keyboard="false"
-                tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-xl">
-                    <!-- <div class="modal-content"> -->
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
+        <div class="modal fade" id="post-{{post._id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-xl">
+                <!-- <div class="modal-content"> -->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
 
-                        <div class="modal-body">
-                            <div class="row">
-                                <div
-                                    class="col-12 col-sm-12 col-md-12 col-lg-6 bg-dark d-flex justify-content-center align-items-center">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-6 bg-dark d-flex justify-content-center align-items-center">
 
-                                    <div id="carousel-{{post._id}}" class="carousel slide" data-bs-ride="carousel">
-                                        <div class="carousel-indicators">
-                                            <button type="button" ng-repeat="postImage in post.post"
-                                                class="{{$index ? '' : 'active'}}"
-                                                data-bs-target="#carousel-{{post._id}}" data-bs-slide-to="{{$index}}"
-                                                aria-current="true" aria-label="Slide 1"></button>
+                                <div id="carousel-{{post._id}}" class="carousel slide" data-bs-ride="carousel">
+                                    <div class="carousel-indicators">
+                                        <button type="button" ng-repeat="postImage in post.post" class="{{$index ? '' : 'active'}}" data-bs-target="#carousel-{{post._id}}" data-bs-slide-to="{{$index}}" aria-current="true" aria-label="Slide 1"></button>
+
+                                    </div>
+                                    <div class="carousel-inner">
+                                        <div ng-repeat="postImage in post.post" class="carousel-item {{$index ? '' : 'active'}}">
+                                            <span ng-if="postImage.split('.').pop() == 'mp4'">
+                                                <video ng-src="{{postImage}}" controls></video>
+                                            </span>
+                                            <span ng-if="postImage.split('.').pop() != 'mp4'">
+                                                <img ng-src="{{postImage}}" alt="" style=" object-fit:contain; width: 100% !important; height: 70vh !important;">
+                                            </span>
 
                                         </div>
-                                        <div class="carousel-inner">
-                                            <div ng-repeat="postImage in post.post"
-                                                class="carousel-item {{$index ? '' : 'active'}}">
-
-                                                <img ng-src="{{postImage}}" alt=""
-                                                    style=" object-fit:contain; width: 100% !important; height: 70vh !important;">
-                                            </div>
 
 
-                                        </div>
-                                        <button class="carousel-control-prev" type="button"
-                                            data-bs-target="#carousel-{{post._id}}" data-bs-slide="prev">
+                                    </div>
+                                    <button class="carousel-control-prev" type="button" data-bs-target="#carousel-{{post._id}}" data-bs-slide="prev">
                                             <span class="carousel-control-prev-icon" aria-hidden="true">
 
                                             </span>
-                                            <span class="visually-hidden">Previous</span>
-                                        </button>
-                                        <button class="carousel-control-next" type="button"
-                                            data-bs-target="#carousel-{{post._id}}" data-bs-slide="next">
+        <span class="visually-hidden">Previous</span>
+        </button>
+                                    <button class="carousel-control-next" type="button" data-bs-target="#carousel-{{post._id}}" data-bs-slide="next">
                                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                             <span class="visually-hidden">Next</span>
                                         </button>
-                                    </div>
-
-
-
-
                                 </div>
-                                <div class="col-12 col-sm-12 col-md-12 col-lg-6 bg-danger" style="height: 80vh;">
-                                    Right
-                                </div>
+
+
+
+
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-6 bg-danger" style="height: 80vh;">
+                                Right
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!-- <div ng-repeat=""></div> -->
+        <!-- <div ng-repeat=""></div> -->
 
         </span>
 

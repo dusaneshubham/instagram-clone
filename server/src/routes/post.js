@@ -66,35 +66,35 @@ route.post("/createpost", postImageUpload.array('photo'), getCurrentUser, postCo
 // });
 
 // // like the post
-// route.put('/like/:id', getCurrentUser, async (req, res) => {
-//     try {
-//         const currentPost = await post.findById(req.params.id);
-//         if (!currentPost.likes.includes(req.user._id)) {
-//             await post.updateOne({ $push: { likes: req.user._id } })
-//             return res.status(200).json("Post liked !")
-//         } else {
-//             return res.status(401).json("You already liked !")
-//         }
-//     } catch (error) {
-//         console.log(error);
-//         return res.status(500).json("Something wrong !")
-//     }
-// })
+route.put('/like/:id', getCurrentUser, async(req, res) => {
+    try {
+        const currentPost = await post.findById(req.params.id);
+        if (!currentPost.likes.includes(req.user._id)) {
+            await post.updateOne({ $push: { likes: req.user._id } })
+            return res.status(200).json("Post liked !")
+        } else {
+            return res.status(401).json("You already liked !")
+        }
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json("Something wrong !")
+    }
+})
 
 // // unlike the post
-// route.put('/dislike/:id', getCurrentUser, async (req, res) => {
-//     try {
-//         const particularPost = await post.findById(req.params.id);
-//         if (particularPost.likes.includes(String(req.user._id))) {
-//             await post.updateOne({ $pull: { likes: String(req.user._id) } })
-//             return res.status(200).json("Post disliked !")
-//         } else {
-//             return res.status(401).json("You already disliked !")
-//         }
-//     } catch (error) {
-//         return res.status(500).json("Something wrong !")
-//     }
-// });
+route.put('/dislike/:id', getCurrentUser, async(req, res) => {
+    try {
+        const particularPost = await post.findById(req.params.id);
+        if (particularPost.likes.includes(String(req.user._id))) {
+            await post.updateOne({ $pull: { likes: String(req.user._id) } })
+            return res.status(200).json("Post disliked !")
+        } else {
+            return res.status(401).json("You already disliked !")
+        }
+    } catch (error) {
+        return res.status(500).json("Something wrong !")
+    }
+});
 
 // // comment a post
 // route.put('/comment/:id', getCurrentUser, async (req, res) => {
@@ -139,5 +139,24 @@ route.post("/createpost", postImageUpload.array('photo'), getCurrentUser, postCo
 //         console.log(error);
 //     }
 // });
+
+
+
+// display all post of my friend that i am following
+route.post('/myfollowing', getCurrentUser, async(req, res) => {
+
+    console.log(req.user.following)
+    try {
+        const posts = await post.find({ $or: [{ postBy: { $in: req.user.following } }, { postBy: req.user._id }] })
+            .populate('postBy', 'username profile_pic')
+            .populate('comments.commentBy', 'username profile_pic')
+            .sort('-createdAt');
+        // console.log(posts)
+        return res.status(200).json(posts);
+    } catch (error) {
+        return res.status(500).json({ message: error })
+    }
+
+})
 
 module.exports = route;

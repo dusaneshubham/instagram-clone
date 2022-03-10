@@ -5,12 +5,18 @@ const postSchema = new mongoose.Schema({
         type: mongoose.SchemaTypes.ObjectId,
         ref: 'User'
     },
-    location: String,
+    location: {
+        type: String,
+        default: null
+    },
     post: [{
         type: String,
         required: true
     }],
-    postDescription: String,
+    postDescription: {
+        type: String,
+        default: null
+    },
     likes: [{
         type: mongoose.SchemaTypes.ObjectId,
         ref: 'User'
