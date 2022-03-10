@@ -2,7 +2,7 @@
 
 const app = angular.module("instagramApp", ["ui.router", "ngStorage"]);
 
-app.config(function($stateProvider) {
+app.config(function ($stateProvider) {
     const indexState = {
         name: "index",
         url: "",
@@ -401,12 +401,12 @@ app.controller('homeCtrl', ($scope, $http, $location, $localStorage, $document) 
 
 
 // profile
-app.controller('profileCtrl', ($scope, $http, $stateParams, $localStorage) => {
+app.controller('profileCtrl', ($scope, $http, $stateParams, $window) => {
     let token = localStorage.getItem("token");
     let username = $stateParams.id;
-
-
-    console.log(username);
+    $scope.currentUserForButton = false;
+    $scope.followButton = true;
+    let currentUser = JSON.parse(localStorage.getItem('user'));
 
     let data = {
         token: token
@@ -427,17 +427,47 @@ app.controller('profileCtrl', ($scope, $http, $stateParams, $localStorage) => {
         $location.path('/login');
     } else {
         $http.get(`http://localhost:2700/user/profile/${username}`, {
-                headers: {
-                    "Authorization": "Bearer " + token
-                }
-            })
+            headers: {
+                "Authorization": "Bearer " + token
+            }
+        })
             .then((response) => {
-
                 $scope.userProfile = response.data;
+                if ($scope.userProfile.userData._id === currentUser._id) {
+                    $scope.currentUserForButton = true;
+                }
+                else {
+                    if ($scope.userProfile.userData.follower.includes(currentUser._id)) {
+                        $scope.followButton = false;
+                    }
+                }
             })
             .catch((error) => {
                 console.log(error);
             })
+    }
+
+
+    $scope.follow = () => {
+        $http.put(`http://localhost:2700/user/follow/${$scope.userProfile.userData._id}`, { token })
+            .then((response) => {
+                $scope.followButton = false;
+                console.log(response);
+                $window.location.reload();
+            }).catch((err) => {
+                console.log(err);
+            });
+        }
+        
+        $scope.unFollow = () => {
+            $http.put(`http://localhost:2700/user/unfollow/${$scope.userProfile.userData._id}`, { token })
+            .then((response) => {
+                $scope.followButton = true;
+                console.log(response);
+                $window.location.reload();
+            }).catch((err) => {
+                console.log(err);
+            });
     }
 });
 
@@ -487,28 +517,6 @@ app.controller('postFileCtrl', ($scope, $http, $location, $localStorage) => {
         }
     }
 
-    $scope.shift = () => {
-        // $scope.activeIndex++;
-        // let length = $scope.images.length;
-        // let temp = $scope.images[0];
-        // for (let i = 0; i < length - 1; ++i) {
-        //     $scope.images[i] = $scope.images[i + 1];
-        // }
-        // $scope.images[length - 1] = temp;
-        // console.log($scope.images);
-    }
-
-    $scope.unshift = () => {
-        // $scope.activeIndex--;
-        // let length = $scope.images.length;
-        // let temp = $scope.images[length - 1];
-        // for (let i = length - 1; i < 0; --i) {
-        //     $scope.images[i] = $scope.images[i - 1];
-        // }
-        // $scope.images[0] = temp;
-        // console.log($scope.images);
-    }
-
     $scope.postImagePreview = (element) => {
         $scope.$apply(() => {
             let inputImages = element.files;
@@ -552,11 +560,11 @@ app.controller('postFileCtrl', ($scope, $http, $location, $localStorage) => {
         console.log(file)
 
         $http.post("http://localhost:2700/post/createpost", file, {
-                headers: {
-                    "Content-Type": undefined,
-                    "Authorization": "Bearer " + localStorage.getItem("token")
-                }
-            })
+            headers: {
+                "Content-Type": undefined,
+                "Authorization": "Bearer " + localStorage.getItem("token")
+            }
+        })
             .then((response) => {
                 $scope.spinnerBtn = false;
                 if (response.data.success === 1)
@@ -570,13 +578,3 @@ app.controller('postFileCtrl', ($scope, $http, $location, $localStorage) => {
             });
     }
 })
-
-
-
-// {
-//     ({
-//         { activeIndex }
-//     } == {
-//         { $index }
-//     }) ? "active" : ''
-// }

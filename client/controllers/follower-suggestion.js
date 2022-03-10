@@ -4,11 +4,7 @@ const FollowerSuggestionCtrl = ['$localStorage', '$http', function($localStorage
     const token = localStorage.getItem('token');
     this.follow = true;
 
-
-
     this.followUser = (id) => {
-
-
 
         $http.put(`http://localhost:2700/user/follow/${id}`, { token: token }, {
 
@@ -19,11 +15,8 @@ const FollowerSuggestionCtrl = ['$localStorage', '$http', function($localStorage
             console.log(err);
         })
 
-
     }
     this.unFollowUser = (id) => {
-
-
 
         $http.put(`http://localhost:2700/user/unfollow/${id}`, { token: token }, {
 
@@ -34,12 +27,7 @@ const FollowerSuggestionCtrl = ['$localStorage', '$http', function($localStorage
             console.log(err);
         })
 
-
     }
-
-
-
-
 
 }];
 

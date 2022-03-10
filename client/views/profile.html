@@ -30,6 +30,18 @@
                             </a>
                         </li>
                     </ul>
+                    <div>
+                        <a href="#" class="edit-profile-btn" ng-show="currentUserForButton">
+                            <button class="btn btn-outline-dark btn-sm w-100">
+                                <i class="bi bi-gear-fill" style="margin-right: 7px"></i>
+                                <span>Edit Profile</span>
+                            </button>
+                        </a>
+                        <div ng-hide="currentUserForButton">
+                            <button class="btn btn-primary btn-sm w-100" ng-show="followButton" ng-click="follow()">FOLLOW</button>
+                            <button class="btn btn-outline-dark btn-sm w-100" ng-hide="followButton" ng-click="unFollow()">UNFOLLOW</button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -37,13 +49,6 @@
                 <h5 class="my-4">{{userProfile.userData.fullname}}</h5>
                 {{userProfile.userData.bio}}
             </div>
-
-            <a href="#" style="margin: 100px" class="edit-profile-btn">
-                <button class="btn btn-outline-dark">
-                    <i class="bi bi-gear-fill" style="margin-right: 7px"></i>
-                    <span>Edit Profile</span>
-                </button>
-            </a>
         </div>
 
         <hr />
