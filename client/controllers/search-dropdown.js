@@ -1,4 +1,4 @@
-const SearchCtrl = ['suggestionListService', function(suggestionListService) {
+const SearchCtrl = ['suggestionListService', function (suggestionListService) {
     const search = this;
     suggestionListService.getSuggestions()
         .then((res) => {
@@ -11,4 +11,10 @@ const SearchCtrl = ['suggestionListService', function(suggestionListService) {
 
 angular
     .module("instagramApp")
-    .controller("SearchCtrl", SearchCtrl);
+    .controller("SearchCtrl", SearchCtrl)
+    .filter("myFilter", () => {
+        return (item, searchTerm) => {
+            let data = item.filter(user => user.username.includes(searchTerm) || user.fullname.includes(searchTerm));
+            return data;
+        }
+    });

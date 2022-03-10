@@ -144,8 +144,6 @@ route.put('/dislike/:id', getCurrentUser, async(req, res) => {
 
 // display all post of my friend that i am following
 route.post('/myfollowing', getCurrentUser, async(req, res) => {
-
-    console.log(req.user.following)
     try {
         const posts = await post.find({ $or: [{ postBy: { $in: req.user.following } }, { postBy: req.user._id }] })
             .populate('postBy', 'username profile_pic')
