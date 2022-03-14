@@ -70,8 +70,8 @@ route.put('/like/:id', getCurrentUser, async(req, res) => {
     try {
         const currentPost = await post.findById(req.params.id);
         if (!currentPost.likes.includes(req.user._id)) {
-            await post.updateOne({ $push: { likes: req.user._id } })
-            return res.status(200).json("Post liked !")
+            await currentPost.updateOne({ $push: { likes: String(req.user._id) } })
+            return res.status(200).json(currentPost);
         } else {
             return res.status(401).json("You already liked !")
         }

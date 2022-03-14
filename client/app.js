@@ -2,7 +2,7 @@
 
 const app = angular.module("instagramApp", ["ui.router", "ngStorage"]);
 
-app.config(function ($stateProvider) {
+app.config(function($stateProvider) {
     const indexState = {
         name: "index",
         url: "",
@@ -355,46 +355,70 @@ app.controller('homeCtrl', ($scope, $http, $location, $localStorage, $document) 
 
     // fetch all post of my following or mine post
 
-    $http.post('http://localhost:2700/post/myfollowing', { token })
-        .then((res) => {
-            $scope.allPost = res.data;
-            console.log(res.data);
-        }).catch(err => {
-            console.log(err);
-        })
+    const myFollowingPosts = () => {
+        $http.post('http://localhost:2700/post/myfollowing', { token })
+            .then((res) => {
+                $scope.allPost = res.data;
+                console.log(res.data);
+                let sinceCreatedAt;
 
+                $scope.getSinceTime = (index) => {
+                    sinceCreatedAt = (new Date().getTime() - new Date(res.data[index].createdAt).getTime()) / 1000;
 
-    $scope.like = () => {
-        $document[0].getElementById('heart').style = "display: none";
-        $document[0].getElementById('fill-heart').style = "display: inline-block";
-        $document[0].getElementById('fill-heart').style.animation = "like 400ms";
-
-        // $http.put(`http://localhost:2700/post/like/${postId}`, { token })
-        //     .then(res => {
-        //         console.log(res.data)
-        //     });
+                    if (sinceCreatedAt < 60) {
+                        return Math.floor(sinceCreatedAt) + ' second ago';
+                    } else if (sinceCreatedAt >= 60 && sinceCreatedAt < 3600) {
+                        return Math.floor(sinceCreatedAt / 60) + ' min ago';
+                    } else if (sinceCreatedAt >= 3600 && sinceCreatedAt < 86400) {
+                        return Math.floor(sinceCreatedAt / 3600) + ' hour ago';
+                    } else if (sinceCreatedAt >= 86400 && sinceCreatedAt < 2592000) {
+                        return Math.floor(sinceCreatedAt / 86400) + ' day ago';
+                    } else if (sinceCreatedAt >= 2592000 && sinceCreatedAt < 31536000) {
+                        return Math.floor(sinceCreatedAt / 2592000) + ' month ago';
+                    } else {
+                        return Math.floor(sinceCreatedAt / 31536000) + ' year ago';
+                    }
+                }
+            }).catch(err => {
+                console.log(err);
+            })
     }
 
-    $scope.disLike = () => {
-        $document[0].getElementById('heart').style = "display: inline-block";
-        $document[0].getElementById('fill-heart').style = "display: none !important";
-        $document[0].getElementById('heart').style.animation = "disLike 400ms"
+    myFollowingPosts();
 
+    $scope.like = (id) => {
+        console.log(id)
+        $document[0].getElementById(id).style = "display: none";
+        $document[0].getElementById('un' + id).style = "display: inline-block";
+        $document[0].getElementById('un' + id).style.animation = "like 400ms";
 
-
-        // $http.put(`http://localhost:2700/post/dislike/`, { token })
-        //     .then(res => {
-        //         console.log(res.data)
-        //     });
+        $http.put(`http://localhost:2700/post/like/${id}`, { token })
+            .then(res => {
+                console.log(res.data)
+                myFollowingPosts();
+            });
     }
 
-    $scope.dbClick = () => {
-        $document[0].getElementById('big-fill-heart').style = "display: inherit"
-        $document[0].getElementById('big-fill-heart').style.animation = "big-like 400ms"
+    $scope.disLike = (id) => {
+        $document[0].getElementById(id).style = "display: inline-block";
+        $document[0].getElementById('un' + id).style = "display: none !important";
+        $document[0].getElementById(id).style.animation = "disLike 400ms"
+
+        $http.put(`http://localhost:2700/post/dislike/${id}`, { token })
+            .then(res => {
+                console.log(res.data)
+                myFollowingPosts();
+            });
+    }
+
+    $scope.dbClick = (id) => {
+        $document[0].getElementById("big" + id).style = "display: inherit"
+        $document[0].getElementById("big" + id).style.animation = "big-like 400ms"
         setTimeout(() => {
-            $document[0].getElementById('big-fill-heart').style = "display:none"
+            $document[0].getElementById("big" + id).style = "display:none"
         }, 700)
-        $scope.like()
+        $scope.like(id)
+        myFollowingPosts(id);
     }
 
 });
@@ -427,16 +451,15 @@ app.controller('profileCtrl', ($scope, $http, $stateParams, $window) => {
         $location.path('/login');
     } else {
         $http.get(`http://localhost:2700/user/profile/${username}`, {
-            headers: {
-                "Authorization": "Bearer " + token
-            }
-        })
+                headers: {
+                    "Authorization": "Bearer " + token
+                }
+            })
             .then((response) => {
                 $scope.userProfile = response.data;
                 if ($scope.userProfile.userData._id === currentUser._id) {
                     $scope.currentUserForButton = true;
-                }
-                else {
+                } else {
                     if ($scope.userProfile.userData.follower.includes(currentUser._id)) {
                         $scope.followButton = false;
                     }
@@ -457,10 +480,10 @@ app.controller('profileCtrl', ($scope, $http, $stateParams, $window) => {
             }).catch((err) => {
                 console.log(err);
             });
-        }
-        
-        $scope.unFollow = () => {
-            $http.put(`http://localhost:2700/user/unfollow/${$scope.userProfile.userData._id}`, { token })
+    }
+
+    $scope.unFollow = () => {
+        $http.put(`http://localhost:2700/user/unfollow/${$scope.userProfile.userData._id}`, { token })
             .then((response) => {
                 $scope.followButton = true;
                 console.log(response);
@@ -560,11 +583,11 @@ app.controller('postFileCtrl', ($scope, $http, $location, $localStorage) => {
         console.log(file)
 
         $http.post("http://localhost:2700/post/createpost", file, {
-            headers: {
-                "Content-Type": undefined,
-                "Authorization": "Bearer " + localStorage.getItem("token")
-            }
-        })
+                headers: {
+                    "Content-Type": undefined,
+                    "Authorization": "Bearer " + localStorage.getItem("token")
+                }
+            })
             .then((response) => {
                 $scope.spinnerBtn = false;
                 if (response.data.success === 1)
