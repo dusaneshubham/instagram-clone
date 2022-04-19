@@ -68,12 +68,13 @@ route.post("/createpost", postImageUpload.array('photo'), getCurrentUser, postCo
 // // like the post
 route.put('/like/:id', getCurrentUser, async(req, res) => {
     try {
-        const currentPost = await post.findById(req.params.id);
+        let currentPost = await post.findById(req.params.id);
         if (!currentPost.likes.includes(req.user._id)) {
-            await currentPost.updateOne({ $push: { likes: String(req.user._id) } })
+            currentPost = await post.findByIdAndUpdate({ _id: req.params.id }, { $push: { likes: String(req.user._id) } }, { new: true })
+            console.log(currentPost);
             return res.status(200).json(currentPost);
         } else {
-            return res.status(401).json("You already liked !")
+            return res.status(200).json("You already liked !")
         }
     } catch (error) {
         console.log(error);
@@ -84,10 +85,10 @@ route.put('/like/:id', getCurrentUser, async(req, res) => {
 // // unlike the post
 route.put('/dislike/:id', getCurrentUser, async(req, res) => {
     try {
-        const particularPost = await post.findById(req.params.id);
+        let particularPost = await post.findById(req.params.id);
         if (particularPost.likes.includes(String(req.user._id))) {
-            await post.updateOne({ $pull: { likes: String(req.user._id) } })
-            return res.status(200).json("Post disliked !")
+            particularPost = await post.findByIdAndUpdate({ _id: req.params.id }, { $pull: { likes: String(req.user._id) } }, { new: true })
+            return res.status(200).json(particularPost)
         } else {
             return res.status(401).json("You already disliked !")
         }
@@ -97,25 +98,25 @@ route.put('/dislike/:id', getCurrentUser, async(req, res) => {
 });
 
 // // comment a post
-// route.put('/comment/:id', getCurrentUser, async (req, res) => {
-//     const postId = req.params.id;
-//     try {
-//         const obj = {
-//             commentBy: req.user._id,
-//             commentBody: req.body.comment,
-//             commentTime: Date.now()
-//         }
-//         await post.findByIdAndUpdate(postId, { $push: { comments: obj } })
-//             .then(() => {
-//                 return res.status(200).json("Comment added to this post !");
-//             })
-//             .catch(err => {
-//                 console.log(err);
-//             })
-//     } catch (err) {
-//         console.log(err);
-//     }
-// });
+route.put('/comment/:id', getCurrentUser, async(req, res) => {
+    const postId = req.params.id;
+    try {
+        const obj = {
+            commentBy: req.user._id,
+            commentBody: req.body.comment,
+            commentTime: Date.now()
+        }
+        await post.findByIdAndUpdate(postId, { $push: { comments: obj } })
+            .then(() => {
+                return res.status(200).json("Comment added to this post !");
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    } catch (err) {
+        console.log(err);
+    }
+});
 
 // // update our own post description 
 // route.put('/update-post-description/:id', getCurrentUser, async (req, res) => {
