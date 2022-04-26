@@ -10,7 +10,7 @@
         <!-- search ends -->
 
         <!-- nav items -->
-        <ul class="navbar-nav navbar-light bg-light me-0 mb-2 mb-lg-0 d-flex" id="navbar-icons">
+        <ul class="navbar-nav navbar-light bg-light me-0 mb-2 mb-lg-0 d-flex" id="navbar-icons" ng-controller="logout">
             <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="#" ui-sref="home" ui-sref-active="active">
                     <i class="bi bi-house-door-fill" style="font-size: 23px"></i>
@@ -38,6 +38,11 @@
             <li class="nav-item ms-md-3">
                 <a class="nav-link" href="#" ui-sref="profile({id:'shubham'})" ui-sref-active="active">
                     <img src="images/profiles/profile-1.jpg" alt="profile image" class="rounded-circle" style="height: 33px" />
+                </a>
+            </li>
+            <li class="nav-item ms-md-3">
+                <a class="nav-link" style="cursor: pointer;" ng-click="logout()">
+                    <i class="bi bi-box-arrow-left" style="font-size: 23px"></i>
                 </a>
             </li>
         </ul>
@@ -74,6 +79,7 @@
         display: none;
     }
 </style>
+
 <!-- Create Post Modal -->
 <div class="modal fade" ng-controller="postFileCtrl" id="createPostModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">

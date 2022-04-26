@@ -10,7 +10,7 @@
         <div class="profile my-5">
             <div class="d-flex align-items-center">
                 <div class="profile-image">
-                    <img src="{{userProfile.userData.profile_pic}}" alt="profile-image" />
+                    <img ng-src="{{userProfile.userData.profile_pic}}" alt="profile-image" />
                 </div>
 
                 <div class="profile-details">
@@ -66,33 +66,31 @@
         </div>
 
 
-
         <span class="our-post-div text-center" ng-repeat="post in userProfile.userPost">
-
-
 
             <span ng-if="post.post[0].split('.').pop() == 'mp4'">
                 <video ng-src={{post.post[0]}} controls></video>
             </span>
         <span ng-if="post.post[0].split('.').pop() != 'mp4'">
-                <img style="object-fit: contain; background: rgba(245, 245, 245, 0.5); border-radius: 10px;" ng-src={{post.post[0]}}
-                    class="p-2" data-bs-toggle="modal" data-bs-target="#post-{{post._id}}" alt="">
+                <img style="object-fit: contain; background: rgba(245, 245, 245, 0.5); border-radius: 10px;"
+                    ng-src={{post.post[0]}} class="p-2" data-bs-toggle="modal" data-bs-target="#post-{{post._id}}"
+                    alt="">
             </span>
 
 
 
-
+        <!-- Profile Comment Modal -->
         <div class="modal fade" id="post-{{post._id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-xl">
-                <!-- <div class="modal-content"> -->
-                <div class="modal-content">
+                <div class="modal-content" ng-dblclick="dbClick(post._id, $index)">
                     <div class="modal-header">
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-
+                    <i class="bi bi-heart-fill center-heart" id="big{{post._id}}" style="display: none;"></i>
                     <div class="modal-body">
                         <div class="row">
-                            <div class="col-12 col-sm-12 col-md-12 col-lg-6 bg-dark d-flex justify-content-center align-items-center">
+                            <!-- Modal Left side -->
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-6 bg-light d-flex justify-content-center align-items-center">
 
                                 <div id="carousel-{{post._id}}" class="carousel slide" data-bs-ride="carousel">
                                     <div class="carousel-indicators">
@@ -102,11 +100,12 @@
                                     <div class="carousel-inner">
                                         <div ng-repeat="postImage in post.post" class="carousel-item {{$index ? '' : 'active'}}">
                                             <span ng-if="postImage.split('.').pop() == 'mp4'">
-                                                <video ng-src="{{postImage}}" controls></video>
-                                            </span>
+                                                    <video ng-src="{{postImage}}" controls></video>
+                                                </span>
                                             <span ng-if="postImage.split('.').pop() != 'mp4'">
-                                                <img ng-src="{{postImage}}" alt="" style=" object-fit:contain; width: 100% !important; height: 70vh !important;">
-                                            </span>
+                                                    <img ng-src="{{postImage}}" alt=""
+                                                        style="  object-fit:contain;width: 100% !important; height: 70vh !important;">
+                                                </span>
 
                                         </div>
 
@@ -116,25 +115,124 @@
                                             <span class="carousel-control-prev-icon" aria-hidden="true">
 
                                             </span>
-        <span class="visually-hidden">Previous</span>
-        </button>
+                                            <span class="visually-hidden">Previous</span>
+                                        </button>
                                     <button class="carousel-control-next" type="button" data-bs-target="#carousel-{{post._id}}" data-bs-slide="next">
                                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                             <span class="visually-hidden">Next</span>
                                         </button>
                                 </div>
 
-
-
-
                             </div>
-                            <div class="col-12 col-sm-12 col-md-12 col-lg-6 bg-danger" style="height: 80vh;">
-                                Right
+
+                            <!-- Modal Right side -->
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-6" style="height: 80vh;display: flex;flex-direction: column;flex: 1;padding-left:3px;">
+                                <div class="post-username-div py-2 px-3 d-flex justify-content-between" style="border-bottom: 1px solid rgba(0, 0, 0, 0.1)">
+                                    <div class="d-flex align-items-center">
+                                        <div style="position: relative;" class="post-user-img-div">
+                                            <img ng-src="{{userProfile.userData.profile_pic}}" class="img-fluid rounded-circle" style="height: 32px !important;
+                                                    width: 40px !important;
+                                                    position: relative;
+                                                    top: -10px;
+                                                    left: -10px;" alt="" />
+                                        </div>
+
+                                        <div>
+                                            <h6 class="m-0 p-0">{{userProfile.userData.username}}</h6>
+                                            <small style="font-size: 14px;color:rgb(134, 137, 139);" ng-if="post.location !== 'undefined'">{{post.location}}</small>
+                                        </div>
+                                    </div>
+                                    <i class="bi bi-three-dots-vertical" style="font-size: 25px; cursor: pointer;"></i>
+                                </div>
+
+                                <!-- comment -->
+
+                                <div class="comment-profile-scroll" style="width: 100%;height: 60vh; overflow-y: scroll;">
+                                    <div class="description px-3 py-2">
+
+                                        <!-- <p>{{post}}</p> -->
+                                        <!-- Post description by posted user -->
+                                        <p style="text-align: left;" class="mb-3">
+                                            <!-- TODO - ng loop -->
+                                            <!-- TODO - ng loop -->
+                                            <span ng-if="post.postDescription !== 'undefined'">
+                                                    <span><img src="{{userProfile.userData.profile_pic}}"
+                                                            class="img-fluid rounded-circle"
+                                                            style="height: 30px !important;
+                                                                                                                                            width: 30px !important;
+                                                            margin: 0px 7px 0px 0px !important;                                                                                "
+                                                            alt="" />
+                                                    </span>
+                                            <span style="font-weight: 500">{{userProfile.userData.username}}</span>
+                                            <span style="color: rgb(2, 2, 2);">
+                                                        {{post.postDescription}}</span>
+                                            </span>
+                                        </p>
+
+                                        <!-- Other's comments -->
+                                        <p class="mb-1" style="text-align: left;margin-left: 20px !important;" ng-repeat="comment in post.comments">
+                                            <span style="font-weight: 500">{{userProfile.userData.username}}</span><span>
+                                                    :
+                                                    {{comment.commentBody}}</span>
+                                        </p>
+
+
+                                    </div>
+                                </div>
+
+                                <!-- comment end -->
+
+                                <div class="px-3 py-2 d-flex justify-content-between">
+                                    <div>
+                                        <!-- {{isLikedByMe(post.likes)}} -->
+                                        <h6 style="text-align: left; margin-left: 20px;">{{post.likes.length}} likes
+                                        </h6>
+                                        <i id="{{post._id}}" class="bi bi-heart post-icons" ng-click="like(post._id, $index)" style="cursor: pointer;"></i>
+                                        <i class="bi bi-heart-fill post-icons" ng-click="disLike(post._id, $index)" id="un{{post._id}}" style="display: none;"></i>
+                                        <i class="bi bi-chat post-icons" style="cursor: pointer;"></i>
+                                        <i class="bi bi-send post-icons" style="cursor: pointer;"></i>
+                                    </div>
+                                    <div>
+                                        <i class="bi bi-bookmark post-icons" style="cursor: pointer;"></i>
+                                    </div>
+                                </div>
+
+                                <!-- time at post is creraterd -->
+                                <div>
+                                    <small class="light-text" style="font-size: 13px">{{getSinceTime($index)}}</small>
+                                </div>
+                                <div style="margin-top: auto;" class="d-flex align-items-center px-3 py-2" style="border-top: 1px solid rgba(0, 0, 0, 0.1)">
+
+                                    <div class="position-relative add-comment-img-div">
+                                        <!-- <img ng-src="https://www.scimed.co.uk/wp-content/uploads/2019/05/profile.jpg" class="img-fluid rounded-circle" alt="profile-image" /> -->
+                                        <i class="bi bi-emoji-smile" style="font-size: 20px; cursor: pointer;" ng-click="getEmoji($index)" id="emoji-button-{{$index}}"></i>
+                                    </div>
+                                    <input type="text" name="add-comment" id="add-comment-{{$index}}" placeholder="Add a comment ..." ng-model="comment" style="border: none; outline: none; width:100%;">
+
+                                    <!-- <textarea style="border: none; outline: none; " placeholder="Add a comment ..." id="add-comment-{{$index}}" cols="100%" ng-model="comment" rows="2"></textarea> -->
+
+                                    <h6 ng-click="addComment(comment,post._id,$index) " class="text-primary" style="cursor: pointer;">Post</h6>
+
+                                </div>
+                                <!-- <div style="margin-top: auto;" class="d-flex">
+                                    <div style="padding: 1px 5px;border: 1px solid rgb(138, 138, 138);border-right-color: white;">
+                                        <i class="bi bi-emoji-smile" style="font-size: 20px; cursor: pointer;" ng-click="getEmoji($index)" id="emoji-button-{{$index}}"></i>
+                                    </div>
+                                    <div class="comment-profile" style="flex: 1;">
+                                        <input style="width: 100%;padding:5px;
+                                        border-top-width: 2px;outline: none;border: 1px solid rgb(138, 138, 138);" type="text" placeholder="Add comment.....">
+                                    </div>
+                                    <div class="post-comment-profile d-flex justify-content-center align-items-center">
+                                        <button style="height: 100%;">post</button>
+                                    </div>
+                                </div> -->
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
 
         <!-- <div ng-repeat=""></div> -->

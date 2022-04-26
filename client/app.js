@@ -335,6 +335,34 @@ app.controller('homeCtrl', ($scope, $http, $location, $localStorage, $document) 
     let user = localStorage.getItem("user");
 
 
+    $scope.addComment = (comment, postId) => {
+        if (comment !== undefined && postId !== null) {
+            $http.put(`http://localhost:2700/post/comment/${postId}`, { token, comment }).then((response) => {
+                // console.log(response.data);
+                $scope.comment = "";
+                myFollowingPosts();
+            }).catch((err) => {
+                console.log(err);
+            })
+        }
+    }
+
+    $scope.isLikedByMe = (likes) => {
+        console.log(likes.includes(JSON.parse(user)._id));
+
+        if (likes.includes(JSON.parse(user)._id)) {
+            $document[0].getElementById(id).style = "display: inline-block";
+            $document[0].getElementById('un' + id).style = "display: none !important";
+            $document[0].getElementById(id).style.animation = "disLike 600ms"
+
+        } else {
+            $document[0].getElementById(id).style = "display: none";
+            $document[0].getElementById('un' + id).style = "display: inline-block";
+            $document[0].getElementById('un' + id).style.animation = "like 600ms";
+
+        }
+        return "";
+    }
     let data = {
         token: token
     };
@@ -353,13 +381,24 @@ app.controller('homeCtrl', ($scope, $http, $location, $localStorage, $document) 
         $location.path('/login');
     }
 
-    // fetch all post of my following or mine post
+    $scope.getEmoji = (id) => {
+        // alert(id);
+        const button = document.getElementById('emoji-button-' + id);
+        const picker = new EmojiButton();
+        picker.togglePicker(button);
+        console.log();
+        picker.on('emoji', emoji => {
+            document.getElementById('add-comment-' + id).value += emoji;
+            document.getElementById('add-comment-' + id).value += " ";
+        });
+    }
 
     const myFollowingPosts = () => {
         $http.post('http://localhost:2700/post/myfollowing', { token })
             .then((res) => {
                 $scope.allPost = res.data;
-                console.log(res.data);
+                // console.log(res.data);
+
                 let sinceCreatedAt;
 
                 $scope.getSinceTime = (index) => {
@@ -386,46 +425,54 @@ app.controller('homeCtrl', ($scope, $http, $location, $localStorage, $document) 
 
     myFollowingPosts();
 
-    $scope.like = (id) => {
-        console.log(id)
+    $scope.like = (id, index) => {
+        console.log(id, index)
         $document[0].getElementById(id).style = "display: none";
         $document[0].getElementById('un' + id).style = "display: inline-block";
-        $document[0].getElementById('un' + id).style.animation = "like 400ms";
+        $document[0].getElementById('un' + id).style.animation = "like 600ms";
 
         $http.put(`http://localhost:2700/post/like/${id}`, { token })
             .then(res => {
-                console.log(res.data)
-                myFollowingPosts();
+                console.log(res.data.likes.length)
+                $scope.noOfLikes = res.data.likes.length;
+                // $scope.allPost
+                console.log($scope.allPost);
+                $scope.allPost[index].likes.push(id);
+                // myFollowingPosts();
+            })
+            .catch(err => {
+                console.log(err);
             });
     }
 
-    $scope.disLike = (id) => {
+    $scope.disLike = (id, index) => {
         $document[0].getElementById(id).style = "display: inline-block";
         $document[0].getElementById('un' + id).style = "display: none !important";
-        $document[0].getElementById(id).style.animation = "disLike 400ms"
+        $document[0].getElementById(id).style.animation = "disLike 600ms"
 
         $http.put(`http://localhost:2700/post/dislike/${id}`, { token })
             .then(res => {
-                console.log(res.data)
-                myFollowingPosts();
+                console.log(res.data.likes.length)
+                $scope.noOfLikes = res.data.likes.length;
+                $scope.allPost[index].likes.pop();
             });
     }
 
-    $scope.dbClick = (id) => {
+    $scope.dbClick = (id, index) => {
         $document[0].getElementById("big" + id).style = "display: inherit"
-        $document[0].getElementById("big" + id).style.animation = "big-like 400ms"
+        $document[0].getElementById("big" + id).style.animation = "big-like 600ms"
         setTimeout(() => {
             $document[0].getElementById("big" + id).style = "display:none"
         }, 700)
-        $scope.like(id)
-        myFollowingPosts(id);
+        $scope.like(id, index)
+
     }
 
 });
 
 
 // profile
-app.controller('profileCtrl', ($scope, $http, $stateParams, $window) => {
+app.controller('profileCtrl', ($scope, $http, $stateParams, $window, $document) => {
     let token = localStorage.getItem("token");
     let username = $stateParams.id;
     $scope.currentUserForButton = false;
@@ -435,6 +482,64 @@ app.controller('profileCtrl', ($scope, $http, $stateParams, $window) => {
     let data = {
         token: token
     };
+
+
+
+    function myProfile() {
+        $http.get(`http://localhost:2700/user/profile/${username}`, {
+                headers: {
+                    "Authorization": "Bearer " + token
+                }
+            })
+            .then((res) => {
+                $scope.userProfile = res.data;
+                console.log(res.data);
+
+                let sinceCreatedAt;
+                $scope.getSinceTime = (index) => {
+                    sinceCreatedAt = (new Date().getTime() - new Date(res.data.userPost[index].createdAt).getTime()) / 1000;
+
+                    if (sinceCreatedAt < 60) {
+                        return Math.floor(sinceCreatedAt) + ' second ago';
+                    } else if (sinceCreatedAt >= 60 && sinceCreatedAt < 3600) {
+                        return Math.floor(sinceCreatedAt / 60) + ' min ago';
+                    } else if (sinceCreatedAt >= 3600 && sinceCreatedAt < 86400) {
+                        return Math.floor(sinceCreatedAt / 3600) + ' hour ago';
+                    } else if (sinceCreatedAt >= 86400 && sinceCreatedAt < 2592000) {
+                        return Math.floor(sinceCreatedAt / 86400) + ' day ago';
+                    } else if (sinceCreatedAt >= 2592000 && sinceCreatedAt < 31536000) {
+                        return Math.floor(sinceCreatedAt / 2592000) + ' month ago';
+                    } else {
+                        return Math.floor(sinceCreatedAt / 31536000) + ' year ago';
+                    }
+                }
+                if ($scope.userProfile.userData._id === currentUser._id) {
+                    $scope.currentUserForButton = true;
+                } else {
+                    if ($scope.userProfile.userData.follower.includes(currentUser._id)) {
+                        $scope.followButton = false;
+                    }
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }
+    // coment
+    $scope.addComment = (comment, postId, index) => {
+        if (comment !== undefined && postId !== null) {
+            $http.put(`http://localhost:2700/post/comment/${postId}`, { token, comment }).then((response) => {
+                console.log(response.data);
+                if (response.data == "Comment added to this post !") {
+                    $scope.comment = "";
+                    $scope.userProfile.userPost[index].comments.push({ commentBody: comment })
+                }
+
+            }).catch((err) => {
+                console.log(err);
+            })
+        }
+    }
 
     $http.post('http://localhost:2700/auth', data)
         .then((response) => {
@@ -450,26 +555,50 @@ app.controller('profileCtrl', ($scope, $http, $stateParams, $window) => {
     if (!token && !user) {
         $location.path('/login');
     } else {
-        $http.get(`http://localhost:2700/user/profile/${username}`, {
-                headers: {
-                    "Authorization": "Bearer " + token
-                }
-            })
-            .then((response) => {
-                $scope.userProfile = response.data;
-                if ($scope.userProfile.userData._id === currentUser._id) {
-                    $scope.currentUserForButton = true;
-                } else {
-                    if ($scope.userProfile.userData.follower.includes(currentUser._id)) {
-                        $scope.followButton = false;
-                    }
-                }
-            })
-            .catch((error) => {
-                console.log(error);
-            })
+        myProfile();
     }
 
+    // like from profile
+    $scope.like = (id, index) => {
+        console.log(id, index)
+        $document[0].getElementById(id).style = "display: none";
+        $document[0].getElementById('un' + id).style = "display: inline-block";
+        $document[0].getElementById('un' + id).style.animation = "like 600ms";
+
+        $http.put(`http://localhost:2700/post/like/${id}`, { token })
+            .then(res => {
+                console.log(res.data.likes.length);
+                $scope.userProfile.userPost[index].likes.push(id);
+
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }
+
+    // dislike
+    $scope.disLike = (id, index) => {
+        $document[0].getElementById(id).style = "display: inline-block";
+        $document[0].getElementById('un' + id).style = "display: none !important";
+        $document[0].getElementById(id).style.animation = "disLike 600ms"
+
+        $http.put(`http://localhost:2700/post/dislike/${id}`, { token })
+            .then(res => {
+                console.log(res.data)
+                $scope.userProfile.userPost[index].likes.pop();
+            });
+    }
+
+    // like using dbclick
+    $scope.dbClick = (id, index) => {
+        $document[0].getElementById("big" + id).style = "display: inherit"
+        $document[0].getElementById("big" + id).style.animation = "big-like 600ms"
+        setTimeout(() => {
+            $document[0].getElementById("big" + id).style = "display:none"
+        }, 700)
+        $scope.like(id, index)
+
+    }
 
     $scope.follow = () => {
         $http.put(`http://localhost:2700/user/follow/${$scope.userProfile.userData._id}`, { token })
@@ -494,7 +623,13 @@ app.controller('profileCtrl', ($scope, $http, $stateParams, $window) => {
     }
 });
 
-
+// logout 
+app.controller('logout', function($scope, $localStorage) {
+    $scope.logout = () => {
+        localStorage.clear();
+        location.href = "index.html"
+    }
+})
 
 app.controller('myOwn', ($scope) => {
     $scope.denis = "https://picsum.photos/200/300";

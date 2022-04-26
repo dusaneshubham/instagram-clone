@@ -42,7 +42,7 @@
                             </div>
                             <div>
                                 <h6 class="m-0 p-0">{{post.postBy.username}}</h6>
-                                <small style="font-size: 14px;color:rgb(134, 137, 139);">{{post.location}}</small>
+                                <small style="font-size: 14px;color:rgb(134, 137, 139);" ng-if="post.location !== 'undefined'">{{post.location}}</small>
                             </div>
                         </div>
                         <i class="bi bi-three-dots-vertical" style="font-size: 25px; cursor: pointer;"></i>
@@ -57,13 +57,14 @@
                                 <button type="button" ng-repeat="postImage in post.post" class="{{$index ? '' : 'active'}}" data-bs-target="#carousel-{{post._id}}" data-bs-slide-to="{{$index}}" aria-current="true" aria-label="Slide 1"></button>
                             </div>
 
-                            <div class="carousel-inner" ng-dblclick="dbClick(post._id)">
+                            <div class="carousel-inner" ng-dblclick="dbClick(post._id, $index)">
                                 <div class="carousel-item {{$index ? '' : 'active'}}" style="object-fit: contain;" ng-repeat="postImage in post.post">
                                     <span ng-if="postImage.split('.').pop() == 'mp4'">
-                                        <video ng-src="{{postImage}}"  controls></video>
+                                        <video ng-src="{{postImage}}" controls></video>
                                     </span>
                                     <span ng-if="postImage.split('.').pop() != 'mp4'">
-                                        <img ng-src="{{postImage}}"  alt="" style=" object-fit:contain; width: 100% !important; height: 70vh !important;">
+                                        <img ng-src="{{postImage}}" alt=""
+                                            style=" object-fit:contain; width: 100% !important; height: 70vh !important;">
                                     </span>
                                 </div>
                             </div>
@@ -82,8 +83,10 @@
                     <hr>
                     <div class="px-3 py-2 d-flex justify-content-between">
                         <div>
-                            <i id="{{post._id}}" class="bi bi-heart post-icons" ng-click="like(post._id)" style="cursor: pointer;"></i>
-                            <i class="bi bi-heart-fill post-icons" ng-click="disLike(post._id)" id="un{{post._id}}" style="display: none; color: red !important;"></i>
+                            <!-- {{isLikedByMe(post.likes)}} -->
+
+                            <i id="{{post._id}}" class="bi bi-heart post-icons" ng-click="like(post._id, $index)" style="cursor: pointer;"></i>
+                            <i class="bi bi-heart-fill post-icons" ng-click="disLike(post._id, $index)" id="un{{post._id}}" style="display: none;"></i>
                             <i class="bi bi-chat post-icons" style="cursor: pointer;"></i>
                             <i class="bi bi-send post-icons" style="cursor: pointer;"></i>
                         </div>
@@ -93,20 +96,33 @@
                     </div>
                     <div class="description px-3 py-2">
                         <h6>{{post.likes.length}} likes</h6>
-                        <p class="mb-1">
+
+                        <!-- Post description by posted user -->
+                        <p class="mb-3">
                             <!-- TODO - ng loop -->
                             <!-- TODO - ng loop -->
-                            <!-- TODO - ng loop -->
-                            <!-- TODO - ng loop -->
-                            <span style="font-weight: 500">jil : </span>
+                            <span ng-if="post.postDescription !== 'undefined'" style="font-weight: 500">{{post.postBy.username}} : sp{{post.postDescription}} </span>
                         </p>
+
+                        <!-- Other's comments -->
+                        <p class="mb-1" ng-repeat="comment in post.comments">
+                            <span style="font-weight: 500">{{comment.commentBy.username}}</span><span> :
+                                {{comment.commentBody}}</span>
+                        </p>
+
                         <small class="light-text" style="font-size: 13px">{{getSinceTime($index)}}</small>
                     </div>
                     <div class="d-flex align-items-center px-3 py-2" style="border-top: 1px solid rgba(0, 0, 0, 0.1)">
                         <div class="position-relative add-comment-img-div">
-                            <img ng-src="https://www.scimed.co.uk/wp-content/uploads/2019/05/profile.jpg" class="img-fluid rounded-circle" alt="profile-image" />
+                            <!-- <img ng-src="https://www.scimed.co.uk/wp-content/uploads/2019/05/profile.jpg" class="img-fluid rounded-circle" alt="profile-image" /> -->
+                            <i class="bi bi-emoji-smile" style="font-size: 20px; cursor: pointer;" ng-click="getEmoji($index)" id="emoji-button-{{$index}}"></i>
                         </div>
-                        <input type="text" name="add-comment" id="add-comment" placeholder="Add a comment ..." style="border: none; outline: none; width:100%;">
+                        <input type="text" name="add-comment" id="add-comment-{{$index}}" placeholder="Add a comment ..." ng-model="comment" style="border: none; outline: none; width:100%;">
+
+                        <!-- <textarea style="border: none; outline: none; " placeholder="Add a comment ..." id="add-comment-{{$index}}" cols="100%" ng-model="comment" rows="2"></textarea> -->
+
+                        <h6 ng-click="addComment(comment,post._id) " class="text-primary" style="cursor: pointer;">Post</h6>
+
                     </div>
                 </div>
 
@@ -118,7 +134,7 @@
             </div>
             <!-- posts ends -->
 
-            <div class="suggestions col-md-5 p-4 order-first">
+            <div class="suggestions col-md-5 p-4 order-first ">
                 <follower-suggestion-list> </follower-suggestion-list>
             </div>
         </div>
@@ -127,6 +143,10 @@
 <!-- main content ends -->
 
 <!-- bootstrap js -->
-<script src="lib/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
+<script src="lib/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js "></script>
+<script>
+</script>
+
+
 <!-- </body>
 </html> -->
