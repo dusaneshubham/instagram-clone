@@ -31,7 +31,7 @@
                         </li>
                     </ul>
                     <div>
-                        <a href="#" class="edit-profile-btn" ng-show="currentUserForButton">
+                        <a class="edit-profile-btn" data-bs-toggle="modal" data-bs-target="#profile-picture" ng-show="currentUserForButton">
                             <button class="btn btn-outline-dark btn-sm w-100">
                                 <i class="bi bi-gear-fill" style="margin-right: 7px"></i>
                                 <span>Edit Profile</span>
@@ -242,5 +242,126 @@
 
 
     </div>
+
+    <!-- Profile update modal  -->
+    <div class="modal fade" id="profile-picture" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" style="color:rgb(255, 4, 217)" id="exampleModalLabel">Profile - Details</h5>
+              <button type="button" class="btn text-white" style="background-color:rgb(255, 4, 217)" data-bs-dismiss="modal">&times;</button>
+            </div>
+            <form id="form-5" enctype="multipart/form-data">
+              <div class="modal-body">
+
+                <div class="container-fluid mt-5">
+                  <div class="row">
+                    
+                    <div class="col-md-6 mb-3">
+                      <div class="form-group">
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text">
+                              <span><img src="https://image.flaticon.com/icons/png/128/732/732200.png" height="20" width="20"></span>
+                            </span>
+                          </div>
+                          <input type="text" ng-model="username" id="username" class="form-control" name="username" placeholder="Username">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <div class="form-group">
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text">
+                              <span><img src="https://image.flaticon.com/icons/png/128/732/732200.png" height="20" width="20"></span>
+                            </span>
+                          </div>
+                          <input type="number" ng-model="phone" id="phone" class="form-control" name="phone" placeholder="Phone no." >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 mb-3">
+                      <div class="form-group">
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text">
+                              <span><img src="https://image.flaticon.com/icons/png/128/552/552489.png" height="20" width="20"></span>
+                            </span>
+                          </div>
+                          <input type="date" id="dob" ng-model="DOB" class="form-control" name="dob" placeholder="D.O.B" >
+                          
+                        </div>
+                      </div>
+                    </div>
+                    
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 mb-3">
+                      <div class="form-group">
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text">
+                              <span><img src="https://image.flaticon.com/icons/png/128/609/609139.png" height="20" width="20"></span>
+                            </span>
+                          </div>
+                          <input type="text" id="bio" ng-model="bio" class="form-control" name="bio" placeholder="Bio">
+                          
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-12 mb-3">
+                      <div class="form-group">
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text">
+                              <span><img src="https://image.flaticon.com/icons/png/128/609/609134.png" height="20" width="20"></span>
+                            </span>
+                          </div>
+                          <input type="text" id="fullname" ng-model="fullname" class="form-control" name="fullname" placeholder="Fullname" >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 mb-3">
+                      <div class="form-group">
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text">
+                              <span><img src="https://image.flaticon.com/icons/png/128/1695/1695289.png" height="20" width="20"></span>
+                            </span>
+                          </div>
+                          <input type="password" ng-model="password" id="changeP" class="form-control" name="changeP" placeholder="Change Password" >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <label for="id-photo" class="" style="color:rgb(255, 4, 217)">Profile Photo : </label>
+                    </div>
+                    <div class="col-md-8 mb-3">
+                      <div class="form-group">
+                        <div class="input-group">
+                          <input type="file" id="id-photo" class="form-control" name="id-photo" ng-model="profile_pic" onchange="angular.element(this).scope().postImagePreview(this)" >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="form-group">
+                    <div class="input-group d-flex justify-content-center">
+                      <button ng-click="update()" class="btn text-white" style="background-color:rgb(255, 4, 217) " name="submit-data" style="min-width: 200px;" id="update-profile"><i class="fa fa-spinner fa-spin d-none loading-spinner" aria-hidden="true"></i>Update</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
 </section>
 <!-- main content ends -->

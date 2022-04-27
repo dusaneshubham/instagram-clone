@@ -18,6 +18,7 @@ require('./config/dbConn');
 const PORT = process.env.PORT;
 
 app.use('/images',express.static(path.join(__dirname,'/images/')));
+app.use('/profileimages',express.static(path.join(__dirname,'/profile_images/')));
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({

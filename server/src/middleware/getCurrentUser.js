@@ -7,6 +7,7 @@ const getCurrentUser = async (req, res, next) => {
     if (!token) {
         return res.json({ success: 0, error: "Access is denied!" });
     }
+    let r = await jwt.verify(token, process.env.SECRET_MESSAGE);
 
     jwt.verify(token, process.env.SECRET_MESSAGE, (err, payload) => {
         if (err) {
@@ -15,11 +16,11 @@ const getCurrentUser = async (req, res, next) => {
         }
 
         const { _id } = payload;
+        console.log(_id);
 
-        user.findById(_id)
+        user.findOne({ _id: _id })
             .then(userData => {
                 req.user = userData;
-                // console.log(userData);
                 next();
             })
             .catch(err => {

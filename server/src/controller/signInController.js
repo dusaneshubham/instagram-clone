@@ -23,7 +23,7 @@ const signInController = async (req, res) => {
                 await result.save();
 
                 const { _id, username } = result;
-
+                // console.log(token);
                 return res.status(200).json({ success: 1, token: token, user: { _id, username } });
             } else {
                 return res.json({ success: 0, error: "Invalid password!" });

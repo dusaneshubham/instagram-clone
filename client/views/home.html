@@ -11,8 +11,10 @@
                 <!-- add story -->
                 <div class="story position-relative m-2 d-flex flex-column justify-content-center align-items-center">
                     <div class="position-relative story-inner-div">
-                        <img src="images/profiles/profile-1.jpg" class="img-fluid rounded-circle img-thumbnail" alt="" />
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#4c68d7" class="bi bi-plus-circle-fill add-story-svg" viewBox="0 0 16 16">
+                        <img src="images/profiles/profile-1.jpg" class="img-fluid rounded-circle img-thumbnail"
+                            alt="" />
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#4c68d7"
+                            class="bi bi-plus-circle-fill add-story-svg" viewBox="0 0 16 16">
                             <path
                                 d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
                         </svg>
@@ -35,14 +37,16 @@
             <div class="col-md-7" style="scrollbar-width: none">
 
                 <div class="post-div mb-5" ng-repeat="post in allPost">
-                    <div class="post-username-div py-2 px-3 d-flex justify-content-between" style="border-bottom: 1px solid rgba(0, 0, 0, 0.1)">
+                    <div class="post-username-div py-2 px-3 d-flex justify-content-between"
+                        style="border-bottom: 1px solid rgba(0, 0, 0, 0.1)">
                         <div class="d-flex align-items-center">
                             <div class="position-relative post-user-img-div">
                                 <img ng-src={{post.postBy.profile_pic}} class="img-fluid rounded-circle" alt="" />
                             </div>
                             <div>
                                 <h6 class="m-0 p-0">{{post.postBy.username}}</h6>
-                                <small style="font-size: 14px;color:rgb(134, 137, 139);" ng-if="post.location !== 'undefined'">{{post.location}}</small>
+                                <small style="font-size: 14px;color:rgb(134, 137, 139);"
+                                    ng-if="post.location !== 'undefined'">{{post.location}}</small>
                             </div>
                         </div>
                         <i class="bi bi-three-dots-vertical" style="font-size: 25px; cursor: pointer;"></i>
@@ -54,11 +58,14 @@
 
                         <div id="carousel-{{post._id}}" class="carousel slide" data-bs-ride="carousel">
                             <div class="carousel-indicators">
-                                <button type="button" ng-repeat="postImage in post.post" class="{{$index ? '' : 'active'}}" data-bs-target="#carousel-{{post._id}}" data-bs-slide-to="{{$index}}" aria-current="true" aria-label="Slide 1"></button>
+                                <button type="button" ng-repeat="postImage in post.post"
+                                    class="{{$index ? '' : 'active'}}" data-bs-target="#carousel-{{post._id}}"
+                                    data-bs-slide-to="{{$index}}" aria-current="true" aria-label="Slide 1"></button>
                             </div>
 
                             <div class="carousel-inner" ng-dblclick="dbClick(post._id, $index)">
-                                <div class="carousel-item {{$index ? '' : 'active'}}" style="object-fit: contain;" ng-repeat="postImage in post.post">
+                                <div class="carousel-item {{$index ? '' : 'active'}}" style="object-fit: contain;"
+                                    ng-repeat="postImage in post.post">
                                     <span ng-if="postImage.split('.').pop() == 'mp4'">
                                         <video ng-src="{{postImage}}" controls></video>
                                     </span>
@@ -68,11 +75,13 @@
                                     </span>
                                 </div>
                             </div>
-                            <button class="carousel-control-prev" type="button" data-bs-target="#carousel-{{post._id}}" data-bs-slide="prev">
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carousel-{{post._id}}"
+                                data-bs-slide="prev">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                 <span class="visually-hidden">Previous</span>
                             </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#carousel-{{post._id}}" data-bs-slide="next">
+                            <button class="carousel-control-next" type="button" data-bs-target="#carousel-{{post._id}}"
+                                data-bs-slide="next">
                                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                 <span class="visually-hidden">Next</span>
                             </button>
@@ -85,8 +94,10 @@
                         <div>
                             <!-- {{isLikedByMe(post.likes)}} -->
 
-                            <i id="{{post._id}}" class="bi bi-heart post-icons" ng-click="like(post._id, $index)" style="cursor: pointer;"></i>
-                            <i class="bi bi-heart-fill post-icons" ng-click="disLike(post._id, $index)" id="un{{post._id}}" style="display: none;"></i>
+                            <i id="{{post._id}}" class="bi bi-heart post-icons" ng-click="like(post._id, $index)"
+                                style="cursor: pointer;"></i>
+                            <i class="bi bi-heart-fill post-icons" ng-click="disLike(post._id, $index)"
+                                id="un{{post._id}}" style="display: none;"></i>
                             <i class="bi bi-chat post-icons" style="cursor: pointer;"></i>
                             <i class="bi bi-send post-icons" style="cursor: pointer;"></i>
                         </div>
@@ -101,7 +112,9 @@
                         <p class="mb-3">
                             <!-- TODO - ng loop -->
                             <!-- TODO - ng loop -->
-                            <span ng-if="post.postDescription !== 'undefined'" style="font-weight: 500">{{post.postBy.username}} : sp{{post.postDescription}} </span>
+                            <span ng-if="post.postDescription !== 'undefined'"><span
+                                    style="font-weight: 500">{{post.postBy.username}}</span> {{post.postDescription}}
+                            </span>
                         </p>
 
                         <!-- Other's comments -->
@@ -115,13 +128,17 @@
                     <div class="d-flex align-items-center px-3 py-2" style="border-top: 1px solid rgba(0, 0, 0, 0.1)">
                         <div class="position-relative add-comment-img-div">
                             <!-- <img ng-src="https://www.scimed.co.uk/wp-content/uploads/2019/05/profile.jpg" class="img-fluid rounded-circle" alt="profile-image" /> -->
-                            <i class="bi bi-emoji-smile" style="font-size: 20px; cursor: pointer;" ng-click="getEmoji($index)" id="emoji-button-{{$index}}"></i>
+                            <i class="bi bi-emoji-smile" style="font-size: 20px; cursor: pointer;"
+                                ng-click="getEmoji($index)" id="emoji-button-{{$index}}"></i>
                         </div>
-                        <input type="text" name="add-comment" id="add-comment-{{$index}}" placeholder="Add a comment ..." ng-model="comment" style="border: none; outline: none; width:100%;">
+                        <input type="text" name="add-comment" id="add-comment-{{$index}}"
+                            placeholder="Add a comment ..." ng-model="comment"
+                            style="border: none; outline: none; width:100%;">
 
                         <!-- <textarea style="border: none; outline: none; " placeholder="Add a comment ..." id="add-comment-{{$index}}" cols="100%" ng-model="comment" rows="2"></textarea> -->
 
-                        <h6 ng-click="addComment(comment,post._id) " class="text-primary" style="cursor: pointer;">Post</h6>
+                        <h6 ng-click="addComment(comment,post._id) " class="text-primary" style="cursor: pointer;">Post
+                        </h6>
 
                     </div>
                 </div>

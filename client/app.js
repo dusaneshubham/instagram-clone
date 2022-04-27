@@ -2,7 +2,7 @@
 
 const app = angular.module("instagramApp", ["ui.router", "ngStorage"]);
 
-app.config(function($stateProvider) {
+app.config(function ($stateProvider) {
     const indexState = {
         name: "index",
         url: "",
@@ -470,6 +470,11 @@ app.controller('homeCtrl', ($scope, $http, $location, $localStorage, $document) 
 
 });
 
+//navbar
+app.controller('navbarCtrl', ($scope) => {
+    $scope.username = localStorage.getItem("username")
+})
+
 
 // profile
 app.controller('profileCtrl', ($scope, $http, $stateParams, $window, $document) => {
@@ -477,20 +482,67 @@ app.controller('profileCtrl', ($scope, $http, $stateParams, $window, $document) 
     let username = $stateParams.id;
     $scope.currentUserForButton = false;
     $scope.followButton = true;
+    $scope.images = [];
+
     let currentUser = JSON.parse(localStorage.getItem('user'));
 
     let data = {
         token: token
     };
 
+    $scope.postImagePreview = (element) => {
+        $scope.$apply(() => {
+            let inputImages = element.files;
+            $scope.images.push({
+                "name": inputImages[0].name,
+                "url": URL.createObjectURL(inputImages[0]),
+                "file": inputImages[0]
+            })
+            console.log($scope.images[0])
 
+        });
+
+    }
+
+
+    $scope.update = () => {
+        let file = new FormData();
+        file.append("token", token);
+        file.append("username", $scope.username);
+        file.append("fullname", $scope.fullname);
+        file.append("password", $scope.password);
+        file.append("phone", $scope.phone);
+        file.append("DOB", $scope.DOB);
+        file.append("bio", $scope.bio);
+        file.append("profile_pic", $scope.images[0]);
+        console.log($scope.images[0]);
+        // var data = {
+        //     username: $scope.username,
+        //     fullname: $scope.fullname,
+        //     password: $scope.password,
+        //     phone: $scope.phone,
+        //     DOB: $scope.DOB,
+        //     bio: $scope.bio,
+        //     profile_pic: $scope.profile_pic,
+        // }
+        $http.post("http://localhost:2700/user/update", file, {
+            headers: {
+                "Content-Type": undefined,
+            }
+        }).then((res) => {
+            console.log(res.data);
+        }).catch((err) => {
+            console.log("error", err);
+            throw err;
+        })
+    }
 
     function myProfile() {
         $http.get(`http://localhost:2700/user/profile/${username}`, {
-                headers: {
-                    "Authorization": "Bearer " + token
-                }
-            })
+            headers: {
+                "Authorization": "Bearer " + token
+            }
+        })
             .then((res) => {
                 $scope.userProfile = res.data;
                 console.log(res.data);
@@ -624,7 +676,8 @@ app.controller('profileCtrl', ($scope, $http, $stateParams, $window, $document) 
 });
 
 // logout 
-app.controller('logout', function($scope, $localStorage) {
+app.controller('logout', function ($scope, $localStorage) {
+    $scope.username = JSON.parse(localStorage.getItem('user')).username;
     $scope.logout = () => {
         localStorage.clear();
         location.href = "index.html"
@@ -718,11 +771,11 @@ app.controller('postFileCtrl', ($scope, $http, $location, $localStorage) => {
         console.log(file)
 
         $http.post("http://localhost:2700/post/createpost", file, {
-                headers: {
-                    "Content-Type": undefined,
-                    "Authorization": "Bearer " + localStorage.getItem("token")
-                }
-            })
+            headers: {
+                "Content-Type": undefined,
+                "Authorization": "Bearer " + localStorage.getItem("token")
+            }
+        })
             .then((response) => {
                 $scope.spinnerBtn = false;
                 if (response.data.success === 1)

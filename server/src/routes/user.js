@@ -1,12 +1,15 @@
 const express = require('express');
+const jwt = require('jsonwebtoken');
 const user = require('../models/user');
 const post = require('../models/post');
 const getCurrentUser = require('../middleware/getCurrentUser');
+// const uploadProfile = require('../middleware/profileImageUpload');
+const upload = require('../middleware/postImageUpload');
 
 // initialized route
 const route = express.Router();
 
-route.post('/current-user', getCurrentUser, async(req, res) => {
+route.post('/current-user', getCurrentUser, async (req, res) => {
     try {
         let currentUser = await user.findOne({ _id: req.user._id });
         return res.status(200).json(currentUser);
@@ -16,7 +19,7 @@ route.post('/current-user', getCurrentUser, async(req, res) => {
 });
 
 // get particular user data
-route.get('/profile/:username', async(req, res) => {
+route.get('/profile/:username', async (req, res) => {
     let userData = await user.findOne({ username: req.params.username });
     let userPost = await post.find({ postBy: userData._id });
     // console.log(userData, userPost);
@@ -24,7 +27,7 @@ route.get('/profile/:username', async(req, res) => {
 });
 
 // Get All User ......
-route.get('/all-user', async(req, res) => {
+route.get('/all-user', async (req, res) => {
     try {
         const userdata = await user.find();
         res.status(200).json(userdata);
@@ -34,29 +37,35 @@ route.get('/all-user', async(req, res) => {
 });
 
 // Update User Data like Profile Picture, Bio, City etc ......
-route.put('/update/:id', getCurrentUser, async(req, res) => {
-    const { id } = req.params;
-    if (String(req.user._id) === id) {
-        try {
-            const user = await User.findByIdAndUpdate(id, { $set: req.body });
-            res.status(200).json("Account has been updated!");
-        } catch (err) {
-            res.status(500).json('Something went wrong,Please try later!');
-        }
-    } else {
-        return res.status(403).json("You can only update your account!");
-    }
-});
+// route.post('/update', uploadProfile.single('profile_pic'), async (req, res) => {
+//     try {
+//         // req.body.imagepath = "http://localhost:2700/profileimages/" + req.file.filename;
+//         const result = await jwt.verify(req.body.token, process.env.SECRET_MESSAGE);
+//         if (result) {
+//             User = await user.findOneAndUpdate({ _id: result._id }, {fullname:req.body.fullname}, { new: true });
+//             if (User) {
+//                 res.json({ success: 1, message: "User details has been updated!" });
+//             } else {
+//                 res.json({ success: 0, error: "User is not found!" });
+//             }
+//             res.json({ success: 1, message: "User details has been updated!" });
+//         } else {
+//             res.json({ success: 0, error: "Invalid token id!" });
+//         }
+//     } catch (error) {
+//         console.log(error);
+//         throw error;
+//     }
+// });
 
 // Follow A User .....
-route.put('/follow/:id', getCurrentUser, async(req, res) => {
+route.put('/follow/:id', getCurrentUser, async (req, res) => {
     const { id } = req.params;
     if (String(req.user._id) !== id) {
         try {
             const user_to_follow = await user.findById(id);
             const currentUser = req.user;
-            if (user_to_follow.account_type === "public") //public
-            {
+            if (user_to_follow.account_type === "public") {
                 if (!user_to_follow.follower.includes(req.user._id)) {
                     await user_to_follow.updateOne({ $push: { follower: req.user.id } });
                     await currentUser.updateOne({ $push: { following: id } });
@@ -81,7 +90,7 @@ route.put('/follow/:id', getCurrentUser, async(req, res) => {
 });
 
 // Unfollow A User .....
-route.put('/unfollow/:id', getCurrentUser, async(req, res) => {
+route.put('/unfollow/:id', getCurrentUser, async (req, res) => {
     const { id } = req.params;
     if (String(req.user._id) !== id) {
         try {

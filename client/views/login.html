@@ -15,14 +15,18 @@
                             {{errorMessage}}
                         </div>
                         <div class="mb-3">
-                            <input type="text" ng-model="username" class="form-control" id="username" placeholder="Email or Username" autocomplete="no" />
+                            <input type="text" ng-model="username" class="form-control" id="username"
+                                placeholder="Email or Username" autocomplete="no" />
                         </div>
                         <div class="mb-3">
-                            <input type="password" ng-model="password" class="form-control" id="password" placeholder="Password" />
-                            <a href="#" ui-sref="forget-pass-email" ui-sref-active="active" class="mt-1" style="float: right; text-decoration: none">Forgot Password?</a>
+                            <input type="password" ng-model="password" class="form-control" id="password"
+                                placeholder="Password" />
+                            <a href="#" ui-sref="forget-pass-email" ui-sref-active="active" class="mt-1"
+                                style="float: right; text-decoration: none">Forgot Password?</a>
                         </div>
                         <div class="mt-3">
-                            <button type="submit" ng-click="loginBtn()" ng-show="loadingSpinnerBtn" class="btn w-50 text-white login-button">Login</button>
+                            <button type="submit" ng-click="loginBtn()" ng-show="loadingSpinnerBtn"
+                                class="btn w-50 text-white login-button">Login</button>
                             <button class="btn btn-primary" ng-hide="loadingSpinnerBtn" type="button" disabled>
                                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                                 Please Wait...
@@ -41,7 +45,8 @@
 
                         <p class="mt-3">
                             Don't have an account?
-                            <a href="#" ui-sref="signup" ui-sref-active="active" style="text-decoration: none">SignUp</a>
+                            <a href="#" ui-sref="signup" ui-sref-active="active"
+                                style="text-decoration: none">SignUp</a>
                         </p>
                     </form>
                 </div>
@@ -50,16 +55,13 @@
     </div>
 </div>
 <div class="loader-wrapper">
-    <div>
-        <i class="bi bi-instagram" style="font-size: 100px;background: -webkit-linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+
+    <i class="bi bi-instagram" style="font-size: 100px;background: -webkit-linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent"></i>
-    </div>
 
-    <div style="margin-top: 60px;text-align: center;">
-        <p>From</p>
-        <p>A-D-J-S</p>
-    </div>
+
+
 </div>
 
 <script>

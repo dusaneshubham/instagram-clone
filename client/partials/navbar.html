@@ -10,7 +10,8 @@
         <!-- search ends -->
 
         <!-- nav items -->
-        <ul class="navbar-nav navbar-light bg-light me-0 mb-2 mb-lg-0 d-flex" id="navbar-icons" ng-controller="logout">
+        <ul class="navbar-nav navbar-light bg-light me-0 mb-2 mb-lg-0 d-flex"
+            id="navbar-icons" ng-controller="logout">
             <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="#" ui-sref="home" ui-sref-active="active">
                     <i class="bi bi-house-door-fill" style="font-size: 23px"></i>
@@ -25,7 +26,8 @@
 
             <li class="nav-item ms-md-3">
                 <a class="nav-link">
-                    <i class="bi bi-plus-square" data-bs-toggle="modal" data-bs-target="#createPostModal" style="font-size: 23px; cursor: pointer;"></i>
+                    <i class="bi bi-plus-square" data-bs-toggle="modal" data-bs-target="#createPostModal"
+                        style="font-size: 23px; cursor: pointer;"></i>
                 </a>
             </li>
 
@@ -36,8 +38,9 @@
             </li>
 
             <li class="nav-item ms-md-3">
-                <a class="nav-link" href="#" ui-sref="profile({id:'shubham'})" ui-sref-active="active">
-                    <img src="images/profiles/profile-1.jpg" alt="profile image" class="rounded-circle" style="height: 33px" />
+                <a class="nav-link" href="#" ui-sref="profile({id:username})" ui-sref-active="active">
+                    <img src="images/profiles/profile-1.jpg" alt="profile image" class="rounded-circle"
+                        style="height: 33px" />
                 </a>
             </li>
             <li class="nav-item ms-md-3">
@@ -55,55 +58,60 @@
         height: 98vh !important;
         max-height: none !important;
     }
-    
+
     .modal-body {
         padding-top: 0% !important;
     }
-    
+
     .modal-body::-webkit-scrollbar {
         display: none;
     }
-    
+
     .carousel-item {
         align-items: center;
         height: 75vh;
     }
-    
+
     .carousel-img {
         object-fit: contain !important;
         object-position: center;
         height: 470px !important;
     }
-    
+
     #submitBtn {
         display: none;
     }
 </style>
 
 <!-- Create Post Modal -->
-<div class="modal fade" ng-controller="postFileCtrl" id="createPostModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" ng-controller="postFileCtrl" id="createPostModal" data-bs-backdrop="static"
+    data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="staticBackdropLabel">Create New Post</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" ng-click="flushImages()" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" ng-click="flushImages()"
+                    aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div class="alert alert-primary" role="alert" ng-show="error">
                     {{errorMessage}}
                 </div>
                 <div ng-hide="carousel">
-                    <div id="carouselExampleControls" class="carousel slide d-flex" data-bs-ride="carousel" data-bs-interval="false">
+                    <div id="carouselExampleControls" class="carousel slide d-flex" data-bs-ride="carousel"
+                        data-bs-interval="false">
                         <div ng-repeat="image in images" class="carousel-item {{$index ? '' : 'active'}}">
                             <center class="d-flex justify-content-center">
                                 <img ng-src={{image.url}} class="d-block w-100 img-fluid carousel-img" alt="Post image">
                             </center>
                         </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+                            data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Previous</span>
                         </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+                            data-bs-slide="next">
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Next</span>
                         </button>
@@ -113,12 +121,16 @@
                     <div class="d-flex justify-content-center align-items-center flex-column my-4" style="width: 100%;">
                         <i class="bi bi-cloud-upload" ng-show="icon" style="font-size: 130px; cursor: pointer;"></i>
                         <form action="" enctype="multipart/form-data">
-                            <input type="file" name="photo" onchange="angular.element(this).scope().postImagePreview(this)" id="input-post-image" multiple hidden>
+                            <input type="file" name="photo"
+                                onchange="angular.element(this).scope().postImagePreview(this)" id="input-post-image"
+                                multiple hidden>
                             <div class="w-100 d-flex justify-content-between align-items-center" ng-hide="spinnerBtn">
-                                <button class="btn btn-primary mx-2" type="button" ng-show="btn" onclick="document.getElementById('input-post-image').click()">
+                                <button class="btn btn-primary mx-2" type="button" ng-show="btn"
+                                    onclick="document.getElementById('input-post-image').click()">
                                     {{btnValue}}
                                 </button>
-                                <button class="btn btn-success mx-2" type="button" ng-show="submitBtn" ng-click="next()">
+                                <button class="btn btn-success mx-2" type="button" ng-show="submitBtn"
+                                    ng-click="next()">
                                     Next
                                 </button>
                             </div>
@@ -132,11 +144,13 @@
             <div ng-show="carousel">
                 <div class="row g-3 m-5">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" ng-model="location" id="location" placeholder="location">
+                        <input type="text" class="form-control" ng-model="location" id="location"
+                            placeholder="location">
                         <label for="location">Location</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <textarea class="form-control" placeholder="Leave a description" ng-model="description" id="description" style="height: 100px"></textarea>
+                        <textarea class="form-control" placeholder="Leave a description" ng-model="description"
+                            id="description" style="height: 100px"></textarea>
                         <label for="description">Description</label>
                     </div>
                     <div class="col-12 text-center">
